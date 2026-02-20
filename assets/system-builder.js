@@ -53,8 +53,15 @@ class SystemBuilder extends HTMLElement {
       this.data.sports     = sportsEl     ? JSON.parse(sportsEl.textContent)     : [];
       this.data.shaftTypes = shaftTypesEl ? JSON.parse(shaftTypesEl.textContent) : [];
       this.data.shaftSizes = shaftSizesEl ? JSON.parse(shaftSizesEl.textContent) : [];
+
+      // Debug: inspect the loaded data
+      console.log('[SB] sports:', this.data.sports);
+      console.log('[SB] shaftTypes:', this.data.shaftTypes);
+      console.log('[SB] shaftSizes:', this.data.shaftSizes);
     } catch (e) {
-      console.error('System Builder: Error parsing data', e);
+      console.error('[SB] Error parsing data:', e);
+      const shaftSizesEl = this.querySelector('[data-shaft-sizes]');
+      if (shaftSizesEl) console.log('[SB] Raw shaft-sizes JSON:', shaftSizesEl.textContent);
     }
   }
 
@@ -171,7 +178,10 @@ class SystemBuilder extends HTMLElement {
     const container = this.querySelector('[data-chips="shaft-size"]');
     if (!container) return;
 
+    console.log('[SB] renderShaftSizes: looking for shaftTypeHandle ===', this.state.shaftType);
+    console.log('[SB] all shaftSizes handles:', this.data.shaftSizes.map(ss => ({ name: ss.name, shaftTypeHandle: ss.shaftTypeHandle })));
     const filtered = this.data.shaftSizes.filter(ss => ss.shaftTypeHandle === this.state.shaftType);
+    console.log('[SB] filtered shaft sizes:', filtered);
     container.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -189,7 +199,10 @@ class SystemBuilder extends HTMLElement {
     const display  = this.querySelector('[data-product="shaft"]');
     if (!display) return;
 
+    console.log('[SB] renderShaftProduct: shaftSize =', this.state.shaftSize, '| sizeData =', sizeData);
+
     if (!sizeData || !sizeData.shafts || sizeData.shafts.length === 0) {
+      console.warn('[SB] No shafts array found for this size — check Liquid JSON output');
       this.hideShaftProduct();
       return;
     }

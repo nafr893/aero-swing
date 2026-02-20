@@ -55,12 +55,25 @@
   <script type="application/json" data-shaft-sizes>
     [
       {%- for shaft_size in shaft_sizes -%}
-        {%- assign shaft_variant_list = shaft_size.shaft.value -%}
+        {%- liquid
+          assign shaft_variant_list = shaft_size.shaft.value
+          assign shaft_type_val = shaft_size.shaft_type.value
+          assign shaft_type_handle = ''
+          if shaft_type_val.system.handle
+            assign shaft_type_handle = shaft_type_val.system.handle
+          else
+            for st in shaft_type_val
+              if shaft_type_handle == ''
+                assign shaft_type_handle = st.system.handle
+              endif
+            endfor
+          endif
+        -%}
         {
           "id": {{ shaft_size.id | json }},
           "handle": {{ shaft_size.system.handle | json }},
           "name": {{ shaft_size.shaft_size | json }},
-          "shaftTypeHandle": {{ shaft_size.shaft_type.value.system.handle | default: '' | json }},
+          "shaftTypeHandle": {{ shaft_type_handle | json }},
           "shafts": [
             {%- for v in shaft_variant_list -%}
               {
