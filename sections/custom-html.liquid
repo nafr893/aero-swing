@@ -1,0 +1,141 @@
+{% liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign custom_class = section.settings.custom_class
+
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+
+  assign container = section.settings.container
+%}
+
+<div class="custom-html{{ custom_class }} f-section-padding color-{{ section.settings.color_schema }}" id="{{ section_id }}" style="--section-padding-top: {{ section.settings.padding_top }}px ; --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
+    <div class="{{ container }}">
+        {% render 'index-section-header', section_settings: section.settings %}
+        {% if section.settings.custom_html != blank %}
+            <div class="custom-html__wrapper">{{ section.settings.custom_html }}</div>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.custom-html.name",
+	"disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.common.general.name"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_schema",
+      "label": "t:sections.common.color_schema.label",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.header.name"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.common.header.heading",
+      "default": "Custom HTML"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.common.heading-size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h3",
+          "label": "t:sections.common.heading-size.options.option__0"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.common.heading-size.options.option__1"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.common.heading-size.options.option__2"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.common.heading-size.options.option__3"
+        },
+        {
+          "value": "h-xl",
+          "label": "t:sections.common.heading-size.options.option__4"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.common.header.description"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.custom-html.settings.custom_html.header"
+    },
+    {
+      "type": "html",
+      "id": "custom_html",
+      "label": "t:sections.custom-html.settings.custom_html.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.section_padding.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.section_padding.top_padding.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.section_padding.bottom_padding.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom-html.presets.name"
+    }
+  ]
+}
+{% endschema %}

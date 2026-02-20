@@ -1,0 +1,211 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+@charset "UTF-8";
+:root {
+  --star-size: 25px;
+  --star-color: #fff;
+  --star-background: #fc0;
+}
+
+.MainStars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+.MainStars::before {
+  content: "★★★★★";
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.reviews-video {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.rsingle-video {
+    width: 33.333%;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+
+.rsingle-video video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+}
+
+.review-details h3 {
+    margin-top: 15px;
+    font-size: 27px;
+    word-break: break-all;
+    margin-bottom: 10px;
+    letter-spacing: 0;
+}
+
+.rsingle-video p {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+  @media (max-width:767px){
+    .rsingle-video {
+    width: 100%;
+}
+  }
+{%- endstyle -%}
+
+<div class="video-reviews section-{{ section.id }}-padding">
+  <div class="{{ section.settings.container }}">
+    <div class="reviews-video">
+      {% for block in section.blocks %}
+        <div class="rsingle-video">
+          <div class="video-details">
+            <div class="vieo-image">
+              {% liquid
+                assign video_url = ''
+                for source in block.settings.shopify_video.sources
+                  assign video_url = source.url
+                endfor
+              %}
+              {% liquid
+                if block.settings.image != blank
+                  assign preview_images = block.settings.image | image_url: width: 500
+                else
+                  assign preview_images = block.settings.shopify_video.preview_image | image_url: width: 500
+                endif
+              %}
+              <video src="{{ video_url }}" preload="none" playsinline controls muted loop poster="{{ preview_images }}" loading="lazy"></video>
+            </div>
+            <div class="review-details">
+              {% if block.settings.title != blank %}
+                <h3>{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.video_review != blank %}
+                <div
+                  class="MainStars"
+                  style="--rating: {{ block.settings.video_review }};"
+                  aria-label="Rating of this product is {{ block.settings.video_review }} out of 5."
+                ></div>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p>{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Video Reviews",
+  "settings": [
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 0
+      },
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "vidoes",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "shopify_video",
+          "label": "t:sections.video.settings.shopify_video.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Video title",
+          "default": "3 home runs, 5 very"
+        },
+        {
+          "type": "text",
+          "id": "video_review",
+          "label": "Video Star",
+          "default": "5"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Reviews",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "vidoes"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

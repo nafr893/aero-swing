@@ -1,0 +1,99 @@
+{% liquid
+    assign product_form_id = 'product-form-' | append: section.id
+
+    assign first_3d_model = product.media | where: "media_type", "model" | first
+    assign subtitle = product.metafields.descriptors.subtitle
+%}
+
+<modal-dialog id="QuickView-Modal" class="f-modal f-modal-quickview" style="--modal-width: 950px">
+    <div class="f-modal__content" role="dialog" aria-label="Quick view" aria-modal="true" tabindex="-1">
+        <div class="f-modal__inner scroll-container">
+            <button id="ModalClose-QuickView" type="button" class="f-modal__close" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
+            <div data-section-id="{{ section.id }}">
+                <div class="f-product-quickview">
+                    <div class="f-grid" style="--column-gap: 3rem; --column-gap-mobile: 1.5rem;">
+                        {% if product.images.size > 0 %}
+                            <div class="f-column">
+                                {% render 'product-media', product: product, section: section %}
+                            </div>
+                        {% endif %}
+                        <div class="f-column">
+                            <div class="f-product-single__blocks">
+                                <div class="f-product-single__block f-product-single__block--title">
+                                    <p class="f-product__vendor text-upper text-subtext">
+                                        {{ product.vendor }}
+                                    </p>
+                                    <h2 class="f-product-single__title h3">
+                                        {{ product.title | escape }}
+                                    </h2>
+                                </div>
+                                <div class="f-product-single__block f-product-single__block--price">
+                                    <div id="f-product-price-{{ section.id }}" role="status">
+                                        {%- render 'price', product: product, use_variant: true, show_sale_badge: true, sale_badge_type: 'percentage', show_soldout_badge: true, price_class: 'f-price--large text-lg sm:text-xl' -%}
+                                    </div>
+                                    {%- if shop.taxes_included -%}
+                                        <div class="f-product-single__block-tax text-subtext">
+                                            {{- 'products.product.include_taxes' | t -}}
+                                        </div>
+                                    {%- endif -%}
+                                </div>
+                                {% unless subtitle == blank %}
+                                <div class="f-product-single__block f-product-single__block--subtitle">
+                                    <div class="rte">{{ subtitle }}</div>
+                                    <a href="{{ product.url }}" class="btn btn-view-details btn--underline btn--with-icon"><span>{{- 'products.product.view_full_details' | t -}}</span> {% render 'icon-arrow-right' %}</a>
+                                </div>
+                                {% endunless %}
+                                <div class="f-product-single__block f-product-single__block--variant_picker">
+                                    {% render 'variant-picker', color_schema: 'background-1' product: product, show_size_chart: false, update_browser_history: false %}
+                                </div>
+                                <div class="f-product-single__block f-product-single__block--quantity_selector">
+                                    <div class="f-product-single__info-quantity">
+                                        {% render 'quantity-input', section_id: section.id, form_id: product_form_id, min: 1, product_title: product.title, show_label: true %}
+                                    </div>
+                                </div>
+                                <div class="f-product-single__block f-product-single__block--buy_buttons">
+                                    <product-form class="f-product-form">
+                                        {%- form 'product', product, id: product_form_id, class: 'quickview-product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"
+                                                   disabled>
+                                            <div class="f-product-form__buttons f-product-form__buttons--show-buynow">
+                                                <button
+                                                    type="submit"
+                                                    name="add"
+                                                    class="f-product-form__submit btn btn--secondary"
+                                                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                                                >
+                                                <span>
+                                                  {%- if product.selected_or_first_available_variant.available -%}
+                                                      {{ 'products.product.add_to_cart' | t }}
+                                                  {%- else -%}
+                                                      {{ 'products.product.sold_out' | t }}
+                                                  {%- endif -%}
+                                                </span>
+                                                    {% render 'icon-spinner' %}
+                                                </button>
+
+                                                <div class="f-product-form__button-dynamic">
+                                                    {{ form | payment_button }}
+                                                </div>
+                                                <div class="f-product-form__error-message-wrapper" role="alert"></div>
+                                            </div>
+                                        {%- endform -%}
+                                    </product-form>
+                                </div>
+                                {% if subtitle == blank %}
+                                    <a href="{{ product.url }}" class="btn btn-view-details btn--underline btn--with-icon"><span>{{- 'products.product.view_full_details' | t -}}</span> {% render 'icon-arrow-right' %}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+{%- if first_3d_model -%}
+    <script type="application/json" id="ModelJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{%- endif -%}

@@ -1,0 +1,247 @@
+{% liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+
+  assign container = section.settings.container
+  assign collection = collections[section.settings.collection]
+  assign image_ratio = section.settings.pcard_image_ratio
+  assign show_vendor = section.settings.show_vendor
+  assign button_label = section.settings.button_label
+  assign show_all_button_on_top = section.settings.show_all_button_on_top
+
+  assign animation_effect = settings.animations
+  assign animated = false
+  if animation_effect != 'none'
+    assign animated = true
+    if section.settings.animations != 'inherit'
+      assign animation_effect = section.settings.animations
+    endif
+  endif
+%}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+<link id="ModalComponent" rel="stylesheet" href="{{ 'modal-component.css' | asset_url }}" media="print" onload="this.media='all'">
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 across by default */
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(5, 1fr); /* 5 across on desktop */
+  }
+}
+
+</style>
+<section
+  id="{{ section_id }}"
+  data-section-type="featured-collection-grid"
+  data-section-id="{{ section.id }}"
+  class="featured-collection{{ custom_class }} f-section-padding color-{{ section.settings.color_schema }}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="{{ container }}">
+    {% if section.settings.heading != blank or section.settings.description != blank %}
+      <div class="section__header text-center">
+        {% if section.settings.heading != blank %}
+          <h2 class="section__heading {{ section.settings.heading_size }}{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="section__description{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+        {% if show_all_button_on_top and button_label != blank %}
+          <div class="section__header--button">
+            <a class="btn {{ section.settings.button_style }}" href="{{ collection.url }}">
+              {{- button_label -}}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="product-grid grid grid-cols-2 md:grid-cols-4 gap-6">
+      {% if collection != blank %}
+        {% for product in collection.products limit: 5 %}
+          <div class="product-card">
+            {% render 'product-card',
+              color_schema: section.settings.color_schema,
+              product: product,
+              image_ratio: image_ratio,
+              show_vendor: show_vendor,
+              index: forloop.index,
+              animated: animated,
+              animation_effect: animation_effect %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="product-card">
+            {% render 'product-card-placeholder',
+              index: forloop.index,
+              animated: animated,
+              animation_effect: animation_effect %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if button_label != blank and show_all_button_on_top == false %}
+      <div class="section__footer flex justify-center mt-6">
+        <a class="btn {{ section.settings.button_style }}" href="{{ collection.url }}">
+          {{- button_label -}}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "Custom Section ID"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Fixed" },
+        { "value": "container-fluid", "label": "Stretched" },
+        { "value": "container-full", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_schema",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "default": "h2",
+      "options": [
+        { "value": "h3", "label": "Small" },
+        { "value": "h2", "label": "Medium" },
+        { "value": "h1", "label": "Large" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "select",
+      "id": "pcard_image_ratio",
+      "label": "Image Ratio",
+      "default": "",
+      "options": [
+        { "value": "", "label": "Natural" },
+        { "value": "adapt", "label": "Adapt to Image" },
+        { "value": "1/1", "label": "Square (1:1)" },
+        { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "4/3", "label": "Landscape (4:3)" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_button_on_top",
+      "label": "Show Button Above Products",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop All"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        { "value": "btn--primary", "label": "Primary" },
+        { "value": "btn--secondary", "label": "Secondary" },
+        { "value": "btn--white", "label": "White" },
+        { "value": "btn--underline", "label": "Underline" }
+      ],
+      "default": "btn--primary"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "animations",
+      "label": "Animation",
+      "default": "inherit",
+      "options": [
+        { "value": "inherit", "label": "Inherit from Theme Settings" },
+        { "value": "fade-in", "label": "Fade In" },
+        { "value": "fade-in-up", "label": "Fade In Up" },
+        { "value": "fade-in-left", "label": "Fade In Left" },
+        { "value": "fade-in-right", "label": "Fade In Right" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection Grid"
+    }
+  ]
+}
+{% endschema %}

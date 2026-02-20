@@ -1,0 +1,152 @@
+{%- liquid 
+	assign columns = section.settings.posts_per_row
+	assign mdCols = columns | minus: 1
+
+	if columns < 3 or request.design_mode
+		assign mdCols = columns
+	endif
+
+	assign animation_effect = settings.animations
+	assign animated = false
+	if animation_effect != 'none'
+		assign animated = true
+	endif	
+-%}
+
+<link rel="stylesheet" href="{{ 'blog.css' | asset_url }}" media="print" onload="this.media='all';">
+<noscript>
+  {{ 'blog.css' | asset_url | stylesheet_tag }}
+</noscript>
+{%- paginate blog.articles by section.settings.posts_to_show -%}
+  <div class="f-blog container f-section">
+    <h1 class="f-blog-title{% unless section.settings.show_title %} hidden{% endunless %} h2">{{ blog.title | escape }}</h1>
+    {% if blog.articles_count > 0 %}
+      <div class="f-blog-articles f-grid md:f-grid-{{ mdCols }}-cols xl:f-grid-{{ columns }}-cols" style="--column-gap: 30px;">
+        {%- for article in blog.articles -%}
+          <div class="f-column">
+            {%- render 'article-card',
+							article: article,
+							image_aspect_ratio: section.settings.article_image_aspect_ratio,
+							show_date: section.settings.show_date,
+							show_excerpt: section.settings.show_excerpt,
+							show_readmore: section.settings.show_readmore,
+							animated: animated,
+							animation_effect: animation_effect,
+							index: forloop.index
+						-%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {% else %}
+      <div class="f-blog-empty text-center">{{ 'blogs.article.empty_blog_post' | t }}</div>
+    {% endif %}
+
+    {%- if paginate.pages > 1 -%}
+      <div class="f-blog-pagination">
+        {%- render 'pagination', paginate: paginate -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "t:sections.main-blog.settings.show_title.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "label": "t:sections.main-blog.settings.posts_to_show.label",
+      "default": 12,
+      "min": 2,
+      "max": 24,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "posts_per_row",
+      "label": "t:sections.main-blog.settings.posts_per_row.label",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.article_card.name"
+    },
+    {
+      "type": "select",
+      "id": "article_image_aspect_ratio",
+      "label": "t:settings_schema.global.settings.image_aspect_ratio_options.label",
+      "default": "adapt",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:settings_schema.global.settings.image_aspect_ratio_options.option__1.label"
+        },
+        {
+          "value": "1/1",
+          "label": "t:settings_schema.global.settings.image_aspect_ratio_options.option__2.label"
+        },
+        {
+          "value": "3/4",
+          "label": "t:settings_schema.global.settings.image_aspect_ratio_options.option__3.label"
+        },
+        {
+          "value": "4/3",
+          "label": "t:settings_schema.global.settings.image_aspect_ratio_options.option__5.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "t:settings_schema.article_card.settings.show_date.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "t:settings_schema.article_card.settings.show_excerpt.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_readmore",
+      "label": "t:settings_schema.article_card.settings.show_read_more.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.breadcrumb.name"
+    }
+  ]
+}
+{% endschema %}

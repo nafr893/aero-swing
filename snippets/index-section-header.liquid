@@ -1,0 +1,44 @@
+{% if section_settings.heading != blank or section_settings.description != blank %}
+  {% liquid
+    if header_alignment == blank
+      assign header_alignment = settings.section_header_alignment
+    endif
+
+    if header_alignment_mobile == blank
+      assign header_alignment_mobile = settings.section_header_alignment_mobile
+      if header_alignment_mobile == 'inherit'
+        assign header_alignment_mobile = header_alignment
+      endif
+    endif
+    assign animation_effect = animation_effect
+    if animation_effect == nil
+      assign animation_effect = settings.animations
+    endif
+		assign animated = false
+		if animation_effect != 'none'
+			assign animated = true
+		endif
+
+    unless custom_css_class == blank
+        assign custom_css_class = custom_css_class | prepend: ' '
+    endunless
+  %}
+    <div class="section__header{% if show_all_button_on_top %} section__header-with--button{% endif %} flex flex-col spacing--{{ spacing | default: 'normal' }} text-{{ alignment_mobile | default: header_alignment_mobile }} md:text-{{ alignment | default: header_alignment }}{{ custom_css_class }}">
+        {% if section_settings.subheading != blank %}
+          <p class="section__subheading text-subheading{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">{{ section_settings.subheading }}</p>
+        {% endif %}
+        {% if section_settings.heading != blank %}
+            <h2 class="section__heading {% if section_settings.heading_size %}{{ section_settings.heading_size }}{% endif %}{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">{{ section_settings.heading }}</h2>
+        {% endif %}
+        {% if section_settings.description != blank %}
+            <div class="section__description{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">{{ section_settings.description }}</div>
+        {% endif %}
+				{% if show_all_button_on_top %}
+          <div class="section__button{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">
+            <a class="btn {{ show_all_button_style }}" href="{{ show_all_button_link }}">
+              {{- show_all_button_label -}}
+            </a>
+          </div>
+				{% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,177 @@
+{% liquid
+    assign product_list = ''
+    assign index = -1
+%}
+{% if block.type == 'lookbook-slider' %}<lookbook-card-slider data-items-per-row="{{ block.settings.product_per_slide }}">
+    <div class="md:hidden">
+        {% render 'index-section-header', animation_effect: animation_effect, section_settings: block.settings %}
+    </div>
+{% endif %}
+<div
+	class="f-lookbook-card{% if block.type == 'lookbook-slider' %} f-lookbook-card--slider{% endif %}{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %} {{ custom_class }}"
+	data-id="{{ block.id }}"
+	{% if animated %}
+		data-cascade
+		style="--animation-order: {{ index }};"
+	{% endif %}
+	{{ block.shopify_attributes }}
+>
+    <div class="f-lookbook-card__inner relative f-card">
+        {% if block.settings.image != blank %}
+            {%- liquid
+                assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio
+                if image_aspect_ratio == 'adapt'
+                    assign image_aspect_ratio = block.settings.image.aspect_ratio
+                endif
+            -%}
+            <div class="f-image" style="--aspect-ratio: {{ image_aspect_ratio }};">
+                {{ block.settings.image | image_url: width: 1500 | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.image.width,
+                    height: image_height,
+                    sizes: '100vw',
+                    widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                    alt: block.settings.image.alt | escape
+                }}
+            </div>
+        {% else %}
+            {% liquid
+                capture current
+                    cycle  1, 2, 3, 4, 5, 6
+                endcapture
+            %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+
+        {% for i in (1..5) %}
+            {%- liquid
+                assign top__ = 'top_' | append: i
+                assign top = block.settings[top__]
+                assign left__ = 'left_' | append: i
+                assign left = block.settings[left__]
+                assign product__ = 'product_' | append: i
+                assign prod = block.settings[product__]
+                assign product_list = product_list | append: prod | append: ','
+            -%}
+            {% if prod != blank %}
+                {% assign index = index | plus: 1 %}
+                <lookbook-icon
+                  class="absolute f-lookbook-card__annotation{% if block.type == 'lookbook-slider' %} f-lookbook-card__annotation--slider{% endif %}"
+                  style="top: {{ top }}%; left: {{ left }}%;"
+                  data-id="{{ block.id }}-{{ i }}"
+                  data-index="{{ index }}"
+                >
+                    <div class="f-lookbook-card__pin f-lookbook-card__pin--{{ block.settings.annotation_color }}">
+                        <span class="f-lookbook-card__pin-icon"></span>
+                    </div>
+                    <div
+                        class="f-lookbook-card__product absolute flex color-background-1"
+                        data-id="{{ block.id }}-{{ i }}-content"
+                    >
+                        {% unless block.type == 'lookbook-slider' %}
+                        <div class="f-lookbook-card__product-image relative f-image-hover-effect__{{settings.image_hover_effect}}">
+                            <a class="full-width-link" href="{{ prod.url }}"><span class="visually-hidden">{{ prod.title }}</span></a>
+                            {% assign aspect_ratio = prod.featured_media.aspect_ratio | default: 1 %}
+                            {% render 'responsive-image', image: prod.featured_media, aspect_ratio: aspect_ratio %}
+                        </div>
+                        {% endunless %}
+                        <div class="f-lookbook-card__product-info flex-1">
+                            <a href="{{ prod.url }}" class="f-lookbook-card__product-title text-product-title no-color-schema h6">{{ prod.title }}</a>
+                            <p class="f-lookbook-card__product-price">{{ prod.price | money }}</p>
+                            {% unless block.type == 'lookbook-slider' %}
+                            <a class="btn btn--underline no-color-schema btn-view-details" href="{{ prod.url }}">{{- 'products.product.view_full_details' | t -}}</a>
+                            {% endunless %}
+                        </div>
+                    </div>
+                </lookbook-icon>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if block.type == 'lookbook-slider' %}
+        {{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+        {% liquid
+            assign product_per_slide = block.settings.product_per_slide | times: 1
+            assign total_pages = 0
+            for i in (1..5)
+                assign product__ = 'product_' | append: i
+                assign prod = block.settings[product__]
+                if prod != blank
+                    assign total_pages = total_pages | plus: 1
+                endif
+                if prod == blank
+                    continue
+                endif
+            endfor
+
+            assign has_products = true
+            if total_pages == 0
+                assign has_products = false
+                assign total_pages = product_per_slide
+            endif
+
+            if total_pages < product_per_slide
+                assign product_per_slide = total_pages | at_least: 1
+            endif
+
+            assign controls_position = block.settings.controls_position
+            assign controls_background = block.settings.controls_background
+            assign pagination_class = 'flickity-pagination-bg--' | append: controls_background
+
+            assign pagination_style = block.settings.pagination_type
+            assign isPageDots = false
+            if pagination_style == 'dots' and total_pages > 1
+                assign isPageDots = true
+            endif
+
+            assign product_card_width = block.settings.product_card_width | default: 280
+            # Adding gap
+            assign product_card_width = product_card_width | plus: 30
+            assign product_slider_width = product_card_width | times: product_per_slide
+        %}
+        <div class="f-lookbook__product-wrapper f-lookbook__product-wrapper--{{ block.settings.image_position }}">
+            <div class="f-hidden md:block">
+                {% render 'index-section-header', animation_effect: animation_effect, section_settings: block.settings, header_alignment: 'center', header_alignment_mobile: 'center' %}
+            </div>
+            <div class="f-lookbook__product-flickity-wrapper relative flex justify-center w-full" style="--slider-viewport-width: {{ product_slider_width }}px;">
+                <flickity-component
+                    id="LookbookProductsSlider-{{ block.id }}"
+                    class="f-lookbook__product-slider{% if total_pages <= product_per_slide %} md:flickity-disable{% endif %} flickity-static flickity-show-controls flickity-button-initialized flickity-controls-group flickity-controls-group__bottom flickity-controls-group__bottom--{{ controls_position }} flickity-pagination--{{ pagination_style }} {{ pagination_class }} f-grid f-grid-1-cols md:f-grid-{{ product_per_slide }}-cols"
+                    data-slider-options='{"pageDots": {{ isPageDots }}, "prevNextButtons": true, "wrapAround": true, "dragThreshold": 20, "cellSelector": ".f-column", "adaptiveHeight": false, "selectedAttraction": 0.02, "friction": 0.25}'
+                    data-enable-slider="true"
+                    data-slider-columns="{{ product_per_slide }}"
+                    style="--number-slides: {{ total_pages }}; --column-gap: 3rem; --column-gap-mobile: 0;"
+                >
+                    {% if has_products %}
+                        {% for i in (1..5) %}
+                            {% liquid
+                                assign product__ = 'product_' | append: i
+                                assign prod = block.settings[product__]
+                                if prod == blank
+                                    continue
+                                endif
+                            %}
+                            <div class="f-column">
+                                {% render 'product-card', color_schema: color_schema, product: prod, show_vendor: false, is_lookbook: true, index: forloop.index, animated: false, animation_effect: animation_effect, image_ratio: block.settings.product_image_ratio, custom_class: ' md-down:color-background-2' %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for i in (1..product_per_slide) %}
+                            <div class="f-column">
+                            {% render 'product-card-placeholder', index: forloop.index, animated: false, animation_effect: animation_effect, image_ratio: block.settings.product_image_ratio, custom_class: ' md-down:color-background-2' %}
+                            </div>
+                      {% endfor %}
+                    {% endif %}
+                    {% if total_pages > 1 and pagination_style == 'counter' %}
+                        <div class="flickity-page-counter no-js-hidden hidden{% if total_pages <= product_per_slide %} md:hidden{% endif %}">
+                            <span class="flickity-counter--current">1</span>
+                            <span aria-hidden="true"> / </span>
+                            <span class="visually-hidden">{{ 'sections.slideshow.of' | t }}</span>
+                            <span class="flickity-counter--total">{{ total_pages }}</span>
+                        </div>
+                    {% endif %}
+                </flickity-component>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% if block.type == 'lookbook-slider' %}</lookbook-card-slider>{% endif %}

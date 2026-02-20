@@ -1,0 +1,15 @@
+@media (min-width: 1280px) {
+  .image-with-text--image-out [class*=container] {
+    padding: 0;
+    max-width: unset;
+  }
+  .image-with-text--image-out .f-column__image {
+    padding-right: calc(var(--column-gap, 0));
+  }
+  .image-with-text--image-out .container .f-column__image {
+    max-width: calc(var(--container-width, 1170px) / 2 - 1.5rem);
+  }
+  .image-with-text--image-out .container-fluid .f-column__image {
+    max-width: calc(var(--fluid-container-width, 1620px) / 2 - 1.5rem);
+  }
+}

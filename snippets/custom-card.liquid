@@ -1,0 +1,21 @@
+{%- liquid 
+    assign content_alignment = content_alignment | replace: 'left', 'start' | replace: 'right', 'end'
+-%}
+<div class="f-column">
+    <div class="f-custom-card f-custom-card--{{ content_position }} color-{{ color_scheme }} f-image-hover-effect__{{settings.image_hover_effect}}">
+        <a title="{{ title | strip_html }}" href="{{ link }}" class="collection-card__wrapper">
+            <div class="f-custom-card__image f-card overflow-hidden">
+                {% render 'responsive-image',
+                    image: image,
+                    wrapper_class: "collection-card__image"
+                %}
+            </div>
+            <div class="f-custom-card__info flex flex-col items-{{ content_alignment }}">
+                <h3 class="f-custom-card__heading text-current {{ heading_size }}">{{ title }}</h3>
+                {% if button_label != blank %}
+                <button class="btn {{ button_style }}">{{ button_label }}</button>
+                {% endif %}
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,634 @@
+{%- liquid
+    assign current_variant = product.selected_or_first_available_variant
+-%}
+<div id="ProductInfo-{{ section.id }}" class="f-product-single__blocks">
+    {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+    {%- for block in section.blocks -%}
+        <div class="f-product-single__block f-product-single__block--{{ block.type }}" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+                {%- when '@app' -%}
+                    <div class="f-product__app-block">
+                        {% render block %}
+                    </div>
+                {%- when 'rating' -%}
+                    {% render 'product-rating', product: product, block: block %}
+                {%- when 'text' -%}
+                    <p class="f-product__text flex items-center{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}" {{ block.shopify_attributes }}>
+                        {% unless block.settings.icon == blank %}
+                            {% render 'icon', name: block.settings.icon %}
+                        {% endunless %}
+                        <span>{{- block.settings.text -}}</span>
+                    </p>
+                {%- when 'richtext' -%}
+                    {% if block.settings.text != blank %}
+                       <div class="rte">
+                           {{ block.settings.text }}
+                       </div>
+                    {% endif %}
+                {%- when 'image' -%}
+                    {% if block.settings.image != blank %}
+                        {% liquid
+                            assign image_link = block.settings.image_link
+                            assign image = block.settings.image
+                        %}
+                        <div class="flex justify-{{ block.settings.image_alignment }}">
+                            <div class="bottom-block__image" style="width: {{ block.settings.image_width }}%">
+                            {% if image_link != blank %}<a href="{{ image_link }}" class="block">{% endif %}
+                                    <responsive-image class="f-image {{ wrapper_class }}" data-image-loading style="--aspect-ratio: {{ block.settings.image.aspect_ratio }}">
+                                        <img
+                                            srcset="{%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+                                                {%- if image.width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
+                                                {%- if image.width >= 533 -%}{{ image | image_url: width: 533 }} 533w,{%- endif -%}
+                                                {%- if image.width >= 720 -%}{{ image | image_url: width: 720 }} 720w,{%- endif -%}
+                                                {{ image | image_url }} {{ image.width }}w"
+                                                src="{{ image | image_url: width: 360 }}"
+                                                sizes="50vw"
+                                                alt="{{ block.settings.image.alt | escape }}"
+                                                loading="lazy"
+                                                width="{{ image.width }}"
+                                                height="{{ image.height }}"
+                                        >
+                                    </responsive-image>
+                                    {% if image_link != blank %}</a>{% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {%- when 'trust_badge' -%}
+                    {% if block.settings.trust_badges_image != blank %}
+                        {% assign trust_badges_image = block.settings.trust_badges_image %}
+                        {% assign position = block.settings.position %}
+                        <div class="f-product-single__trust-badges text-center flex flex-col {{ position | default: 'below' }}">
+                            <div style="width: {{ block.settings.trust_badges_image_width }};">
+                                <responsive-image class="f-image {{ wrapper_class }}" data-image-loading style="--aspect-ratio: {{ block.settings.trust_badges_image.aspect_ratio }}">
+                                    <img
+                                        srcset="{%- if trust_badges_image.width >= 165 -%}{{ trust_badges_image | image_url: width: 165 }} 165w,{%- endif -%}
+                                            {%- if trust_badges_image.width >= 360 -%}{{ trust_badges_image | image_url: width: 360 }} 360w,{%- endif -%}
+                                            {%- if trust_badges_image.width >= 533 -%}{{ trust_badges_image | image_url: width: 533 }} 533w,{%- endif -%}
+                                            {%- if trust_badges_image.width >= 720 -%}{{ trust_badges_image | image_url: width: 720 }} 720w,{%- endif -%}
+                                            {{ trust_badges_image | image_url }} {{ trust_badges_image.width }}w"
+                                        src="{{ trust_badges_image | image_url: width: 360 }}"
+                                        sizes="50vw"
+                                        alt="{{ trust_badges_image.alt | escape }}"
+                                        loading="lazy"
+                                        width="{{ trust_badges_image.width }}"
+                                        height="{{ trust_badges_image.height }}"
+                                    >
+                                </responsive-image>
+                            </div>
+                            {% if block.settings.trust_badges_text != blank %}
+                                <div class="h4">{{ block.settings.trust_badges_text }}</div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {%- when 'title' -%}
+                    <{% if is_featured_product == true %}h2{% else %}h1{% endif %} class="f-product-single__title {{ block.settings.heading_size }}">
+                        {{ product.title | escape }}
+                    </{% if is_featured_product == true %}h2{% else %}h1{% endif %}>
+                {%- when 'price' -%}
+                    <div id="f-product-price-{{ section.id }}" role="status">
+                        {%- render 'price', product: product, use_variant: true, show_sale_badge: block.settings.show_sale_badge, sale_badge_type: block.settings.sale_badge_type, show_soldout_badge: true, price_class: 'f-price--large text-lg sm:text-xl' -%}
+                    </div>
+                    {%- if shop.taxes_included -%}
+                        <div class="f-product-single__block-tax text-subtext">
+                            {{- 'products.product.include_taxes' | t -}}
+                        </div>
+                    {%- endif -%}
+                    <div>
+                        {%- form 'product', product, id: 'product-form-installment', class: 'installment' -%}
+                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                            {{ form | payment_terms }}
+                        {%- endform -%}
+                    </div>
+                {%- when 'description' -%}
+                    {%- if product.description != blank -%}
+                        <div class="f-product__description rte">
+                            {{ product.description }}
+                        </div>
+                        {% if is_featured_product == true %}
+                            <a href="{{ product.url }}" class="btn btn-view-details btn--underline btn--with-icon"><span>{{- 'products.product.view_full_details' | t -}}</span> {% render 'icon-arrow-right' %}</a>
+                        {% endif %}
+                    {%- endif -%}
+                {%- when 'vendor' -%}
+                    {%- if product.vendor != blank -%}
+                        <div class="f-product__vendor text-subtext text-subheading">
+                            {{ product.vendor | link_to_vendor }}
+                        </div>
+                    {%- endif -%}
+                {%- when 'type' -%}
+                    {%- if product.type != blank -%}
+                        <div class="f-product__type text-upper text-subtext">
+                            {{ product.type | link_to_type }}
+                        </div>
+                    {%- endif -%}
+                {%- when 'meta' -%}
+                    <ul class="f-product-meta list-none">
+                        {% if block.settings.show_availability %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.meta.availability' | t }}:</span>
+                                <div
+                                    class="f-product-meta__value f-product-meta__availability{% unless current_variant.available %} out-of-stock{% endunless %}"
+                                    data-product-availability
+                                >
+                                    {%- if current_variant.available -%}
+                                        {{- 'products.product.meta.instock' | t -}}
+                                    {%- else -%}
+                                        {{- 'products.product.meta.out_of_stock' | t -}}
+                                    {%- endif -%}
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.show_sku %}
+                            {% assign default_sku = 'products.product.meta.no_sku' | t %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.meta.sku' | t }}:</span>
+                                <div class="f-product-meta__value" data-product-sku>{{ current_variant.sku | default: default_sku }}</div>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.show_vendor and product.vendor != blank %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.vendor' | t }}:</span>
+                                <div class="f-product-meta__value">{{ product.vendor | link_to_vendor }}</div>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.show_type and product.type != blank %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.meta.type' | t }}:</span>
+                                <div class="f-product-meta__value">{{ product.type | link_to_type }}</div>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.show_collections and product.collections.size > 0 %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.meta.collections' | t }}:</span>
+                                <div class="f-product-meta__value">
+                                    {% for collection in product.collections %}
+                                        <a href="{{ collection.url }}" class="hover:text-black">
+                                            {{ collection.title }}{%- if forloop.last != true -%}, {%- endif -%}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.show_tags and product.tags.size > 0 %}
+                            <li>
+                                <span class="f-product-meta__label">{{ 'products.product.meta.tags' | t }}:</span>
+                                <div class="f-product-meta__value">
+                                    {% for tag in product.tags %}
+                                        {% assign tag_handle = tag | handleize %}
+                                        <a href="{{ routes.all_products_collection_url | append: '/' | append: tag_handle }}">{{- tag -}}</a>{%- if forloop.last != true -%}, {%- endif -%}
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {%- when 'custom_liquid' -%}
+                    {{ block.settings.custom_liquid }}
+                {%- when 'divider' -%}
+                    <hr>
+                {%- when 'custom_field' -%}
+                    {% liquid
+                        assign label_hidden = false
+                        assign field_type = block.settings.field_type
+                        assign field_options = block.settings.field_options
+                        assign field_name = block.settings.title
+                        assign field_placeholder = block.settings.field_placeholder
+                        assign field_required = block.settings.field_required
+                        assign show_at_checkout = block.settings.show_at_checkout
+                        if field_name == blank
+                            assign label_hidden = true
+                            assign field_name = 'Custom field ' | append: forloop.index
+                        endif
+                    %}
+
+                    <div class="form-field" data-product-custom-field="{{ field_type }}">
+                        <label class="form-label font-medium{% if label_hidden %} hidden{% endif %}" for="{{ block.id }}">
+                            {{ field_name }}{% if field_required %}<sup>*</sup>{% endif %}
+                        </label>
+                        {% unless show_at_checkout %}
+                            {% assign field_name = field_name | prepend: '_' %}
+                        {% endunless %}
+                        {% case field_type %}
+                            {% when 'text' %}
+                                <input type="text" id="{{ block.id }}" class="form-control" placeholder="{{ field_placeholder }}" name="properties[{{- field_name -}}]"{% if field_required %} required{% endif %} form="{{ product_form_id }}">
+                            {% when 'textarea' %}
+                                <textarea id="{{ block.id }}" class="form-control" placeholder="{{ field_placeholder }}" name="properties[{{- field_name -}}]"{% if field_required %} required{% endif %} form="{{ product_form_id }}"></textarea>
+                            {% when 'select' %}
+                                {% assign options = field_options | newline_to_br | split: '<br />' %}
+                                <select id="{{ block.id }}" class="form-control" name="properties[{{- field_name -}}]"{% if field_required %} required{% endif %} form="{{ product_form_id }}">
+                                    {% if field_placeholder != blank %}<option value="">{{ field_placeholder }}</option>{% endif %}
+                                    {% for option in options %}
+                                        {%- assign option = option | strip | strip_newlines -%}
+                                        <option value="{{- option -}}" label="{{ option }}">{{ option }}</option>
+                                    {% endfor %}
+                                </select>
+                        {% endcase %}
+                    </div>
+                {%- when 'quantity_selector' -%}
+                    <div class="f-product-single__info-quantity">
+                        <div class="f-quantity__wrapper {{ class }}">
+                            <label class="form-label font-semibold" for="Quantity-{{ section.id }}">
+                                {{- 'products.product.quantity.label' | t -}}
+                            </label>
+                            <quantity-input class="f-quantity" data-product-id="{{ product.id }}">
+                                <button class="f-quantity__button btn btn--plain no-js-hidden" name="minus" type="button">
+                                    <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                                    <svg width="10" height="2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.917 1h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <input class="f-quantity__input form-control"
+                                       type="number"
+                                       name="quantity"
+                                       id="Quantity-{{ section.id }}"
+                                       min="1"
+                                       value="1"
+                                       form="{{ product_form_id }}"
+                                >
+                                <button class="f-quantity__button btn btn--plain no-js-hidden" name="plus" type="button">
+                                    <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                                    <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2.917v8.166M2.917 7h8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </quantity-input>
+
+                        </div>
+                    </div>
+                {%- when 'addons' -%}
+                    {% liquid
+                        assign show_share = block.settings.show_share
+                        assign show_ask_question = block.settings.show_ask_question
+                    %}
+                    {% if show_share or show_ask_question %}
+                    <div class="f-product-single__addon-buttons flex items-center">
+                        {% if show_share %}
+                            <modal-opener class="no-js-hidden" data-modal="#PopupModal-Sharing-{{ section.id }}">
+                                <button class="btn btn--with-icon btn--plain" aria-haspopup="dialog" aria-label="{{ 'products.product.share_label' | t }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="f-icon-svg f-icon--medium f-icon-share"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                    <span>{{ 'products.product.share_label' | t }}</span>
+                                </button>
+                            </modal-opener>
+                            {% assign modal_id = 'Sharing-' | append: section.id %}
+                            <modal-dialog id="PopupModal-{{ modal_id }}" class="f-modal hidden" style="--modal-width: 600px">
+                                <div class="f-modal__content" role="dialog" aria-label="{{ label }}" aria-modal="true" tabindex="-1">
+                                    <div class="scroll-container">
+                                        <button id="ModalClose-{{ modal_id }}" type="button" class="f-modal__close" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
+                                        <div class="f-modal__inner">
+                                            <h3 class="h5">{{ 'products.product.share' | t }}</h3>
+                                            <div class="f-sharing__copy-link">
+                                                <input data-share-url type="text" class="form-control" value="{{ shop.secure_url }}/products/{{ product.handle }}">
+                                                <button class="btn btn-copy" data-copied-text="{{ 'general.share.copied' | t }}">{{ 'general.share.copy' | t }}</button>
+                                            </div>
+                                            {% render 'social-sharing', url: product.url, share_image: product.featured_media.preview_image %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </modal-dialog>
+                            <script>
+                                const btnCopy = document.querySelector('.f-sharing__copy-link .btn-copy')
+                                if (btnCopy) {
+                                    btnCopy.addEventListener('click', function (e) {
+                                        e.preventDefault()
+                                        navigator.clipboard.writeText(e.target.previousElementSibling.value)
+                                        btnCopy.classList.add('copied')
+                                        btnCopy.innerText = e.target.dataset.copiedText
+                                    })
+                                }
+                            </script>
+                        {% endif %}
+                        {% if show_ask_question %}
+                            <modal-opener class="no-js-hidden" data-modal="#PopupModal-AskQuestionForm-{{ section.id }}">
+                                <button class="btn btn--with-icon btn--plain" aria-label="{{ 'products.product.question_form.label' | t }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="f-icon-svg f-icon--medium f-icon-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    <span>{{ 'products.product.question_form.label' | t }}</span>
+                                </button>
+                            </modal-opener>
+                            {% assign modal_id = 'AskQuestionForm-' | append: section.id %}
+                            <modal-dialog id="PopupModal-{{ modal_id }}" class="f-modal hidden" style="--modal-width:600px">
+                                <div class="f-modal__content" role="dialog" aria-label="{{ label }}" aria-modal="true" tabindex="-1">
+                                    <div class="scroll-container">
+                                        <button id="ModalClose-{{ modal_id }}" type="button" class="f-modal__close" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
+                                        <div class="f-modal__inner">
+                                            {% render "ask-question-form" %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </modal-dialog>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {%- when 'variant_picker' -%}
+                    {% liquid
+                        assign size_title = block.settings.size_title
+                        assign size_title = block.settings.size_title
+                        assign size_chart = product.metafields.foxtheme.size_chart
+
+                        if size_chart == blank and block.settings.size_chart_from_page != blank
+                            assign size_chart = pages[block.settings.size_chart_from_page].content
+                        endif
+
+                        assign show_size_chart = false
+                        if size_chart != blank
+                            assign show_size_chart = true
+                        endif
+                    %}
+                    {% render 'variant-picker',
+                        product: product,
+                        picker_type: block.settings.picker_type,
+                        show_selected_value: block.settings.variant_picker_show_selected,
+                        disable_default_variant: block.settings.variant_picker_dont_select_the_default_variant,
+                        size_title: size_title,
+                        show_size_chart: show_size_chart,
+                        update_browser_history: update_browser_history,
+                        product_form_id: product_form_id,
+                        color_schema: 'background-1'
+                    %}
+                    {% if size_chart != blank and show_size_chart %}
+                        {% assign modal_id = 'SizeChart-' | append: section.id %}
+                        <modal-dialog id="PopupModal-{{ modal_id }}" class="f-modal hidden" style="--modal-width:800px">
+                            <div class="f-modal__content" role="dialog" aria-label="{{ label }}" aria-modal="true" tabindex="-1">
+                                <div class="scroll-container">
+                                    <button id="ModalClose-{{ modal_id }}" type="button" class="f-modal__close" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
+                                    <div class="f-modal__inner">
+                                        <div class="rte py-md px-sm">{{ size_chart }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </modal-dialog>
+                    {% endif %}
+                {%- when 'buy_buttons' -%}
+                    <div {{ block.shopify_attributes }}>
+											{%- liquid 
+												assign gift_card_recipient_feature_active = false
+												if block.settings.show_gift_card_recipient and product.gift_card?
+													assign gift_card_recipient_feature_active = true
+												endif
+
+												assign show_dynamic_checkout = false
+												if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+													assign show_dynamic_checkout = true
+												endif
+											-%}
+											{% if block.settings.show_atc_button or show_dynamic_checkout %}
+                        <product-form class="f-product-form f-main-product-form">
+                            {%- form 'product', product, id: product_form_id, class: 'main-product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+																{%- if gift_card_recipient_feature_active -%}
+																	{%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+																{%- endif -%}
+                                <div class="f-product-form__buttons{% if show_dynamic_checkout and product.selling_plan_groups == empty %} f-product-form__buttons--show-buynow{% endif %}">
+																	{% if block.settings.show_atc_button %}
+                                    <button
+                                        type="submit"
+                                        name="add"
+                                        class="f-product-form__submit btn {% if show_dynamic_checkout and product.selling_plan_groups == empty %}btn--secondary{% else %}btn--primary{% endif %}"
+                                        {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                                    >
+                                        <span>
+                                          {%- if product.selected_or_first_available_variant.available -%}
+                                              {{ 'products.product.add_to_cart' | t }}
+                                          {%- else -%}
+                                              {{ 'products.product.sold_out' | t }}
+                                          {%- endif -%}
+                                        </span>
+                                        {% render 'icon-spinner' %}
+                                    </button>
+																	{% endif %}
+																	{%- if show_dynamic_checkout -%}
+																			<div class="f-product-form__button-dynamic">
+																					{{ form | payment_button }}
+																			</div>
+																	{%- endif -%}
+																	<div class="f-product-form__error-message-wrapper" role="alert"></div>
+                                </div>
+                            {%- endform -%}
+                        </product-form>
+											{% endif %}
+                        <link rel="stylesheet" href="{{ 'pickup-availability.css' | asset_url }}" media="print" onload="this.media='all';">
+                        <noscript>
+                            {{ 'pickup-availability.css' | asset_url | stylesheet_tag }}
+                        </noscript>
+                        {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+
+                        <pickup-availability class="product__pickup-availabilities no-js-hidden"
+                            {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %} available{% endif %}
+                             data-base-url="{{ shop.url }}{{ routes.root_url }}"
+                             data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                             data-has-only-default-variant="{{ product.has_only_default_variant }}"
+                        >
+                            <template>
+                                <pickup-availability-preview class="pickup-availability-preview">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" class="icon-setting icon-unavailable" viewBox="0 0 20 20"><path fill="#DE3618" stroke="#fff" d="M13.94 3.94 10 7.878l-3.94-3.94A1.499 1.499 0 1 0 3.94 6.06L7.88 10l-3.94 3.94a1.499 1.499 0 1 0 2.12 2.12L10 12.12l3.94 3.94a1.497 1.497 0 0 0 2.12 0 1.499 1.499 0 0 0 0-2.12L12.122 10l3.94-3.94a1.499 1.499 0 1 0-2.121-2.12z"/></svg>
+                                    <div class="pickup-availability-info">
+                                        <p class="caption-large">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+                                        <button class="pickup-availability-button btn btn--underline">{{ 'products.product.pickup_availability.refresh' | t }}</button>
+                                    </div>
+                                </pickup-availability-preview>
+                            </template>
+                        </pickup-availability>
+                    </div>
+
+                    <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+                {% when 'countdown_timer' %}
+                    {% liquid
+                        assign timer = block.settings.end_time
+                        assign heading = block.settings.heading
+                        assign style = block.settings.style
+                        assign custom_time = product.metafields.foxtheme.countdown
+                        if custom_time != blank
+                            assign timer = custom_time
+                        endif
+                    %}
+                    <div class="f-product-single__block-countdown f-product-single__block-countdown--{{ style }}" data-countdown-wrapper hidden>
+                        {%- if heading != blank -%}
+                            <h4 class="h5">{{- heading -}}</h4>
+                        {% endif %}
+                        {%- if timer != blank -%}
+                            {% render 'countdown-timer', time: timer, id: block.id, style: style, number_size: block.settings.number_size %}
+                        {%- endif -%}
+                    </div>
+                {%- when 'shipping' -%}
+                    <ul class="list-none">
+                        {% if block.settings.deliver_days != blank %}
+                            <li class="flex items-center">
+                                <svg class="icon-setting" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M0 3.752c0-.277.224-.502.5-.502h10.147c.277 0 .5.225.5.502v9.91l-.595 1.003H7.223V13.66h2.923V4.253H1.002v9.408h1.682v1.004H.501A.501.501 0 0 1 0 14.163V3.752ZM18.998 8.084l-7.85-1.975V5.075l8.473 2.131a.501.501 0 0 1 .379.487v6.47a.501.501 0 0 1-.5.502h-2.193v-1.003H19V8.084Zm-7.85 5.578h2.196v1.003h-2.792l.596-1.003Z"/><path d="M7.713 14.185a2.562 2.562 0 0 1-2.56 2.565 2.562 2.562 0 0 1-2.56-2.565 2.562 2.562 0 0 1 2.56-2.564 2.562 2.562 0 0 1 2.56 2.564Zm-2.56 1.562a1.56 1.56 0 0 0 1.558-1.562 1.56 1.56 0 0 0-1.559-1.56 1.56 1.56 0 0 0-1.558 1.56 1.56 1.56 0 0 0 1.558 1.562ZM17.52 14.185a2.562 2.562 0 0 1-2.56 2.565 2.562 2.562 0 0 1-2.56-2.565 2.562 2.562 0 0 1 2.56-2.564 2.562 2.562 0 0 1 2.56 2.564Zm-2.56 1.562a1.56 1.56 0 0 0 1.558-1.562 1.56 1.56 0 0 0-1.559-1.56 1.56 1.56 0 0 0-1.558 1.56 1.56 1.56 0 0 0 1.558 1.562Z"/></svg>
+                                {% liquid
+                                    assign date_format = block.settings.date_format | default: "%b %d"
+                                    assign range =  2 | times: 24 | times: 60 | times: 60
+                                    assign deliver_in =  block.settings.deliver_days | times: 24 | times: 60 | times: 60
+                                    assign now = 'now' | date: "%s"
+                                    assign from = now | plus: deliver_in | minus: range | date: date_format
+                                    assign to = now | plus: deliver_in | plus: range | date: date_format
+                                %}
+                                <span>{{ block.settings.deliver_text | strip_html }} <span>{{ from }} - {{ to }}</span></span>
+                            </li>
+                        {% endif %}
+                        {% if block.settings.shipping_text != blank %}
+                            <li class="flex items-center">
+                                <svg class="icon-setting" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M9.695.679a1 1 0 0 1 .674.003l7.846 2.859a1 1 0 0 1 .658.94v9.948a1 1 0 0 1-.553.894l-7.847 3.924a1 1 0 0 1-.882.006l-8.137-3.929a1 1 0 0 1-.565-.9v-9.94a1 1 0 0 1 .668-.943L9.695.679ZM6.08 3.01 2.535 4.257l7.614 3.378 3.42-1.517L6.08 3.01Zm.706-.248L14.2 5.838l3.337-1.48-7.51-2.736-3.24 1.14ZM1.89 14.424v-9.36l7.76 3.444v9.662l-7.76-3.746Zm15.984.005-7.224 3.612V8.508l7.224-3.205v9.126Z" fill-rule="evenodd"/></svg>
+                                <span>{{ block.settings.shipping_text }}</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {%- when 'collapsible_tab' -%}
+                    {% if block.settings.heading != blank %}
+                        <collapsible-tab
+                                class="collapsible__item no-js-hidden"
+                                data-block-id="collapsible-tab-{{ block.id }}"
+                                open="{{ block.settings.default_open | default: 'false' }}"
+                        >
+                            <button class="collapsible__button" data-trigger>
+                                {% if block.settings.icon != blank and block.settings.icon != 'none' %}
+                                    {% render 'icon', name: block.settings.icon %}
+                                {% endif %}
+                                <span>{{ block.settings.heading }}</span>
+                                <span data-collapsible-icon>
+                                    <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                            </button>
+                            <div class="collapsible__content" data-content hidden>
+                                <div class="collapsible__content-inner rte">
+                                    {{ block.settings.content }}
+                                    {{ block.settings.liquid }}
+                                    {{ block.settings.page.content }}
+                                </div>
+                            </div>
+                        </collapsible-tab>
+                        <noscript>
+                            <details class="collapsible__item" {% if block.settings.default_open %}open{% endif %}>
+                                <summary class="collapsible__button">
+                                    {% if block.settings.icon != blank and block.settings.icon != 'none' %}
+                                        {% render 'icon', name: block.settings.icon %}
+                                    {% endif %}
+                                    <span>{{ block.settings.heading }}</span>
+                                    <span class="" data-collapsible-icon>
+                                                <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                            </span>
+                                </summary>
+                                <div class="collapsible__content">
+                                    <div class="collapsible__content-inner rte">
+                                        {{ block.settings.content }}
+                                        {{ block.settings.liquid }}
+                                        {{ block.settings.page.content }}
+                                    </div>
+                                </div>
+                            </details>
+                        </noscript>
+                    {% endif %}
+                {%- when 'complementary' -%}
+                    <product-recommendations class="f-complementary-products block{% if block.settings.make_collapsible_row %} is-accordion{% else %} relative{% endif %}" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary">
+                        {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                            {%- liquid 
+                                assign number_of_slides = recommendations.products_count | plus: 0.0 | divided_by: block.settings.products_per_page | ceil
+                                assign enable_slider = false
+                                if number_of_slides > 1 and block.settings.enable_slider
+                                    assign enable_slider = true
+                                endif
+                                assign pageDots = false
+                                assign prevNextButtons = true
+                                if block.settings.make_collapsible_row
+                                    assign pageDots = true
+                                    assign prevNextButtons = false
+                                else 
+                                    assign slide_class = slide_class | append: 'flickity-show-controls flickity-static flickity-button-initialized flickity-controls-group flickity-controls-group__top flickity-controls-group__top--right'
+                                endif
+                            -%}
+                            {% capture block_content %}
+                                <flickity-component
+                                    class="f-grid f-grid-1-cols{% if enable_slider %} flickity-enable{% endif %} {{ slide_class }}"
+                                    data-slider-options='{"pageDots": {{ pageDots }}, "prevNextButtons": {{ prevNextButtons }}, "groupCells": 1, "cellSelector": ".f-complementary-products__slide", "wrapAround": true, "freeScroll": {{ request.design_mode }}, "adaptiveHeight": true}'
+                                    data-slider-columns="1"
+                                    data-enable-slider="{{ enable_slider }}"
+                                    style="--pagination-width: 2.5rem;--button-size: 3.5rem;--button-size-mobile: 3.5rem;"
+                                >
+                                    {%- for i in (1..number_of_slides) -%}
+                                        <div class="f-complementary-products__slide w-full">
+                                            {%- for product in recommendations.products limit: block.settings.products_per_page offset: continue -%}
+                                                <div class="f-column">
+                                                    {% render 'product-card', 
+                                                        product: product, 
+                                                        custom_class: 'bg-secondary', 
+                                                        is_complementary: true, 
+                                                        list_layout: true, 
+                                                        image_ratio: block.settings.image_ratio, 
+                                                        enable_quick_add: block.settings.enable_quick_add, 
+                                                        enable_quick_view: block.settings.enable_quick_view,
+                                                        color_schema: 'background-1'
+                                                    %}
+                                                </div>
+                                            {%- endfor -%}
+                                        </div>
+                                    {%- endfor -%}
+                                    {% if number_of_slides > 1 and block.settings.make_collapsible_row == false %}
+                                        <div class="flickity-page-counter no-js-hidden hidden{% if number_of_slides < 2 %} md:hidden{% endif %}">
+                                            <span class="flickity-counter--current">1</span>
+                                            <span aria-hidden="true"> / </span>
+                                            <span class="visually-hidden">{{ 'sections.slideshow.of' | t }}</span>
+                                            <span class="flickity-counter--total">{{ number_of_slides }}</span>
+                                        </div>
+                                    {% endif %}
+                                </flickity-component>
+                            {% endcapture %}
+                            {% if block.settings.make_collapsible_row %}
+                                <collapsible-tab
+                                    class="collapsible__item no-js-hidden"
+                                    data-block-id="collapsible-tab-{{ block.id }}"
+                                    open="true"
+                                >
+                                    <button class="collapsible__button" data-trigger>
+                                        {% if block.settings.icon != blank and block.settings.icon != 'none' %}
+                                            {% render 'icon', name: block.settings.icon %}
+                                        {% endif %}
+                                        <span>{{ block.settings.block_heading }}</span>
+                                        <span data-collapsible-icon>
+                                            <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                            <svg width="2" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.333v9.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </span>
+                                    </button>
+                                    <div class="collapsible__content" data-content hidden>
+                                        <div class="collapsible__content-inner">
+                                            {{ block_content }}
+                                        </div>
+                                    </div>
+                                </collapsible-tab>
+                            {% else %}
+                                {% unless block.settings.block_heading == blank %}
+                                    <h3 class="h4 py-xs">{{ block.settings.block_heading }}</h3>
+                                {% endunless %}
+                                {{ block_content }}
+                            {% endif %}
+                        {% endif %}
+                    </product-recommendations>
+                    {% if settings.pcard_show_quickview_button == false and block.settings.enable_quick_view %}
+                        <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
+                    {% endif %}
+                {%- when 'inventory_status' -%}
+                    {%- render 'product-inventory', product: product, current_variant: current_variant, block: block -%}
+                {%- when 'badge' -%}
+                    {%- liquid 
+                        assign has_tags = false
+                        for tag in product.tags
+                            if tag contains 'tag__'
+                                assign has_tags = true
+                            endif
+                        endfor
+                    -%}
+                    {%- if has_tags -%}
+                        <div class="f-product__tags">
+                            {% for tag in product.tags %}
+                                {% if tag contains 'tag__' %}
+                                    {%- liquid 
+                                        assign tag_content = tag | split: '__' | last
+                                        assign type = tag_content | split: '_' | first
+                                        assign tag_name = tag_content | split: '_' | last
+                                    -%}
+                                    <span class="f-badge f-badge--{{ type }}">
+                                        {{ tag_name }}
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {%- endif -%}
+                {% else %}
+            {%- endcase -%}
+        </div>
+    {%- endfor -%}
+</div>

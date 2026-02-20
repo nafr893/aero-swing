@@ -1,0 +1,192 @@
+.single-video {
+	width: 50%;
+}
+.all-videos {
+  display: flex;
+  margin: 0 -15px;
+	flex-wrap: wrap;
+}
+.single-video {
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+.video-sdetails h3 {
+  font-size: 20px;
+}
+.all-videos.column-two .vieo-image {
+  margin: 0 -15px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.single-video > div {
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border-radius: 10px;
+}
+.all-videos.column-two .vieo-image > div {
+  padding: 0 15px;
+  width: 60%;
+}
+.video-sdetails ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.video-sdetails ul li {
+  border-right: 1px solid #ededed;
+  padding-right: 20px;
+  margin-right: 20px;
+  color: #808080;
+  font-size: 12px;
+  line-height: 16px;
+}
+.video-sdetails ul li:last-child {
+  border-right: 0;
+  margin: 0;
+  padding: 0;
+}
+.video-sdetails {
+  padding-right: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+}
+.video-sdetails p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+}
+.all-videos.column-two .vieo-image > div.video-main {
+  position: relative;
+  padding-bottom: 35%;
+  width: 40%;
+  height: 100%;
+}
+.all-videos.column-two .vieo-image > div .js-youtube, .all-videos.column-two .vieo-image > div .js-vimeo {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  width: calc(100% - 30px);
+  height: 100%;
+  border: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.video-hours {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  background: rgba(0,0,0,.9);
+  padding: 1px 10px;
+  z-index: 9;
+  border-radius: 5px;
+  color: #fff;
+}
+.play-button {
+  position: absolute;
+}
+.all-videos.column-two .vieo-image > div.video-main .play-button {
+  top: 50%;
+  right: 0;
+  transform: translate(calc(50% - 15px), -50%);
+}
+.section-title h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+.all-videos.column-three .single-video {
+  width: 33.333%;
+}
+.video-main video {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: 100%;
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.all-videos.column-three .single-video .video-main {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.all-videos.column-three .single-video .js-youtube {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.all-videos.column-two .vieo-image > div.video-main .video-hours {
+  left: 30px;
+}
+.video-main {
+  position: relative;
+}
+.all-videos.column-four .single-video {
+  width: 25%;
+}
+.all-videos.column-four .single-video .video-main {
+  aspect-ratio: 4/5;
+}
+.all-videos.column-four .single-video .video-main .js-youtube {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 0;
+}
+
+.all-videos .single-video .video-main.sp916 {
+  aspect-ratio: 9/16;
+  padding-bottom: 0 !important;
+}
+.all-videos .single-video .video-main.sp169 {
+  aspect-ratio: 16/9;
+  padding-bottom: 0 !important;
+}
+.all-videos .single-video .video-main.sp45 {
+  aspect-ratio: 4/5;
+  padding-bottom: 0 !important;
+}
+.all-videos .single-video .video-main.square {
+  aspect-ratio: 5/5;
+  padding-bottom: 0 !important;
+}
+.all-videos .vieo-image > div.video-main.sp35 {
+	padding-bottom: 35% !important;
+}
+.all-videos.column-two .vieo-image > div video {
+	border-bottom-left-radius: 10px;
+	border-top-right-radius: 0;
+}
+
+
+@media (max-width:767px){
+  
+.single-video {
+  width: 100%;
+}
+.all-videos.column-two .vieo-image > div.video-main {
+  width: 100%;
+}
+.all-videos.column-two .vieo-image > div .js-youtube, .all-videos.column-two .vieo-image > div .js-vimeo {
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0;
+}
+.all-videos.column-two .vieo-image > div {
+  width: 100%;
+}
+.all-videos.column-three .single-video {
+  width: 100%;
+}
+.all-videos.column-four .single-video {
+  width: 100%;
+}
+  .all-videos.column-two .vieo-image > div.video-main video {
+	width: calc(100% - 30px);
+	border-bottom-left-radius: 0;
+	left: 15px;
+    top: 0;
+}
+}

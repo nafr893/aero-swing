@@ -1,0 +1,553 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+
+  assign container = section.settings.container
+  assign hero_height = section.settings.hero_height
+  assign text_color = section.settings.text_color
+  assign image = section.settings.image
+  assign image_mobile = section.settings.image_mobile
+  assign show_text_below = section.settings.show_text_below
+  assign text_alignment = section.settings.text_alignment
+  assign text_alignment_mobile = section.settings.text_alignment_mobile
+  assign image_overlay_opacity = section.settings.image_overlay_opacity
+
+  if hero_height == 'adapt'
+    assign aspect_ratio = image.aspect_ratio | default: 2.333
+    assign aspect_ratio_mobile = image.aspect_ratio | default: 1.778
+  endif
+  unless image_mobile == blank
+    assign aspect_ratio_mobile = image_mobile.aspect_ratio
+  endunless
+
+  assign placeholder_video = 'https://cdn.shopify.com/videos/c/o/v/fbb140fd46e3429eba459e1549dbbe38.mp4'
+
+  assign animation_effect = settings.animations
+  assign animated = false
+  if animation_effect != 'none'
+    assign animated = true
+    if section.settings.animations != 'inherit'
+      assign animation_effect = section.settings.animations
+    endif
+  endif
+%}
+
+{% assign content_container = 'container-fluid' %}
+{% if section.settings.content_in_container == true %}
+  {% assign content_container = 'container' %}
+{% endif %}
+
+<div
+  class="f-hero f-hero--{{ hero_height }}{{ custom_class }}"
+  id="{{ section_id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="hero-section"
+  data-hero-height="{{ hero_height }}"
+>
+  <div class="{{ container }}">
+    <div
+      class="f-hero__wrapper relative{% if show_text_below %} f-hero__wrapper--mobile-stack{% endif %}{% if image_mobile %} f-hero__wrapper--mobile-image{% endif %}{% if animated and section.settings.enable_bg_zoom_effect %} overflow-hidden f-scroll-trigger animate--zoom-fade{% endif %}"
+      {%- if hero_height == 'adapt' -%}
+        style="--aspect-ratio: {{ aspect_ratio }};--aspect-ratio-mobile: {{ aspect_ratio_mobile }}"
+      {% endif %}
+    >
+      {% liquid
+        assign data_type = 'mp4'
+        assign videoSources = section.settings.shopify_video.sources[1]
+        assign video_url = videoSources.url
+
+        if section.settings.video_type == 'shopify' and video_url == blank
+          assign video_url = placeholder_video
+        endif
+        case section.settings.video_type
+          when 'external'
+            assign video_url = section.settings.video_url
+            if section.settings.video_url.type == 'youtube'
+              assign data_type = 'youtube'
+            else
+              assign data_type = 'vimeo'
+            endif
+        endcase
+      %}
+      <div
+        class="f-video-wrapper{% if animated and section.settings.enable_bg_zoom_effect %} f-image{% endif %}"
+        {%- if hero_height == 'adapt' -%}
+          style="--aspect-ratio: {{ aspect_ratio }};--aspect-ratio-mobile: {{ aspect_ratio_mobile }}"
+        {% endif %}
+      >
+        <video-component
+          class="f-video__bg"
+          data-init="false"
+          data-type="{{ data_type }}"
+          data-video-id="{{ section.settings.video_url.id }}"
+        >
+          {% if section.settings.video_type == 'shopify' and video_url != blank %}
+            <video class="video-playsinline" src="{{ video_url }}" playsinline autoplay muted loop></video>
+          {% endif %}
+        </video-component>
+      </div>
+      {% if image_overlay_opacity > 0 %}
+        <div class="f-hero__overlay bg-overlay" style="--color-overlay-alpha: {{ image_overlay_opacity }}"></div>
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+        <div class="f-hero__content-wrapper absolute inset-full flex {{ content_container }} flex f-hero__content--{{ section.settings.content_position }}">
+          <div
+            class="f-hero__content f-text-blocks text-{{ text_alignment_mobile }} md:text-{{ text_alignment }}"
+            style="--text-color: {{ text_color }};"
+          >
+            {%- for block in section.blocks -%}
+              {% case block.type %}
+                {%- when 'title' -%}
+                  <h2
+                    class="f-hero_heading text-current {{ block.settings.heading_size }}{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}"
+										{% if animated %}
+											data-cascade
+											style="--animation-order: {{ forloop.index }};"
+										{% endif %}
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ block.settings.title }}
+                  </h2>
+                {%- when 'subtitle' -%}
+                  <p 
+										class="f-hero_subheading text-subheading text-current{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}"
+										{% if animated %}
+											data-cascade
+											style="--animation-order: {{ forloop.index }};"
+										{% endif %}
+										{{ block.shopify_attributes }}
+									>
+                    {{ block.settings.subtitle | escape }}
+                  </p>
+                {%- when 'text' -%}
+                  <div 
+										class="f-hero_text text-current rte{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}"
+										{% if animated %}
+											data-cascade
+											style="--animation-order: {{ forloop.index }};"
+										{% endif %}
+										{{ block.shopify_attributes }}
+									>
+                    {{ block.settings.text }}
+                  </div>
+                {%- when 'button' -%}
+                  {%- if block.settings.button_label != blank -%}
+                    <div 
+                      class="f-text-blocks__btn f-hero_button {% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}"
+                      {% if animated %}
+                        data-cascade
+                        style="--animation-order: {{ forloop.index }};"
+                      {% endif %}
+                    >
+                      <a
+                        {% if block.settings.button_link != blank %}
+                          href="{{ block.settings.button_link }}"
+                        {% endif %}
+                        class="btn {{ block.settings.button_style }} {{ block.settings.button_size }}"
+                        {% if block.settings.button_link == blank %}
+                          aria-disabled="true"
+                        {% endif %}
+                        {{ block.shopify_attributes }}
+                      >
+                        {{ block.settings.button_label | escape }}
+                      </a>
+                    </div>
+                  {%- endif -%}
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video hero",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.common.general.name"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container-full",
+      "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "select",
+      "id": "video_type",
+      "label": "t:sections.slideshow.blocks.slide_video.settings.video_type.label",
+      "default": "shopify",
+      "options": [
+        {
+          "value": "shopify",
+          "label": "t:sections.slideshow.blocks.slide_video.settings.video_type.option_2"
+        },
+        {
+          "value": "external",
+          "label": "t:sections.slideshow.blocks.slide_video.settings.video_type.option_1"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "id": "shopify_video",
+      "label": "t:sections.slideshow.blocks.slide_video.settings.shopify_video"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+      "label": "t:sections.slideshow.blocks.slide_video.settings.external_video"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "t:sections.hero.settings.image_settings.image_overlay",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "hero_height",
+      "label": "t:sections.hero.settings.hero_height.label",
+      "info": "t:sections.hero.settings.hero_height.info",
+      "default": "large",
+      "options": [
+        {
+          "label": "Auto",
+          "value": "adapt"
+        },
+        {
+          "label": "t:sections.hero.settings.hero_height.options.small",
+          "value": "small"
+        },
+        {
+          "label": "t:sections.hero.settings.hero_height.options.medium",
+          "value": "medium"
+        },
+        {
+          "label": "t:sections.hero.settings.hero_height.options.large",
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "content_in_container",
+      "label": "t:sections.hero.settings.text_settings.content_in_container",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "t:settings_schema.global.settings.content_position.label",
+      "default": "center",
+      "options": [
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__1.label",
+          "value": "left-top"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__2.label",
+          "value": "center-top"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__3.label",
+          "value": "right-top"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__4.label",
+          "value": "left-middle"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__5.label",
+          "value": "center"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__6.label",
+          "value": "right-middle"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__7.label",
+          "value": "left-bottom"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__8.label",
+          "value": "center-bottom"
+        },
+        {
+          "label": "t:settings_schema.global.settings.content_position.option__9.label",
+          "value": "right-bottom"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:settings_schema.global.settings.content_alignment.desktop.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:settings_schema.global.settings.content_alignment.option__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:settings_schema.global.settings.content_alignment.option__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:settings_schema.global.settings.content_alignment.option__3.label"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:settings_schema.global.settings.text_color_options.label",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.mobile.header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_below",
+      "default": false,
+      "label": "t:sections.hero.settings.show_text_below.label"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_mobile",
+      "label": "t:settings_schema.global.settings.content_alignment.mobile.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:settings_schema.global.settings.content_alignment.option__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:settings_schema.global.settings.content_alignment.option__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:settings_schema.global.settings.content_alignment.option__3.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.custom_attr.header"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "t:sections.common.custom_attr.custom_id"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.custom_attr.custom_class"
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.animations.header.content"
+    },
+    {
+      "type": "select",
+      "id": "animations",
+      "label": "t:settings_schema.animations.header__2.content",
+      "default": "inherit",
+      "options": [
+        { "value": "inherit", "label": "t:settings_schema.animations.settings.animation.options.option_6" },
+        { "value": "fade-in", "label": "t:settings_schema.animations.settings.animation.options.option_2" },
+        { "value": "fade-in-up", "label": "t:settings_schema.animations.settings.animation.options.option_3" },
+        { "value": "fade-in-left", "label": "t:settings_schema.animations.settings.animation.options.option_4" },
+        { "value": "fade-in-right", "label": "t:settings_schema.animations.settings.animation.options.option_5" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_bg_zoom_effect",
+      "label": "t:settings_schema.animations.settings.animation_bg.label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:sections.hero.blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.hero.blocks.heading.settings.heading.label",
+          "default": "Video with text overlay"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "t:sections.common.heading-size.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h3",
+              "label": "t:sections.common.heading-size.options.option__0"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.common.heading-size.options.option__1"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.common.heading-size.options.option__2"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.common.heading-size.options.option__3"
+            },
+            {
+              "value": "h-xl",
+              "label": "t:sections.common.heading-size.options.option__4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "subtitle",
+      "name": "t:sections.hero.blocks.subheading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "t:sections.hero.blocks.subheading.settings.heading.label",
+          "default": "Subheading text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.hero.blocks.text.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.hero.blocks.text.settings.text.label",
+          "default": "<p>Use overlay text to give your customers insight into your brand.<br> Select imagery and text that relates to your style and story.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.image-with-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.common.button.button_label.label",
+          "default": "Button label",
+          "info": "t:sections.common.button.button_label.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.image-with-text.blocks.button.settings.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:sections.common.button.button_style.label",
+          "options": [
+            {
+              "value": "btn--primary",
+              "label": "t:sections.common.button.button_style.options.option__1"
+            },
+            {
+              "value": "btn--secondary",
+              "label": "t:sections.common.button.button_style.options.option__2"
+            },
+            {
+              "value": "btn--white",
+              "label": "t:sections.common.button.button_style.options.option__3"
+            },
+            {
+              "value": "btn--underline",
+              "label": "t:sections.common.button.button_style.options.option__4"
+            }
+          ],
+          "default": "btn--primary"
+        },
+        {
+          "type": "select",
+          "id": "button_size",
+          "label": "t:sections.common.button.button_size.label",
+          "options": [
+            {
+              "value": "",
+              "label": "t:sections.common.button.button_size.options.option__1"
+            },
+            {
+              "value": "btn--small",
+              "label": "t:sections.common.button.button_size.options.option__2"
+            },
+            {
+              "value": "btn--medium",
+              "label": "t:sections.common.button.button_size.options.option__3"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video hero",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

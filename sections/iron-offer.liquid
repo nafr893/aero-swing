@@ -1,0 +1,633 @@
+<div id="iron-offer-overlay">
+ <div id="iron-offer-popup">
+ <button id="iron-offer-close">&times;</button>
+ 
+ <h2>Special Offer!</h2>
+ <p>
+ Add a <strong>44" Iron Shaft</strong> to your order for only 
+ <strong>$44.95</strong> — limited stock available.
+ </p>
+ 
+ <div id="iron-offer-product">
+ 
+ <div id="iron-offer-image-wrap">
+ <img
+ id="iron-offer-field"
+ src="https://cdn.shopify.com/s/files/1/0568/7679/3942/files/Screenshot2024-01-18at1.34.07PM.png?v=1744502534"
+ alt='44" Iron Shaft'
+ width="200"
+ />
+ 
+ </div>
+ 
+ 
+ 
+ <div id="iron-offer-options">
+ <div class="iron-offer-field">
+ <label for="iron-offer-color">Color</label>
+ <select id="iron-offer-color"></select>
+ </div>
+ 
+ <div class="iron-offer-field">
+ <label>Quantity</label>
+ <div id="iron-offer-qty-wrap">
+ <button type="button" id="iron-offer-qty-minus">−</button>
+ <input id="iron-offer-qty" type="number" min="1" value="1" />
+ <button type="button" id="iron-offer-qty-plus">+</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <button id="iron-offer-add" class="iron-btn">
+ ADD 44" IRON SHAFT → $44.95
+ </button>
+ </div>
+ </div>
+ 
+ <style>
+ 
+ div.iron-offer-field {
+ display: inline;
+ }
+ /* Dimmed background */
+ #iron-offer-overlay {
+ position: fixed;
+ inset: 0;
+ display: none; /* toggled by JS */
+ align-items: center;
+ justify-content: center;
+ padding: 16px;
+ z-index: 999999;
+ }
+ 
+ /* Popup card */
+ #iron-offer-popup {
+ position: relative;
+ top:22%;
+ left:0%;
+ width: 100%;
+ max-width: 500px;
+ padding: 28px 30px 24px;
+ border-radius: 26px;
+ box-shadow: 0 20px 50px rgba(15, 23, 42, 0.45);
+ background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 35%, #d1d5db 100%);
+ overflow: hidden;
+ text-align: left;
+ animation: iron-pop-in 0.25s ease-out;
+ font-family: inherit;
+ font-weight:700;
+ }
+ 
+ /* subtle overlay block, like example */
+ #iron-offer-popup::before {
+ content: "";
+ position: absolute;
+ inset: 0;
+ background: radial-gradient(circle at top right, rgba(255,255,255,0.35), transparent 55%);
+ opacity: 0.75;
+ pointer-events: none;
+ }
+ 
+ /* inner layout so text + controls sit above gradient overlay */
+ #iron-offer-popup > * {
+ position: relative;
+ z-index: 1;
+ }
+ 
+ /* Close button pill */
+ #iron-offer-close {
+ position: absolute;
+ top: 16px;
+ right: 18px;
+ width: 32px;
+ height: 32px;
+ border-radius: 999px;
+ border: 1px solid rgba(148, 163, 184, 0.5);
+ background: #020617;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 30px;
+ cursor: pointer;
+ color: #e5e7eb;
+ transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+ }
+ #iron-offer-close:hover {
+ background: #000;
+ transform: translateY(-1px);
+ box-shadow: 0 6px 16px rgba(15,23,42,0.45);
+ }
+ 
+ /* Heading + copy */
+ #iron-offer-popup h2 {
+ margin: 4px 0 8px;
+ font-size: 2.5rem;
+ color: #111827;
+ letter-spacing: 0.02em;
+ }
+ 
+ #iron-offer-popup p {
+ margin: 0 0 16px;
+ font-size: 1.5rem;
+ line-height: 1.6;
+ color: #111827;
+ }
+ 
+ /* Product area */
+ #iron-offer-product {
+ margin-top: 10px;
+ text-align: center;
+ }
+ 
+ #iron-offer-image-wrap {
+ margin: 0 auto 18px;
+ }
+ 
+ #iron-offer-image {
+ max-width: 110px;
+ max-height: 110px;
+ border-radius: 16px;
+ object-fit: contain;
+ box-shadow: 0 8px 18px rgba(15,23,42,0.25);
+ }
+ 
+ /* Options row (Color + Quantity) */
+ #iron-offer-options {
+ display: flex;
+ gap: 24px;
+ justify-content: center;
+ align-items: flex-end;
+ flex-wrap: wrap;
+ margin-top: 4px;
+ }
+ 
+ .iron-offer-field {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ font-size: 0.9rem;
+ min-width: 170px;
+ }
+ 
+ .iron-offer-field label {
+ margin-bottom: 6px;
+ font-weight: 700;
+ text-transform: uppercase;
+ font-size: 1.2rem;
+ letter-spacing: 0.06em;
+ color: #4b5563;
+ }
+ 
+ /* Base input style */
+ #iron-offer-color,
+ #iron-offer-qty {
+ padding: 10px 10px;
+ border: 1px solid #cbd5e1;
+ min-width: 72px;
+ background: rgba(255,255,255,0.9);
+ color: #111827;
+ font-size: 1rem;
+ outline: none;
+ transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, transform 0.12s ease;
+ }
+ 
+ #iron-offer-color:focus,
+ #iron-offer-qty:focus {
+ border-color: #111827;
+ box-shadow: 0 0 0 1px #111827;
+ background: #ffffff;
+ transform: translateY(-1px);
+ }
+ 
+ /* Quantity pill with + / - buttons */
+ #iron-offer-qty-wrap {
+ height: 35px;
+ display: inline-flex;
+ align-items: center;
+ border: 1px solid #cbd5e1;
+ overflow: hidden;
+ background: rgba(255,255,255,0.9);
+ }
+ 
+ #iron-offer-qty-minus,
+ #iron-offer-qty-plus {
+ background: transparent;
+ border: none;
+ padding: 8px 14px;
+ cursor: pointer;
+ font-size: 1rem;
+ color: #111827;
+ transition: background 0.15s ease;
+ }
+ #iron-offer-qty-minus:hover,
+ #iron-offer-qty-plus:hover {
+ background: #e5e7eb;
+ }
+ 
+ #iron-offer-qty {
+ border: none;
+ width: 52px;
+ text-align: center;
+ background: transparent;
+ }
+ 
+ /* Primary CTA button (black pill) */
+ .iron-btn {
+ margin-top: 24px;
+ width: 100%;
+ max-width: 320px;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ background: #020617;
+ color: #f9fafb;
+ padding: 13px 18px;
+ border: none;
+ border-radius: 999px;
+ cursor: pointer;
+ font-size: 1.5rem;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ box-shadow: 0 14px 30px rgba(15,23,42,0.55);
+ transition: background 0.2s ease, transform 0.16s ease, box-shadow 0.2s ease;
+ }
+ .iron-btn:hover {
+ background: #000000;
+ transform: translateY(-2px);
+ box-shadow: 0 18px 40px rgba(15,23,42,0.7);
+ }
+ .iron-btn:disabled {
+ opacity: 0.6;
+ cursor: default;
+ transform: none;
+ box-shadow: none;
+ }
+ 
+ /* Pop-in animation */
+ @keyframes iron-pop-in {
+ from {
+ opacity: 0;
+ transform: translateY(12px) scale(0.96);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0) scale(1);
+ }
+ }
+ 
+ /* Mobile version (max-height 300px) */
+ @media (max-width: 600px) {
+ #iron-offer-popup {
+ top:30%;
+ left:0%;
+ max-height: 300px;
+ overflow-y: auto;
+ padding: 20px 18px;
+ }
+ 
+ /* Improve scroll feel */
+ #iron-offer-popup::-webkit-scrollbar {
+ width: 6px;
+ height: 10px;
+ }
+ #iron-offer-popup::-webkit-scrollbar-thumb {
+ background: rgba(0, 0, 0, 0.25);
+ border-radius: 10px;
+ }
+ #iron-offer-popup::-webkit-scrollbar-track {
+ background: transparent;
+ }
+ #iron-offer-close {
+ z-index: 9999;
+ }
+ 
+ }
+ 
+ </style>
+ 
+ 
+ 
+ 
+ {% comment %} <script>
+ document.addEventListener("DOMContentLoaded", () => {
+ 
+ const ironBaseVariantId = 40574378115158; // 44" Iron Shaft base variant
+ const ironProductHandle = "aero-shaft-swing-speed-trainer-stiff-shaft"; // <-- keep the handle that works on your store
+ 
+ // Qualifying products: 48" shafts
+ const qualifyingVariants = [
+ 40574632656982, // Aero Whip 48"
+ 40574377951318, // Aero Shaft 48"
+ ];
+ 
+ let popupDismissed = false;
+ let productLoaded = false;
+ let selectedVariantId = ironBaseVariantId;
+ let offerVariants = [];
+ 
+ const overlay = document.getElementById("iron-offer-overlay");
+ const closeBtn = document.getElementById("iron-offer-close");
+ const addBtn = document.getElementById("iron-offer-add");
+ const imgEl = document.getElementById("iron-offer-image");
+ const colorSelect = document.getElementById("iron-offer-color");
+ const qtyInput = document.getElementById("iron-offer-qty");
+ const qtyMinus = document.getElementById("iron-offer-qty-minus");
+ const qtyPlus = document.getElementById("iron-offer-qty-plus");
+ 
+ // --- quantity buttons ---
+ qtyMinus.addEventListener("click", () => {
+ let val = parseInt(qtyInput.value, 10) || 1;
+ if (val > 1) val--;
+ qtyInput.value = val;
+ });
+ 
+ qtyPlus.addEventListener("click", () => {
+ let val = parseInt(qtyInput.value, 10) || 1;
+ val++;
+ qtyInput.value = val;
+ });
+ 
+ // Close popup
+ closeBtn.addEventListener("click", () => {
+ overlay.style.display = "none";
+ popupDismissed = true;
+ });
+ 
+ // --- Load product once: populate COLORS + image ---
+ function loadIronProduct() {
+ if (productLoaded) return;
+ productLoaded = true;
+ 
+ fetch(/products/${ironProductHandle}.js)
+ .then(res => res.json())
+ .then(product => {
+ console.log("Product options:", product.options);
+ 
+ const baseVariant = product.variants.find(v => v.id === ironBaseVariantId);
+ if (!baseVariant) {
+ console.warn("Base variant not found in product JSON.");
+ return;
+ }
+ 
+ // Find which option is Colors (handles "Color", "Colors", "Shaft Colors", etc.)
+ let colorIndex = product.options.findIndex(name => /colors?/i.test(name));
+ if (colorIndex === -1) {
+ // fallback if no option contains "color" or "colors"
+ console.warn("No Colors option found, defaulting to option2.");
+ colorIndex = 1; // option2 (0-based index 1)
+ }
+ const colorOptionPos = colorIndex + 1; // 1,2,3 → option1/2/3
+ 
+ // Filter variants so all NON-color options match the base (only 44" colors)
+ offerVariants = product.variants.filter(v => {
+ for (let pos = 1; pos <= 3; pos++) {
+ if (pos === colorOptionPos) continue; // skip Colors
+ const baseOpt = baseVariant[option${pos}];
+ const curOpt = v[option${pos}];
+ if (baseOpt && curOpt && baseOpt !== curOpt) {
+ return false;
+ }
+ }
+ return true;
+ });
+ 
+ if (!offerVariants.length) {
+ // fallback: at least show all variants if filtering somehow fails
+ offerVariants = product.variants;
+ }
+ 
+ // Populate dropdown with COLORS only
+ colorSelect.innerHTML = "";
+ offerVariants.forEach(v => {
+ const colorLabel = v[option${colorOptionPos}] || v.title;
+ const opt = document.createElement("option");
+ opt.textContent = colorLabel;
+ opt.value = v.id;
+ 
+ if (v.id === ironBaseVariantId) {
+ opt.selected = true;
+ selectedVariantId = v.id;
+ if (v.featured_image && v.featured_image.src) {
+ imgEl.src = v.featured_image.src;
+ }
+ }
+ 
+ colorSelect.appendChild(opt);
+ });
+ 
+ // Fallback image if base variant didn’t set one
+ if (!imgEl.src && product.images && product.images.length) {
+ imgEl.src = product.images[0];
+ }
+ 
+ // When Colors dropdown changes, update selected variant + image
+ colorSelect.addEventListener("change", () => {
+ const vid = Number(colorSelect.value);
+ selectedVariantId = vid;
+ const v = offerVariants.find(variant => variant.id === vid);
+ if (v && v.featured_image && v.featured_image.src) {
+ imgEl.src = v.featured_image.src;
+ }
+ });
+ })
+ .catch(err => {
+ console.error("Error loading Iron Shaft product:", err);
+ });
+ }
+ 
+ // Add selected color + qty, then redirect to cart
+ addBtn.addEventListener("click", () => {
+ const qty = Math.max(1, Number(qtyInput.value) || 1);
+ addBtn.disabled = true;
+ 
+ fetch("/cart/add.js", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({
+ items: [
+ { id: selectedVariantId, quantity: qty }
+ ]
+ })
+ })
+ .then(res => res.json())
+ .then(cart => {
+ document.dispatchEvent(new CustomEvent("cart:updated", { detail: cart }));
+ overlay.style.display = "none";
+ popupDismissed = true;
+ window.location.href = "/cart";
+ })
+ .catch(err => {
+ console.error("Error adding Iron Shaft:", err);
+ addBtn.disabled = false;
+ });
+ });
+ 
+ // Show popup when qualifying 48" shaft added
+ document.body.addEventListener("submit", (e) => {
+ if (!e.target.matches('form[action^="/cart/add"]')) return;
+ if (popupDismissed) return;
+ 
+ const formData = new FormData(e.target);
+ const variantId = Number(formData.get("id"));
+ 
+ if (qualifyingVariants.includes(variantId)) {
+ setTimeout(() => {
+ overlay.style.display = "flex";
+ loadIronProduct(); // load once, when popup first opens
+ }, 600);
+ }
+ });
+ });
+ </script>
+ 
+ 
+ {% endcomment %}
+ <script>
+ document.addEventListener("DOMContentLoaded", () => {
+ 
+ const ironBaseVariantId = 40574378115158;
+ const ironProductHandle = "aero-shaft-swing-speed-trainer-stiff-shaft";
+ 
+ const qualifyingVariants = [
+ 40574632656982,
+ 40574377951318
+ ];
+ 
+ let productLoaded = false;
+ let selectedVariantId = ironBaseVariantId;
+ let offerVariants = [];
+ 
+ const overlay = document.getElementById("iron-offer-overlay");
+ const closeBtn = document.getElementById("iron-offer-close");
+ const addBtn = document.getElementById("iron-offer-add");
+ const imgEl = document.getElementById("iron-offer-image");
+ const colorSelect = document.getElementById("iron-offer-color");
+ const qtyInput = document.getElementById("iron-offer-qty");
+ const qtyMinus = document.getElementById("iron-offer-qty-minus");
+ const qtyPlus = document.getElementById("iron-offer-qty-plus");
+ 
+ /* ---------------------------------------- */
+ /* Quantity buttons */
+ /* ---------------------------------------- */
+ qtyMinus.addEventListener("click", () => {
+ qtyInput.value = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
+ });
+ 
+ qtyPlus.addEventListener("click", () => {
+ qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1;
+ });
+ 
+ /* ---------------------------------------- */
+ /* Close popup */
+ /* ---------------------------------------- */
+ closeBtn.addEventListener("click", () => {
+ overlay.style.display = "none";
+ });
+ 
+ /* ---------------------------------------- */
+ /* Load iron product */
+ /* ---------------------------------------- */
+ function loadIronProduct() {
+ if (productLoaded) return;
+ productLoaded = true;
+ 
+ fetch(/products/${ironProductHandle}.js)
+ .then(res => res.json())
+ .then(product => {
+ 
+ const baseVariant = product.variants.find(v => v.id === ironBaseVariantId);
+ if (!baseVariant) return;
+ 
+ let colorIdx = product.options.findIndex(o => /colors?/i.test(o));
+ if (colorIdx === -1) colorIdx = 1;
+ const colorPos = colorIdx + 1;
+ 
+ offerVariants = product.variants.filter(v => {
+ for (let pos = 1; pos <= 3; pos++) {
+ if (pos === colorPos) continue;
+ if (baseVariant[option${pos}] !== v[option${pos}]) return false;
+ }
+ return true;
+ });
+ 
+ if (!offerVariants.length) offerVariants = product.variants;
+ 
+ 
+ 
+ colorSelect.innerHTML = "";
+ offerVariants.forEach(v => {
+ const opt = document.createElement("option");
+ opt.value = v.id;
+ opt.textContent = v[option${colorPos}] || v.title;
+ 
+ if (v.id === ironBaseVariantId) {
+ opt.selected = true;
+ selectedVariantId = v.id;
+ if (v.featured_image?.src) imgEl.src = v.featured_image.src;
+ }
+ 
+ colorSelect.appendChild(opt);
+ });
+ 
+ if (!imgEl.src && product.images?.length) {
+ imgEl.src = product.images[0];
+ }
+ 
+ colorSelect.addEventListener("change", () => {
+ selectedVariantId = Number(colorSelect.value);
+ const variant = offerVariants.find(v => v.id === selectedVariantId);
+ if (variant?.featured_image?.src) imgEl.src = variant.featured_image.src;
+ });
+ 
+ });
+ }
+ 
+ 
+ /* ---------------------------------------- */
+ /* Add iron shaft to cart */
+ /* ---------------------------------------- */
+ addBtn.addEventListener("click", () => {
+ const qty = Math.max(1, Number(qtyInput.value) || 1);
+ addBtn.disabled = true;
+ 
+ fetch("/cart/add.js", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({
+ items: [{
+ id: selectedVariantId,
+ quantity: qty
+ }]
+ })
+ })
+ .then(res => res.json())
+ .then(cart => {
+ overlay.style.display = "none";
+ window.location.href = "/cart";
+ })
+ .catch(() => {
+ addBtn.disabled = false;
+ });
+ });
+ 
+ /* ---------------------------------------- */
+ /* Show popup EVERY TIME qualifying product added */
+ /* ---------------------------------------- */
+ document.body.addEventListener("submit", (e) => {
+ if (!e.target.matches('form[action^="/cart/add"]')) return;
+ 
+ const formData = new FormData(e.target);
+ const variantId = Number(formData.get("id"));
+ 
+ if (qualifyingVariants.includes(variantId)) {
+ setTimeout(() => {
+ overlay.style.display = "flex";
+ loadIronProduct();
+ }, 600);
+ }
+ });
+ 
+ });
+ </script>

@@ -1,0 +1,266 @@
+.f-cart-drawer .f-drawer__header:after {
+  content: "";
+  right: 2rem;
+  left: 2rem;
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  display: block;
+  background-color: var(--color-border);
+}
+.f-cart-drawer__inner {
+  padding-right: 2px;
+}
+.f-cart-drawer .f-drawer__scroller {
+  padding: 2rem;
+}
+.f-cart-drawer .f-drawer__footer,
+.f-cart-drawer .f-drawer__header {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.f-cart-drawer__item {
+  padding: 1.5rem 0;
+}
+.f-cart-drawer__product {
+  display: flex;
+  align-items: flex-start;
+}
+.f-cart-drawer__product-image {
+  width: 80px;
+  flex: 0 0 auto;
+}
+.f-cart-drawer__product-info {
+  flex: 1;
+  padding-left: 1rem;
+}
+.f-cart-drawer__product-header {
+  margin-bottom: 6px;
+}
+.f-cart-drawer__product-header + .f-cart-drawer__product-prices {
+  margin-bottom: 5px;
+  margin-top: -2px;
+}
+.f-cart-drawer__product-name {
+  margin: 0;
+  padding-right: 1.5rem;
+}
+.f-cart-drawer__product-name:hover {
+  color: var(--color-link-hover);
+}
+.f-cart-drawer__product-tuning {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.f-cart-drawer__product .f-quantity {
+  height: 36px;
+  width: 110px;
+}
+.f-cart-drawer__remove {
+  font-size: 14px;
+  color: rgba(var(--color-foreground), 0.75) !important;
+  height: auto !important;
+  margin-left: 12px;
+}
+.f-cart-drawer__remove:hover {
+  color: var(--color-link-hover) !important;
+}
+.f-cart-drawer__notice {
+  margin-bottom: 10px;
+}
+.f-cart-drawer__totals {
+  padding: 10px 0;
+}
+.f-cart-drawer__totals > * {
+  margin: 0;
+}
+.f-cart-drawer .collapsible__content-inner {
+  padding: 2rem 0;
+}
+.f-cart-drawer__shipping-message p:first-child {
+  font-weight: bold;
+}
+.f-cart-drawer__shipping-buttons {
+  margin-top: 1.6rem;
+}
+.f-cart-drawer__shipping-buttons .btn + .btn {
+  margin-top: 10px;
+}
+.f-cart-drawer__empty-text, .f-cart-drawer__no-cookies-text {
+  display: none;
+}
+.f-cart-drawer.is-empty .f-cart-drawer__items,
+.f-cart-drawer.is-empty .f-drawer__footer,
+.f-cart-drawer.is-empty .cart-link__count {
+  display: none;
+}
+.f-cart-drawer.is-empty .f-cart-drawer__empty-text {
+  display: block;
+}
+.f-cart-drawer.cookies-disabled .f-cart-drawer__no-cookie-text {
+  display: block;
+}
+.f-cart-drawer__item .f-notification {
+  margin-top: 1rem;
+}
+.f-cart-drawer .f-drawer__footer {
+  border-top: 1px solid var(--color-border);
+  padding-bottom: 2.4rem;
+}
+.f-cart-drawer .f-drawer__footer .collapsible__button {
+  font-weight: var(--font-btn-weight);
+  font-family: var(--font-btn-family);
+  font-size: calc(var(--font-body-size) * 1px);
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+}
+.f-cart-drawer .f-drawer__footer .collapsible__content-inner {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.f-cart-drawer .f-drawer__footer .f-drawer__gift-wrapping + .block {
+  border-top: 1px solid var(--color-border);
+}
+.f-cart-drawer__block-text, .f-cart-drawer__block-image {
+  margin: 1.6rem 0;
+}
+.f-cart-drawer__discounts ul {
+  padding-top: 2rem;
+}
+.f-cart-drawer__buttons .btn + .btn {
+  margin-top: 10px;
+}
+.f-cart-drawer__buttons .agree-terms {
+  width: 100%;
+  padding-bottom: 12px;
+}
+.f-cart-drawer__buttons .f-checkbox {
+  margin-top: 0;
+}
+.f-cart-drawer__buttons + .f-cart-drawer__block-subtotal {
+  margin-top: 6px;
+}
+.f-cart-drawer__block-subtotal + .f-cart-drawer__buttons, .f-cart-drawer__block-subtotal ~ .block {
+  margin-top: 16px;
+}
+.f-cart-drawer .block + .f-cart-drawer__block-subtotal,
+.f-cart-drawer .block + .f-cart-drawer__buttons {
+  margin-top: 16px;
+}
+.f-cart-drawer .f-incart {
+  margin-top: 15px;
+}
+.f-cart-drawer__subtotal-value {
+  font-weight: bold;
+}
+
+.f-cart-drawer__product-price ~ .f-cart-drawer__product-price {
+  margin-left: 5px;
+}
+
+.f-cart-recommendations {
+  display: block;
+  margin-right: -2.4rem;
+}
+.f-cart-recommendations__wrapper {
+  margin-top: 2.4rem;
+  padding-bottom: 0;
+}
+.f-cart-recommendations__items {
+  flex-flow: row nowrap;
+  overflow: auto;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  padding-right: 2.4rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.f-cart-recommendations__items::-webkit-scrollbar {
+  height: 3px;
+  border-radius: 2px;
+}
+.f-cart-recommendations__items::-webkit-scrollbar-thumb {
+  background: rgba(var(--color-foreground), 0.7);
+}
+.f-cart-recommendations__item {
+  flex: 0 0 66.67%;
+  display: flex;
+  column-gap: 1rem;
+  scroll-snap-align: start;
+  padding: 1rem;
+  position: relative;
+}
+.f-cart-recommendations__items-only-product .f-cart-recommendations__item {
+  flex: 0 0 auto;
+}
+.f-cart-recommendations__item:last-child {
+  margin-bottom: 0;
+}
+.f-cart-recommendations__item-image {
+  width: 7rem;
+  flex: 0 0 auto;
+}
+.f-cart-recommendations__item-content {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+}
+.f-cart-recommendations__item-content .f-price {
+  flex: 1;
+  align-items: flex-start;
+}
+.f-cart-recommendations__item--action {
+  text-align: right;
+}
+.f-cart-recommendations__item--action .btn {
+  padding: 0;
+  line-height: 1;
+  height: auto;
+  font-family: var(--font-body-family);
+  font-weight: 500;
+}
+.f-cart-recommendations__item--action .btn:hover {
+  box-shadow: none !important;
+}
+.f-cart-recommendations__item-title {
+  line-height: 1.5;
+}
+.f-cart-recommendations__item .f-price__sale,
+.f-cart-recommendations__item .f-price__regular {
+  margin: 0 0 0.8rem;
+}
+.f-cart-recommendations__item .f-price--on-sale .f-price__sale {
+  display: inline-block;
+}
+.f-cart-recommendations__item .f-price--on-sale .f-price__sale > .f-price-item--sale {
+  margin-right: 0.5rem;
+}
+.f-cart-recommendations__item .f-price__unit-wrapper {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.foxkit-cart-countdown-hook,
+.foxkit-cart-goal-hook {
+  padding: 0 3rem;
+}
+.foxkit-cart-countdown-hook:empty,
+.foxkit-cart-goal-hook:empty {
+  display: none;
+}
+
+.foxkit-cart-goal-hook foxkit-cart-goal {
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+
+.foxkit-cartgoal__title {
+  font-size: 1.6rem;
+}
+
+.f-incart .f-incart__title {
+  font-size: 16px;
+}

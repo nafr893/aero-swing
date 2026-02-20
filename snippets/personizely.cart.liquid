@@ -1,0 +1,8 @@
+{%- if cart -%}{
+    {%- for item in cart.items -%}
+        "{{- item.product_id -}}": [
+        {%- for c in item.product.collections -%}
+            {{- c.id -}}{%- unless forloop.last -%}, {%- endunless -%}
+        {%- endfor -%}]{%- unless forloop.last -%}, {%- endunless -%}
+    {%- endfor -%}}
+{%- endif -%}

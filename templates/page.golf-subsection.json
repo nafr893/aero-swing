@@ -1,0 +1,898 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_MAfEwC": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_E6G3N3": {
+          "type": "slide",
+          "settings": {
+            "background": "shopify://shop_images/Artboard_3_d65de7ad-c371-466c-83fe-9cce84ca546a.jpg",
+            "mb_background": "shopify://shop_images/Artboard_3_d65de7ad-c371-466c-83fe-9cce84ca546a.jpg",
+            "image_overlay_opacity": 0,
+            "content_position": "center",
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "title": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "",
+            "desc_size": "text-desc-base",
+            "button_text_1": "",
+            "button_link_1": "shopify://products/aero-whip-tempo-and-speed-trainer-flexible-shaft",
+            "button_style_1": "btn--primary",
+            "button_size_1": "",
+            "make_button_full_width": true,
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_style_2": "btn--primary",
+            "button_size_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_E6G3N3"
+      ],
+      "settings": {
+        "container": "container-full",
+        "slideshow_height": "adapt",
+        "show_dots": true,
+        "show_nav": false,
+        "autoplay": false,
+        "autorotate_speed": 3,
+        "pagination_background": "light",
+        "controls_position": "center",
+        "pagination_style": "dots",
+        "show_text_below": false,
+        "text_alignment_mobile": "center",
+        "accessibility_info": "Slideshow about our brand",
+        "custom_id": "",
+        "custom_class": "",
+        "enable_bg_zoom_effect": false
+      }
+    },
+    "custom_html_6HpU4i": {
+      "type": "custom-html",
+      "custom_css": [
+        "h1 {text-align: center; font-weight: 500;}"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "custom_html": "<h1>Improve Your Golf Swing Speed and Power with Aero-Swing</h1>",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "video_reviews_mfzFmn": {
+      "type": "video-reviews",
+      "blocks": {
+        "vidoes_fAhqP6": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Snapinsta.app_video_AQNnW0bhzhlJ1qe3WrDtryFVZaM8YrgawZ_KfGkE0OCK-yKIJu6cRlHQahPn3vYBo9xzVLvochZJgNIBjYiTrJoG.mp4",
+            "title": "Adjustable Training",
+            "video_review": "5",
+            "description": "\"I love having the ability to load and unload the Pineapples throughout my training. I am able to hit another gear with my speed and the results speak for itself.\""
+          }
+        },
+        "vidoes_6bYTNa": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Snapinsta.app_video_254EDB630EDF0572CCC77B12A6B4E0A8_video_dashinit.mp4",
+            "title": "Instant Speed",
+            "video_review": "5",
+            "description": "\"I instantly gain clubhead and ball speed every time I train with the Aero-Shaft. Unmatched speed & power, no questions asked.\""
+          }
+        },
+        "vidoes_UkXpGJ": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Snapinsta.app_video_AQMKQ_rGkjycQdhWqVi5WQHAEm3cbJkJUh1YsUFfCM4WnCeBVpG5ydv9wuKmabRT2QFAzMQSeqCsIaKfDw2Wg2qV.mp4",
+            "title": "Activate & Dominate",
+            "video_review": "5",
+            "description": "\"This has become a staple of my routine, whether I'm playing a round or getting ready to compete, Aero-Swing has me ready to swing fast and bring the boom.\""
+          }
+        }
+      },
+      "block_order": [
+        "vidoes_fAhqP6",
+        "vidoes_6bYTNa",
+        "vidoes_UkXpGJ"
+      ],
+      "settings": {
+        "padding_top": 44,
+        "padding_bottom": 0,
+        "container": "container"
+      }
+    },
+    "testimonials_QyJR8X": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_4j3cpk": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>I wish I can give 6 stars. If you want to hit the golf ball long, then Aero Swing is your ticket to more distance on your drive.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_4yUQbF": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>I have increased my swing speed by 12 mph and improved my timing and swing path using the aero whip.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_V6jWcT": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>I've been using the Aero Swing Club for a few weeks now, and I can confidently say it’s one of the best training tools I’ve added to my golf routine. </p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_jV6CQ9": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>What really impressed me is how it helps you build speed the right way. It’s not just about swinging faster—it teaches you to stay connected and in sync through your motion. My tempo feels smoother, my swing speed has increased, and I’m more aware of my body mechanics than ever before.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_kGagwH": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>What differentiates this training aid from the other swingspeed trainers out there is the added feel delivered by the air resistance. Other training aids just feel like you’re swinging a stick with a weight on the end.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_XHCVqL": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>Aero Swing has been a big part of my training. I have used it since the beginning and haven’t used another speed trainer since! Definitely the best product if you’re looking to gain speed and distance in your golf game!</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_GVyDgC": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>From workouts to staying warm around the course. The aero-swing products help keep your muscles active to help with length in the swing and reduce chance of injury.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_4j3cpk",
+        "testimonial_4yUQbF",
+        "testimonial_V6jWcT",
+        "testimonial_jV6CQ9",
+        "testimonial_kGagwH",
+        "testimonial_XHCVqL",
+        "testimonial_GVyDgC"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "Trusted By Golf Professionals Everywhere",
+        "heading_size": "h3",
+        "description": "",
+        "design": "fancy",
+        "columns": 4,
+        "column_gap": "medium",
+        "enable_slider": true,
+        "show_dots": false,
+        "show_nav": true,
+        "autoplay": true,
+        "autoplay_timeout": 4,
+        "padding_top": 68,
+        "padding_bottom": 68,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "featured_product_dHmJAF": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor_949VGr": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title_rNJMFU": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "price_hBYExg": {
+          "type": "price",
+          "settings": {
+            "show_sale_badge": true,
+            "sale_badge_type": "text"
+          }
+        },
+        "variant_picker_t9q4JG": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "variant_picker_show_selected": true
+          }
+        },
+        "quantity_selector_pDqF4W": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_BkHCW4": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_atc_button": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "description_iYBJ88": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor_949VGr",
+        "title_rNJMFU",
+        "price_hBYExg",
+        "variant_picker_t9q4JG",
+        "quantity_selector_pDqF4W",
+        "buy_buttons_BkHCW4",
+        "description_iYBJ88"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "product": "aero-whip-tempo-and-speed-trainer-flexible-shaft",
+        "media_position": "left",
+        "media_size": "medium",
+        "mobile_thumbnails": "hide",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "custom_content_knpiji": {
+      "type": "custom-content",
+      "blocks": {
+        "image_RaDLYV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/resistance_distance.jpg",
+            "link": "",
+            "width": "50%",
+            "alignment": "center",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        },
+        "text_WwgY96": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "Aero-Swing For Golf",
+            "heading_size": "h0",
+            "subheading": "",
+            "text": "<p></p><ul><li><strong>With only one month of training, golfers have increased their swing speed by up to 25mph by training with Aero-Swing.</strong></li><li><strong>Aero-Swing is not a weighted speed trainer; it is a variable air resistance training aid unlike anything else on the market.</strong></li></ul><p></p><p><strong>Simply start training using a combination of Pineapples that you can easily take on or off, and improve your golf game today!</strong></p>",
+            "alignment": "center",
+            "align_text": "left",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "width": "50%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        },
+        "video_Ja4qUa": {
+          "type": "video",
+          "settings": {
+            "video_type": "shopify",
+            "shopify_video": "shopify://files/videos/Aero-swing Website video (16x9).mp4",
+            "video_link": "",
+            "video_ratio": "1:1",
+            "image": "shopify://shop_images/Video_Cover_Image_4.jpg",
+            "alignment": "start",
+            "width": "50%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "image_RaDLYV",
+        "text_WwgY96",
+        "video_Ja4qUa"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "column_gap": "medium",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "video_rBDTiW": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "video_type": "external",
+        "shopify_video": "shopify://files/videos/Aero-swing Website video (16x9).mp4",
+        "video_url": "",
+        "cover_image": "shopify://shop_images/Group_44_2.jpg",
+        "video_ratio": "adapt",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "handpicked_products_WDdPwc": {
+      "type": "handpicked-products",
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "Shop Swing Trainers",
+        "heading_size": "h3",
+        "description": "",
+        "product_list": [
+          "aero-whip-aero-shaft-bundle",
+          "aero-whip-tempo-and-speed-trainer-flexible-shaft",
+          "aero-shaft-swing-speed-trainer-stiff-shaft",
+          "aero-shaft-shaft-only"
+        ],
+        "limit": 4,
+        "columns": 4,
+        "column_gap": "medium",
+        "pcard_image_ratio": "",
+        "show_vendor": false,
+        "enable_slider": false,
+        "show_nav": false,
+        "show_dots": false,
+        "button_label": "",
+        "button_url": "",
+        "button_style": "btn--primary",
+        "enable_swipe_mobile": false,
+        "padding_top": 40,
+        "padding_bottom": 64,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "collection_tabs_niNBMW": {
+      "type": "collection-tabs",
+      "blocks": {
+        "collection_YX6Lzf": {
+          "type": "collection",
+          "settings": {
+            "collection": "golf",
+            "image": "shopify://shop_images/Frame_34.jpg",
+            "heading": "Improve Warm Up",
+            "heading_size": "h4",
+            "text": "<p>Aero-Swing uses wind resistance to slow down club head speed and properly warm up the body before competition. Our patented Pineapple design makes adjusting resistance levels quick and easy. </p>"
+          }
+        },
+        "collection_7Lxcbw": {
+          "type": "collection",
+          "settings": {
+            "collection": "golf",
+            "image": "shopify://shop_images/Frame_35.jpg",
+            "heading": "Increase Distance",
+            "heading_size": "h4",
+            "text": "<p>Many amateur golfers stand on the tee box of a par 5 and feel worried about not carrying over a water hazard or even onto the fairway. By hitting longer drives, the average golfer has more options and can attack holes without fear.</p>"
+          }
+        },
+        "collection_WKBEmx": {
+          "type": "collection",
+          "settings": {
+            "collection": "golf",
+            "image": "shopify://shop_images/Frame_36.jpg",
+            "heading": "Prevent Injury",
+            "heading_size": "h4",
+            "text": "<p>Most swing speed training devices involve some weights. Putting a lot of weight on the end of a club can be dangerous and lead to unnecessary injury. Aero-Swing uses wind resistance to slow down club head speed and properly warm up the body before competition, minimizing the risk of injury.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "collection_YX6Lzf",
+        "collection_7Lxcbw",
+        "collection_WKBEmx"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "The Perfect Swing Speed Trainer",
+        "heading_size": "h3",
+        "subheading": "Improve Your Game",
+        "description": "",
+        "image_position": "left",
+        "image_ratio": "1/1",
+        "prefix_header": "ordinal_number",
+        "trigger_behavior": "hover",
+        "autoplay": false,
+        "autoplay_duration": 3,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "featured_product_ECymDN": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor_NJd4tL": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title_MreYtB": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "price_rdPdrR": {
+          "type": "price",
+          "settings": {
+            "show_sale_badge": true,
+            "sale_badge_type": "text"
+          }
+        },
+        "variant_picker_xzc93g": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "variant_picker_show_selected": true
+          }
+        },
+        "quantity_selector_AqV7BW": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_3VL9YF": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_atc_button": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "description_BQDC4d": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor_NJd4tL",
+        "title_MreYtB",
+        "price_rdPdrR",
+        "variant_picker_xzc93g",
+        "quantity_selector_AqV7BW",
+        "buy_buttons_3VL9YF",
+        "description_BQDC4d"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "product": "aero-shaft-swing-speed-trainer-stiff-shaft",
+        "media_position": "left",
+        "media_size": "medium",
+        "mobile_thumbnails": "hide",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "custom_content_VRT8AX": {
+      "type": "custom-content",
+      "blocks": {
+        "product_bundles_4D7QrF": {
+          "type": "product_bundles",
+          "settings": {
+            "width": "50%",
+            "alignment": "center",
+            "title": "",
+            "heading_size": "h0",
+            "subheading": "",
+            "show_reviews": false,
+            "product_1": "aero-swing-pineapples-doubles",
+            "product_2": "aero-swing-pineapple-mini",
+            "product_3": "aero-swing-attachment-component-pack",
+            "product_4": "",
+            "product_5": "",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        },
+        "text_XP8U6R": {
+          "type": "text",
+          "settings": {
+            "title": "The Ultimate Starter Kit",
+            "heading_size": "h0",
+            "subheading": "",
+            "text": "<p>The Ultimate Starter Kit contains everything you need to attach Aero-Swing Pineapples to any of your golf clubs. If you're looking for a kit to help boost your club head speed at the range or on the course, this bundle will add resistance to any club in your golf bag.</p>",
+            "alignment": "center",
+            "align_text": "left",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "width": "50%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "product_bundles_4D7QrF",
+        "text_XP8U6R"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "background-1",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "column_gap": "extra-large",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "custom_content_8myX9G": {
+      "type": "custom-content",
+      "blocks": {
+        "text_A7EQ4E": {
+          "type": "text",
+          "settings": {
+            "title": "Aero-Swing At Work",
+            "heading_size": "h2",
+            "subheading": "",
+            "text": "",
+            "alignment": "center",
+            "align_text": "center",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "width": "100%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "text_A7EQ4E"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "column_gap": "medium",
+        "padding_top": 52,
+        "padding_bottom": 0,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "featured_collection_qKANCc": {
+      "type": "featured-collection",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "header_layout": "vertical",
+        "heading": "Golf",
+        "heading_size": "h2",
+        "description": "",
+        "collection": "golf",
+        "limit": 8,
+        "columns": 3,
+        "column_gap": "medium",
+        "pcard_image_ratio": "",
+        "show_vendor": false,
+        "enable_slider": false,
+        "show_nav": false,
+        "show_dots": false,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "enable_swipe_mobile": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "video_grid_MkKR7t": {
+      "type": "video-grid",
+      "blocks": {
+        "vidoes_BXWUTL": {
+          "type": "vidoes",
+          "settings": {
+            "video_type": "external",
+            "aspect_ratio": "sp916",
+            "video_url": "https://www.youtube.com/watch?v=gGI7mT45zOo",
+            "title": "Aero-Swing - How it works!",
+            "video_text": "2.2K views",
+            "video_time": "3 years ago",
+            "video_hours": "1:21",
+            "description": ""
+          }
+        },
+        "vidoes_JQighR": {
+          "type": "vidoes",
+          "settings": {
+            "video_type": "external",
+            "aspect_ratio": "sp916",
+            "video_url": "https://www.youtube.com/watch?v=pRVmqy8pl_0",
+            "title": "Aero-Swing | Resistance = Distance",
+            "video_text": "2.6K views",
+            "video_time": "4 months ago",
+            "video_hours": "1:09",
+            "description": ""
+          }
+        },
+        "vidoes_JH4AjJ": {
+          "type": "vidoes",
+          "settings": {
+            "video_type": "external",
+            "aspect_ratio": "sp916",
+            "video_url": "https://www.youtube.com/watch?v=qI56lycQgmo",
+            "title": "Aero-Swing | Resistance = Distance",
+            "video_text": "120 views",
+            "video_time": "1 year ago",
+            "video_hours": "1:42",
+            "description": ""
+          }
+        },
+        "vidoes_3KNqeG": {
+          "type": "vidoes",
+          "settings": {
+            "video_type": "external",
+            "aspect_ratio": "sp916",
+            "video_url": "https://www.youtube.com/watch?v=3VC3Q1j0Zjc",
+            "title": "Aero-Swing | Resistance = Distance",
+            "video_text": "100 views",
+            "video_time": "6 months ago",
+            "video_hours": "1:03",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "vidoes_BXWUTL",
+        "vidoes_JQighR",
+        "vidoes_JH4AjJ",
+        "vidoes_3KNqeG"
+      ],
+      "custom_css": [],
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 0,
+        "container": "container",
+        "select_column": "four",
+        "title": ""
+      }
+    },
+    "collapsible_tabs_qwzJfx": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "content_KMWmhN": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Can I hit golf balls while using the Aero-Swing?",
+            "content": "<p>Aero-Swing accessory pack will allow a golfer to attach the pineapples to their own clubs, allowing them to strike balls while they train.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_9bjgNB": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Does the Aero-Swing use weights?",
+            "content": "<p>No, Aero-Swing uses patented air drag technology to naturally resist your swing. Aero-Swing’s lightweight design makes it safe for everyone to use. Weighted products have been known to cause injury while training.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_z89cWx": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "How does Aero-Swing affect my swing speed?",
+            "content": "<p>Airflow through the product's patented air drag technology naturally resists your golf swing. Aero-Swing will slow down your swing speed by approximately 20-25 MPH.  When Aero-Swing Pineapples are removed, you will see and feel a noticeable difference in swing speed. </p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_HA6UwL": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "How does swing speed affect distance?",
+            "content": "<p>1 mph is equivalent to about 2.6 yards. Aero-Swing has proven to increase swing speed up to 25 mph.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "content_KMWmhN",
+        "content_9bjgNB",
+        "content_z89cWx",
+        "content_HA6UwL"
+      ],
+      "settings": {
+        "container": "container",
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "description": "",
+        "padding_top": 60,
+        "padding_bottom": 100,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "collage_tabs_biFLXc": {
+      "type": "collage-tabs",
+      "blocks": {
+        "tab_xJRQdM": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "inverse",
+            "navigation_title": "Improve Warm Up",
+            "image": "shopify://shop_images/Screenshot_2024-01-23_at_4.08.21_PM.png",
+            "heading": "Improve Warm Up",
+            "heading_size": "h3",
+            "subheading": "",
+            "description": "<p>Aero-Swing uses wind resistance to slow down club head speed and properly warm up the body before competition. Our patented Pineapple design makes adjusting resistance levels quick and easy. </p>",
+            "text_alignment": "left",
+            "button_label": "See all golf",
+            "button_link": "shopify://collections/golf",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_P3PQ68": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "inverse",
+            "navigation_title": "Increase Distance",
+            "image": "shopify://shop_images/Screenshot_2024-01-23_at_4.07.06_PM.png",
+            "heading": "Increase Distance",
+            "heading_size": "h3",
+            "subheading": "",
+            "description": "<p>Many amateur golfers stand on the tee box of a par 5 and feel worried about not carrying over a water hazard or even onto the fairway. By hitting longer drives, the average golfer has more options and can attack holes without fear.</p>",
+            "text_alignment": "left",
+            "button_label": "See all golf",
+            "button_link": "shopify://collections/golf",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_Wy7iCn": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "inverse",
+            "navigation_title": "Prevent Injury",
+            "image": "shopify://shop_images/Screenshot_2024-01-23_at_4.05.19_PM.png",
+            "heading": "Prevent Injury",
+            "heading_size": "h3",
+            "subheading": "",
+            "description": "<p>Most swing speed training devices involve some weights. Putting a lot of weight on the end of a club can be dangerous and lead to unnecessary injury. Aero-Swing uses wind resistance to slow down club head speed and properly warm up the body before competition, minimizing the risk of injury.</p>",
+            "text_alignment": "left",
+            "button_label": "See all golf",
+            "button_link": "shopify://collections/golf",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_xJRQdM",
+        "tab_P3PQ68",
+        "tab_Wy7iCn"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "desktop_navigation_alignment": "center",
+        "desktop_image_position": "left",
+        "desktop_image_width": 50,
+        "image_aspect_ratio": "1/1",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "slideshow_MAfEwC",
+    "custom_html_6HpU4i",
+    "featured_collection_qKANCc",
+    "video_reviews_mfzFmn",
+    "testimonials_QyJR8X",
+    "featured_product_dHmJAF",
+    "custom_content_knpiji",
+    "video_rBDTiW",
+    "handpicked_products_WDdPwc",
+    "collection_tabs_niNBMW",
+    "featured_product_ECymDN",
+    "custom_content_VRT8AX",
+    "custom_content_8myX9G",
+    "video_grid_MkKR7t",
+    "collapsible_tabs_qwzJfx",
+    "collage_tabs_biFLXc",
+    "main"
+  ]
+}

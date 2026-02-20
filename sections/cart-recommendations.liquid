@@ -1,0 +1,55 @@
+<div class="f-cart-recommendations__wrapper">
+    <h3 class="f-cart-recommendations__title h6">
+        {{ 'general.cart.cart_recommendations' | t }}
+    </h3>
+    <div class="f-cart-recommendations__items{% if recommendations.products.size == 1 %} f-cart-recommendations__items-only-product{% endif %}">
+        {%- for recommendation in recommendations.products -%}
+            <div class="f-cart-recommendations__item bg-secondary">
+                {% if recommendation.featured_media %}
+                    <div class="f-cart-recommendations__item-image">
+                        <a href="{{ recommendation.url }}">
+                            <div
+                                    class="f-image"
+                                    style="--aspect-ratio: {{ recommendation.featured_media.aspect_ratio | default: 1 }}"
+                            >
+                                {{
+                                recommendation.featured_media
+                                | image_url: width: 100
+                                | image_tag: loading: 'lazy', sizes: '100px'
+                                }}
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="f-cart-recommendations__item-content">
+                    <div class="f-cart-recommendations__item-title">
+                        <a href="{{ recommendation.url }}">{{ recommendation.title }}</a>
+                    </div>
+                    {% render 'price', product: recommendation %}
+                    <div class="f-cart-recommendations__item--action">
+                        {%- if recommendation.available and recommendation.variants.size == 1 -%}
+                            <add-to-cart-button data-variant-id="{{ recommendation.selected_or_first_available_variant.id }}">
+                                <div class="f-cart-recommendations__item-add-to-cart btn btn--underline">
+												<span class="flex">
+													<span>
+														{%- if recommendation.available -%}
+                                {{ 'products.product.add_to_cart' | t }}
+                            {%- else -%}
+                                {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
+													</span>
+												</span>
+                                    {% render 'icon-spinner' %}
+                                </div>
+                            </add-to-cart-button>
+                        {%- else -%}
+                            <a href="{{- recommendation.url -}}" class="btn btn--underline no-color-schema">
+                                <span>{{- 'products.product.select_options' | t -}}</span>
+                            </a>
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        {%- endfor -%}
+    </div>
+</div>

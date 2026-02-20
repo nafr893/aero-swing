@@ -1,0 +1,320 @@
+.f-lookbook {
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .f-lookbook .f-column--expanded {
+    grid-column: auto/span var(--grid-cols);
+  }
+}
+.f-lookbook__product-wrapper {
+  padding: 1.5rem;
+}
+.f-lookbook__product-wrapper--left {
+  grid-column: 2;
+  grid-row: 1;
+}
+.f-lookbook__product-wrapper--right {
+  grid-column: 1;
+  grid-row: 1;
+}
+.f-lookbook__product-wrapper .f-column {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.f-lookbook__product-wrapper .f-lookbook__product-slider {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .f-lookbook__product-wrapper .f-lookbook__product-slider {
+    width: var(--slider-viewport-width, 100%);
+  }
+}
+.f-lookbook__product-wrapper .flickity-wrapper.flickity-controls-group__bottom.flickity-show-controls {
+  padding-bottom: calc(var(--button-size, 4rem) + 2.8rem);
+}
+@media (max-width: 767.98px) {
+  .f-lookbook__product-wrapper .flickity-wrapper.flickity-controls-group__bottom.flickity-show-controls {
+    padding-bottom: calc(var(--button-size, 4rem) + 0.8rem);
+  }
+}
+
+.f-lookbook-card__annotation {
+  cursor: pointer;
+  display: inline-flex;
+  transform: translate(-50%, -50%);
+}
+.f-lookbook-card__annotation:after {
+  content: "";
+  height: 60px;
+  width: 20px;
+  position: absolute;
+  display: none;
+  top: -20px;
+  left: 0;
+}
+.f-lookbook-card__annotation.is-active, .f-lookbook-card__annotation:hover, .f-lookbook-card__annotation:focus {
+  z-index: 1;
+}
+.f-lookbook-card__annotation.is-active:after, .f-lookbook-card__annotation--hovering:after {
+  display: block;
+}
+@media (min-width: break-point("sm")) {
+  .f-lookbook-card__annotation:hover:after {
+    display: block;
+  }
+}
+.f-lookbook-card__annotation.is-active > span > svg, .f-lookbook-card__annotation--hovering > span > svg {
+  transform: rotate(180deg);
+}
+@media (min-width: break-point("sm")) {
+  .f-lookbook-card__annotation:hover > span svg {
+    transform: rotate(180deg);
+  }
+}
+.f-lookbook-card__annotation.left:after {
+  right: 0;
+  left: auto;
+}
+.f-lookbook-card__pin {
+  --pin-color: #fff;
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+  pointer-events: none;
+}
+.f-lookbook-card__pin-icon {
+  position: relative;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--pin-color);
+  color: var(--pin-color);
+}
+.f-lookbook-card__pin-icon:before, .f-lookbook-card__pin-icon:after {
+  content: "";
+  border-radius: 50%;
+  background: currentColor;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: 1.5s theLookDot ease-in-out infinite;
+  pointer-events: none;
+}
+.f-lookbook-card__pin-icon:before {
+  animation-delay: 1s;
+}
+.f-lookbook-card__pin--dark {
+  --pin-color: #000;
+}
+.f-lookbook-card__product {
+  top: 100%;
+  z-index: 11;
+  left: -100%;
+  width: 250px;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 3px;
+  transition: 0.3s all;
+  opacity: 0;
+  visibility: visible;
+  transform: translate3d(0, 10px, 0);
+  pointer-events: none;
+  box-shadow: 2px 7px 15px rgba(0, 0, 0, 0.04);
+  cursor: auto;
+}
+@media (max-width: 639.98px) {
+  .f-lookbook-card__product {
+    top: 100% !important;
+    bottom: auto !important;
+  }
+}
+.f-lookbook-card__product:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  bottom: 100%;
+  display: block;
+  z-index: 12;
+}
+.f-lookbook-card__annotation:hover .f-lookbook-card__product {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+.f-lookbook-card__annotation--slider:not(.is-active):hover .f-lookbook-card__product {
+  opacity: 0;
+  visibility: hidden;
+}
+.f-lookbook-card__annotation.is-active .f-lookbook-card__product {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+@media (max-width: 639.98px) {
+  .f-lookbook-card__annotation.is-active .f-lookbook-card__product {
+    animation: f-fade-in 0.45s ease;
+    display: flex;
+  }
+}
+.f-lookbook-card__product a {
+  display: block;
+  font-size: 14px;
+}
+.f-lookbook-card__product-image {
+  width: 80px;
+  margin-right: 1rem;
+}
+.f-lookbook-card__product-image .f-image {
+  border-radius: var(--btn-rounded, 0px);
+}
+.f-lookbook-card__product .btn {
+  display: inline-flex;
+  margin-top: 0;
+}
+.f-lookbook-card__product-title {
+  margin-bottom: 0;
+}
+.f-lookbook-card__product-price {
+  color: var(--color-product-price);
+}
+.left .f-lookbook-card__product {
+  right: 0;
+  left: auto;
+}
+.top .f-lookbook-card__product {
+  bottom: 100%;
+  margin-bottom: 5px;
+  top: auto;
+  transform: translate3d(0, -10px, 0);
+}
+@media (max-width: 639.98px) {
+  .f-lookbook-card__product {
+    flex-flow: column;
+    width: 150px;
+    padding: 1.5rem;
+  }
+  .f-lookbook-card__product-image {
+    width: 100%;
+    margin: 0 0 1rem;
+  }
+}
+.f-lookbook-card--slider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.f-lookbook-card--slider .f-lookbook-card__inner {
+  align-self: flex-start;
+}
+
+[data-block-type=lookbook]:hover {
+  z-index: 1;
+}
+
+@keyframes theLookDot {
+  from {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+lookbook-card-slider {
+  display: block;
+}
+lookbook-card-slider .product-card {
+  transition: 0.3s all;
+}
+lookbook-card-slider .f-lookbook-card__product {
+  width: auto;
+  min-width: 200px;
+}
+@media (min-width: 768px) {
+  lookbook-card-slider.is-hovering .product-card:not(.is-active) {
+    opacity: 0.3;
+  }
+  lookbook-card-slider .product-card > .product-card__actions {
+    display: none;
+  }
+}
+@media (max-width: 767.98px) {
+  lookbook-card-slider flickity-component .f-column {
+    width: 100% !important;
+  }
+  lookbook-card-slider .product-card__wrapper {
+    display: flex;
+  }
+  lookbook-card-slider .product-card__image-wrapper {
+    width: 9rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  lookbook-card-slider .product-card__image-wrapper .deferred-media {
+    width: 100%;
+  }
+  lookbook-card-slider .product-card .product-card__info {
+    margin-top: 0;
+    padding-left: 1.2rem;
+    text-align: left;
+    flex: 1;
+  }
+  lookbook-card-slider .product-card .product-card__info .f-price {
+    justify-content: flex-start;
+  }
+  lookbook-card-slider .product-card > .product-card__options {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .f-lookbook-card--slider {
+    display: block;
+  }
+  .f-lookbook-card .f-lookbook-card__product {
+    width: 160px;
+  }
+  .f-lookbook__product-wrapper {
+    margin-top: 2rem;
+    padding: 0;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card {
+    position: relative;
+    padding: 1rem;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card .product-card__actions {
+    width: auto;
+    right: 0.6rem;
+    left: auto;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card .product-card__actions .btn {
+    border-radius: 0.4rem;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card .product-card__image-wrapper .product-card__badge, .f-lookbook__product-wrapper .f-column .product-card .product-card__image-wrapper .product-card__actions {
+    display: none;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card .product-card__info .product-card__options {
+    position: relative;
+    z-index: 2;
+  }
+  .f-lookbook__product-wrapper .f-column .product-card .product-card__info .product-card__options .product-card__swatch {
+    justify-content: flex-start;
+    margin-left: -0.4rem;
+  }
+}

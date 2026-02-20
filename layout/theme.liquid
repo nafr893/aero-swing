@@ -1,0 +1,817 @@
+{% liquid
+  assign enable_rtl = settings.enable_rtl
+  assign language_support_rtl = settings.language_support_rtl
+  if enable_rtl and language_support_rtl != blank
+    assign shop_locale = localization.language.iso_code
+    assign language_support_rtl_list = language_support_rtl | split: ','
+    assign is_rtl = language_support_rtl_list | where: shop_locale
+    if is_rtl.size > 0
+      assign enable_rtl = true
+    else
+      assign enable_rtl = false
+    endif
+  endif
+%}
+
+<!doctype html>
+<html 
+  class="no-js{% if settings.page_transition %} overflow-hidden{% endif %}" 
+  lang="{{ request.locale.iso_code }}"
+  {% if enable_rtl %}
+    dir="rtl"
+  {% endif %}
+>
+  <head>
+<!-- > Microsoft Clarity Tracking Code <-->
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ukji4lmjge");
+</script>
+
+
+
+{% render 'visually_io_sdk' %}
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+    {% render 'critical-css' %}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'grid.css' | asset_url | stylesheet_tag }}
+    {{ 'header.css' | asset_url | stylesheet_tag }}
+    {{ 'site-nav.css' | asset_url | stylesheet_tag }}
+
+    <link rel="preload" href="{{ 'non-critical.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    <link rel="preload" href="{{ 'components.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    <link rel="preload" href="{{ 'flickity-component.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    <link rel="preload" href="{{ 'modal-component.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    <link rel="preload" href="{{ 'drawer-component.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    {% if template == 'index' %}
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/Untitled_design_4.png?v=1744498920">
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/Untitled_design_4.png?v=1744498920&width=720">
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/Aero-Swing-Banner-Home-Desktop.webp?v=1744494014&width=1500" />
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/Aero-Banner-Home-Mobile.jpg?v=1744493939&width=1500" />
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/AeroBat.jpg?v=1744501132&width=720">
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/AEROBAT_f6741845-d9fa-481e-b857-df5e58d1dc37.jpg?v=1744498582&width=720">
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/AEROBAT_f6741845-d9fa-481e-b857-df5e58d1dc37.jpg?v=1744498582&width=150">
+      <link rel="preload" as="image" href="https://aero-swing.com/cdn/shop/files/35625b50d7524f00836f795190a34f4f.thumbnail.0000000000.webp?v=1744508790&width=500">
+      {% endif %}
+
+    {% if collection.handle == 'all-products' %}
+      <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/0568/7679/3942/collections/71cixFk_OwL._AC_SX679.jpg?v=1705436652">
+    {% endif %}
+          
+		{%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
+      <link rel="stylesheet" href="{{ 'component-gift-wrapping.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'component-gift-wrapping.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- endif -%}
+
+    {% if enable_rtl %}
+      <link rel="preload" href="{{ 'rtl.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
+    {% endif %}
+
+    <noscript>
+      {{ 'non-critical.css' | asset_url | stylesheet_tag }}
+      {{ 'components.css' | asset_url | stylesheet_tag }}
+      {{ 'flickity-component.css' | asset_url | stylesheet_tag }}
+      {{ 'modal-component.css' | asset_url | stylesheet_tag }}
+      {{ 'drawer-component.css' | asset_url | stylesheet_tag }}
+      {% if enable_rtl %}
+        {{ 'rtl.css' | asset_url | stylesheet_tag }}
+      {% endif %}
+    </noscript>
+    <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'lazy-image.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+		{%- if settings.cart_recommendations_enable -%}
+			<script src="{{ 'cart-recommendations.js' | asset_url }}" defer="defer"></script>
+		{%- endif -%}
+
+		{%- if settings.animations != 'none' -%}
+			<script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+		{%- endif -%} 
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {{ content_for_header }}
+
+    {%- unless settings.type_body_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="template-{{ template.name | handle }} {{ template.name }}-{{ template.suffix }}{% if settings.page_transition %} overflow-hidden{% endif %}" data-rtl="{% if enable_rtl %}true{% else %}false{% endif %}">
+    {% if settings.page_transition %}
+      <div class="f-page-transition no-js-hidden">
+				<div class="f-page-transition__spinner">
+					<div class="f-page-transition__spinner-content">
+						<div></div>
+					</div>
+				</div>
+			</div>
+    {% endif %}
+    <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
+      {{- "accessibility.skip_to_text" | t -}}
+    </a>
+
+		<div class="site-wrapper">
+      {% sections 'header-group' %}
+
+      <main id="MainContent" class="site-main focus-none" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+      {% liquid
+        if template.name == 'product'
+          section 'sticky-atc-bar'
+        endif
+        if settings.cart_type == 'drawer' and template != 'cart'
+          render 'cart-drawer'
+        endif
+        render 'search-drawer'
+      %}
+      {% sections 'footer-group' %}
+    </div>
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+    </ul>
+
+    {% render 'theme-script' %}
+    {% render 'cookie-banner' %}
+    <script src="{{ 'collapsible-tab.js' | asset_url }}" defer="defer"></script>
+    {% if settings.pcard_show_quickview_button %}
+      <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+		{%- if settings.pcard_choose_options_actions == "open_popup" -%}
+			<script src="{{ 'product-card-choose-options.js' | asset_url }}" defer="defer"></script>
+		{%- endif -%}
+    {% if settings.pcard_show_color_swatch %}
+      <script src="{{ 'color-swatch.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+		{%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
+      <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if request.design_mode -%}
+      <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'tabs-component.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'collection-tabs.js' | asset_url }}" defer="defer"></script>{% comment %}Load collection-tabs script here to make it working properly on editor mode.{% endcomment %}      
+    {%- endif -%}
+    <!-- Google Tag Manager (deferred) -->
+    <script>
+      window.addEventListener("load", function () {
+        var script = document.createElement("script");
+        script.src = "https://www.googletagmanager.com/gtag/js?id=AW-406967587";
+        script.async = true;
+        document.head.appendChild(script);
+    
+        script.onload = function () {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+    
+          gtag('js', new Date());
+          gtag('config', 'AW-406967587');
+        };
+      });
+    </script>
+    <!-- End Google Tag Manager -->
+    <script>
+      window.addEventListener('load', function () {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(function () {
+            var lo = document.createElement('script');
+            lo.src = 'https://tools.luckyorange.com/core/lo.js?site-id=d58ae865';
+            lo.async = true;
+            lo.defer = true;
+            document.head.appendChild(lo);
+          });
+        } else {
+          // Fallback if requestIdleCallback is not supported
+          setTimeout(function () {
+            var lo = document.createElement('script');
+            lo.src = 'https://tools.luckyorange.com/core/lo.js?site-id=d58ae865';
+            lo.async = true;
+            lo.defer = true;
+            document.head.appendChild(lo);
+          }, 3000);
+        }
+      });
+    </script>
+    <script>
+     window.addEventListener('load', function () {
+  requestIdleCallback(() => {
+    if (typeof Flickity === 'undefined') {
+      // Try again after a short delay if Flickity hasn't loaded
+      setTimeout(arguments.callee, 100);
+      return;
+    }
+
+    document.querySelectorAll('[data-enable-slider="false"]').forEach(slider => {
+      new Flickity(slider, {
+        cellSelector: '.f-column',
+        wrapAround: true,
+        groupCells: 4,
+        pageDots: false,
+        prevNextButtons: false
+      });
+    });
+  });
+});
+
+
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid: 6386852, hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+});
+</script>
+
+<!-- Overlay and popup
+<div id="upsell-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;  z-index:999998;"></div>
+<div id="upsell-popup" style="display:none; position:fixed; top:66%; left:48%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:999999; max-width:450px; text-align:center;">
+  <h2>Increase your Aero-Bat usefulness and fun factor!</h2>
+  <p>Save $5.  Add a 12 pack of Aero-Balls for 24.99</p>
+  <button id="add-aeroballs" style="margin:10px;">Add to Cart</button>
+  <button id="close-popup" style="margin:10px;">No Thanks</button>
+</div>
+
+<script>
+const AEROBALL_VARIANT_ID = 42005219213398;
+const AERO_BAT_HANDLE = 'aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device';
+const AERO_BALL_HANDLE = 'aero-balls-12-pack';
+
+// --- Cookie utilities ---
+function setCookie(name, value, days) {
+  const expires = new Date(Date.now() + days*864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+}
+
+function getCookie(name) {
+  return document.cookie.split('; ').reduce((r, v) => {
+    const parts = v.split('=');
+    return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+  }, '');
+}
+
+function deleteCookie(name) {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+}
+
+// --- Popup control ---
+function openPopup() {
+  document.getElementById('upsell-overlay').style.display = 'block';
+  document.getElementById('upsell-popup').style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('upsell-overlay').style.display = 'none';
+  document.getElementById('upsell-popup').style.display = 'none';
+}
+
+// --- Fetch and manage cart state ---
+async function fetchCartAndShowUpsell() {
+  const res = await fetch('/cart.js');
+  const cart = await res.json();
+
+  const hasAeroBat = cart.items.some(item => item.handle === AERO_BAT_HANDLE);
+  const hasAeroBall = cart.items.some(item => item.handle === AERO_BALL_HANDLE);
+
+  // If Aero-Bat is gone, reset decline cookie
+  if (!hasAeroBat) {
+    deleteCookie('upsell_declined');
+    return;
+  }
+
+  // If Aero-Bat is in cart and Aero-Balls are not — and user hasn't declined — show popup
+  if (hasAeroBat && !hasAeroBall && getCookie('upsell_declined') !== 'true') {
+    openPopup();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- Listen to add-to-cart forms ---  
+  document.body.addEventListener('submit', (e) => {
+    if (e.target.matches('form[action^="/cart/add"]')) {
+      setTimeout(fetchCartAndShowUpsell, 700); // wait for Shopify update
+    }
+  });
+
+  // --- Observe cart drawer changes ---
+  const cartDrawer = document.querySelector('cart-drawer, .cart-drawer, #CartDrawer');
+  if (cartDrawer) {
+    const observer = new MutationObserver(() => {
+      fetchCartAndShowUpsell();
+    });
+    observer.observe(cartDrawer, { childList: true, subtree: true });
+  }
+
+  // --- Add Aero-Balls to cart via popup ---
+  document.getElementById('add-aeroballs').addEventListener('click', async () => {
+    await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: AEROBALL_VARIANT_ID, quantity: 1})
+    });
+    setTimeout(closePopup, 300);
+    window.location.href = '/checkout';
+  });
+
+  // --- Close popup and remember decline ---
+  const declinePopup = () => {
+    setCookie('upsell_declined', 'true', 3); // Don't show again for 30 days
+    closePopup();
+  };
+
+  document.getElementById('close-popup').addEventListener('click', declinePopup);
+  document.getElementById('upsell-overlay').addEventListener('click', declinePopup);
+  document.getElementById('upsell-popup').addEventListener('click', e => e.stopPropagation());
+
+  // --- Initial check ---
+  fetchCartAndShowUpsell();
+});
+const defaultAlt = "Aero Swing";
+document.querySelectorAll('img').forEach(img => {
+  if (!img.hasAttribute('alt') || img.getAttribute('alt').trim() === '') {
+    img.setAttribute('alt', defaultAlt);
+  }
+});
+
+</script>
+-->
+<style>
+@media (max-width: 768px) {
+  #upsell-popup {
+    top: 80% !important;          /* Move it lower on mobile */
+    width: 90vw !important;      
+    max-width: none !important;   
+    left: 50% !important;         
+    transform: translate(-50%, -50%) !important; 
+  }
+}
+</style>
+
+{% comment %} free shipping popup {% endcomment %}
+<style>
+  /* Overlay */
+  #free-shipping-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  #free-shipping-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Popup card */
+  #free-shipping-popup {
+    background: radial-gradient(circle at top left, #16a34a, #0f172a); /* Green to Black gradient */
+    color: #f9fafb;
+    border-radius: 20px;
+    padding: 32px 32px 24px;
+    max-width: 520px;
+    width: 95vw;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    animation: popup-in 0.4s forwards cubic-bezier(0.22, 0.61, 0.36, 1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    z-index: 10000; /* Ensure it's on top of other UI elements */
+  }
+
+  #free-shipping-popup::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.75), transparent); /* Green glow */
+    top: -60px;
+    right: -60px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  @keyframes popup-in {
+    0% {
+      transform: translateY(20px) scale(0.9);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(-4px) scale(1.02);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Icon style */
+  .fsp-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.4); /* Dark background for icon circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .fsp-icon-wrap span {
+    font-size: 24px;
+    color: #f9fafb; /* Light color for icon */
+  }
+
+  .fsp-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  .fsp-subtitle {
+    font-size: 2rem;
+    line-height: 1.5;
+    opacity: 0.94;
+  }
+
+  .fsp-subtitle strong {
+    font-weight: 700;
+  }
+
+  .fsp-highlight {
+    font-weight: 700;
+    color: #facc15; /* Bright yellow for highlight */
+  }
+
+  .fsp-progress-wrap {
+    margin: 18px 0 16px;
+  }
+
+  .fsp-progress-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.88;
+    margin-bottom: 6px;
+  }
+
+  .fsp-progress-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.3); /* Dark track for contrast */
+    overflow: hidden;
+  }
+
+  .fsp-progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #bbf7d0, #22c55e); /* Green to Light Green */
+    transition: width 0.4s ease-out;
+  }
+
+  .fsp-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .fsp-btn {
+    flex: 1 1 auto;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.12s ease, box-shadow 0.12s ease,
+      background 0.12s ease, color 0.12s ease;
+    white-space: nowrap;
+  }
+
+  .fsp-btn-primary {
+    background: #0f172a; /* Dark background for button */
+    color: #f9fafb;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+  }
+
+  .fsp-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    color: #fff;
+  }
+
+  .fsp-btn-secondary {
+    background: rgba(0, 0, 0, 0.2);
+    color: #e5e7eb;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+  }
+
+  .fsp-btn-secondary:hover {
+    transform: translateY(-1px);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+  }
+
+  .fsp-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    color: #e5e7eb;
+    transition: background 0.15s ease, transform 0.12s ease;
+    z-index: 1;
+  }
+
+  .fsp-close:hover {
+    background: rgba(0, 0, 0, 1);
+    transform: scale(1.05);
+  }
+
+  #free-shipping-popup.fsp-success {
+       background: radial-gradient(circle at top left, #16a34a, #0f172a);
+  }
+
+@media (max-width: 768px) {
+  #free-shipping-popup {
+    left: 5% !important;
+    top: 2% !important;
+    transform: none !important;
+    width: 90vw; 
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const threshold = 15000; // $150 in cents
+  let popupVisible = false;
+  let popupDismissed = false;
+
+  /* ----------------------------------------------
+     Load dismiss state from localStorage (PERSISTENT)
+  ---------------------------------------------- */
+  if (localStorage.getItem('fsp_dismissed') === 'true') {
+    popupDismissed = true;
+  }
+
+  // --- Create overlay + popup container once ---
+  const overlay = document.createElement('div');
+  overlay.id = 'free-shipping-overlay';
+
+  const popup = document.createElement('div');
+  popup.id = 'free-shipping-popup';
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  let hideTimeout;
+
+  /* ----------------------------------------------
+     Hide popup
+  ---------------------------------------------- */
+  function hidePopup() {
+    overlay.classList.remove('is-visible');
+    popup.style.opacity = '0';
+    popup.style.pointerEvents = 'none';
+
+    if (hideTimeout) clearTimeout(hideTimeout);
+
+    popupVisible = false;
+    popupDismissed = true;
+
+    // SAVE DISMISS STATE SO IT DOES NOT SHOW AGAIN ON REDIRECT
+    localStorage.setItem('fsp_dismissed', 'true');
+  }
+
+  /* Close when clicking outside */
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) hidePopup();
+  });
+
+  /* ----------------------------------------------
+     Show popup
+  ---------------------------------------------- */
+  function showPopup({ title, subtitle, progressPercent, unlocked }) {
+
+    // DO NOT SHOW IF DISMISSED
+    if (popupDismissed) return;
+    if (popupVisible) return;
+
+    popupVisible = true;
+
+    popup.classList.toggle('fsp-success', !!unlocked);
+
+    popup.innerHTML = `
+      <button class="fsp-close" type="button" aria-label="Close popup">&times;</button>
+
+      <div class="fsp-icon-wrap">
+        <span>${unlocked ? '🎉' : '🚚'}</span>
+      </div>
+
+      <div class="fsp-title">${title}</div>
+
+      <div class="fsp-subtitle">${subtitle}</div>
+
+      <div class="fsp-progress-wrap">
+        <div class="fsp-progress-label">
+          ${unlocked ? 'Free shipping unlocked' : 'Progress toward free shipping'}
+        </div>
+        <div class="fsp-progress-track">
+          <div class="fsp-progress-fill" style="width:${Math.min(Math.max(progressPercent, 0), 100)}%;"></div>
+        </div>
+      </div>
+
+      <div class="fsp-actions">
+        <a href="/checkout" class="fsp-btn fsp-btn-primary">Go to Checkout</a>
+        <a href="/collections/all-products" class="fsp-btn fsp-btn-secondary" id="fsp-continue-shopping">
+          Continue Shopping
+        </a>
+      </div>
+    `;
+
+   
+
+    // Continue shopping button
+    document.getElementById('fsp-continue-shopping').addEventListener('click', () => {
+      hidePopup();
+      localStorage.setItem('fsp_dismissed', 'true'); // persistent
+      window.location.href = '/collections/all-products';
+    });
+
+    popup.querySelector('.fsp-close').addEventListener('click', hidePopup);
+
+    popup.style.animation = 'none';
+    popup.offsetHeight;
+    popup.style.animation = '';
+
+    let popupOffset = 20;
+    const upsellPopup = document.getElementById('upsell-overlay');
+    const ironOfferPopup   = document.getElementById("iron-offer-popup");
+
+    if (upsellPopup || ironOfferPopup.style.display !== 'none') {
+      popup.style.position = 'fixed';
+popup.style.top = '10%';       // Adjust this value to move it closer/farther from top
+popup.style.left = '34%';
+popup.style.transform = 'translateX(-50%)'; // Center horizontally
+    } else {
+      popup.style.position = 'fixed';
+      popup.style.left = '32%';
+      popup.style.top = '32%';
+      popup.style.transform = 'translate(-50%, -50%)';
+       popup.style.zIndex = '10001';
+    }
+
+    overlay.classList.add('is-visible');
+    popup.style.opacity = '1';
+    popup.style.pointerEvents = 'auto';
+     popup.style.zIndex = '1000';
+  }
+
+  /* ----------------------------------------------
+     Build message from cart
+  ---------------------------------------------- */
+  function updateMessage(cart) {
+    if (!cart || cart.item_count === 0) return;
+
+    const needed = threshold - cart.total_price;
+    const current = cart.total_price;
+
+    const progressPercent = (current / threshold) * 100;
+
+    if (needed <= 0) {
+      showPopup({
+        title: 'Free Shipping Unlocked!',
+        subtitle: `Awesome! You’ve qualified for <strong>free shipping</strong> on this order.`,
+        progressPercent: 100,
+        unlocked: true
+      });
+    } else {
+      const neededFormatted = (needed / 100).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+
+      showPopup({
+        title: 'Almost there!',
+        subtitle: `You're <span class="fsp-highlight">${neededFormatted}</span> away from <strong>free shipping</strong>.`,
+        progressPercent,
+        unlocked: false
+      });
+    }
+  }
+
+  /* ----------------------------------------------
+     Fetch cart
+  ---------------------------------------------- */
+  function fetchCart() {
+    fetch('/cart.js')
+      .then(res => res.json())
+      .then(cart => updateMessage(cart))
+      .catch(() => {});
+  }
+
+  /* ----------------------------------------------
+     Observe cart drawer changes
+  ---------------------------------------------- */
+  const cartDrawer = document.querySelector('cart-drawer, .cart-drawer, #CartDrawer');
+  if (cartDrawer) {
+    const observer = new MutationObserver(() => {
+      if (!popupDismissed) fetchCart();
+    });
+    observer.observe(cartDrawer, { childList: true, subtree: true });
+  }
+
+  /* ----------------------------------------------
+     Add-to-cart listener — RESET DISMISS
+  ---------------------------------------------- */
+  document.body.addEventListener('submit', (e) => {
+    if (e.target.matches('form[action^="/cart/add"]')) {
+
+      // RESET WHEN NEW ITEM ADDED
+      popupDismissed = false;
+      localStorage.removeItem('fsp_dismissed');
+
+      setTimeout(fetchCart, 700);
+    }
+  });
+});
+</script>
+
+
+{% section 'iron-offer' %}
+
+
+  </body>
+</html>

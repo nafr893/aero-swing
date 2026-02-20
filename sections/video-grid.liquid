@@ -1,0 +1,282 @@
+{%- style -%}
+.section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+{%- endstyle -%}
+
+<div class="video-grid section-{{ section.id }}-padding">
+<div class="{{ section.settings.container }}">
+  {% if section.settings.title != blank %}
+  <div class="section-title">
+    <h2>{{ section.settings.title }}</h2>
+  </div>
+    {% endif %}
+  <div class="all-videos column-{{ section.settings.select_column }}">
+    {% for block in section.blocks %}
+      <div class="single-video">
+          <div class="video-details">
+            {% if block.settings.video_type != null %}
+              <div class="vieo-image">
+                <div class="video-main {{ block.settings.aspect_ratio }}">
+                  {% if block.settings.video_hours %}
+                    <div class="video-hours">
+                      <p>{{ block.settings.video_hours }}</p>
+                    </div>
+                  {% endif %}
+                  {%- if block.settings.video_type == 'external' -%}
+                    {%- if block.settings.video_url.type == 'youtube' -%}
+                      <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1" class="js-youtube" allow="encrypted-media" allowfullscreen title="{{ block.settings.title | escape }}"></iframe>
+                    {%- else -%}
+                      <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" class="js-vimeo" allow="encrypted-media" allowfullscreen title="{{ block.settings.title | escape }}"></iframe>
+                    {%- endif -%}
+                  {%- else -%}
+                    {% liquid
+                      assign video_url = ''
+                      for source in block.settings.shopify_video.sources
+                          assign video_url = source.url
+                      endfor
+                      assign placeholder_video = 'https://cdn.shopify.com/videos/c/o/v/fbb140fd46e3429eba459e1549dbbe38.mp4'
+              
+                      if video_url == blank
+                        assign video_url = placeholder_video
+                      endif
+                    %}
+                    {% liquid
+                    if block.settings.image != blank
+                      assign preview_images = block.settings.image | img_url: 'master'
+                      else
+                      assign preview_images = block.settings.shopify_video.preview_image | img_url: 'master'
+                      endif
+                    %}
+                    <video src="{{ video_url }}" playsinline controls poster="{{ preview_images }}"></video>
+                  {%- endif -%}
+                </div>
+                <div class="video-details">
+                  <div class="video-sdetails">
+                    {% if block.settings.title != blank %}
+                    <h3>{{ block.settings.title }}</h3>
+                    {% endif %}
+                    {% if block.settings.description != blank %}
+                      <p>{{ block.settings.description }}</p>
+                    {% endif %}
+                    <ul>
+                      {% if block.settings.video_text != block %}
+                        <li>{{ block.settings.video_text }}</li>
+                      {% endif %}
+                      {% if block.settings.video_time != block %}
+                        <li>{{ block.settings.video_time }}</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% schema %}
+{
+  "name": "Video Grid",
+  "settings": [
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 0
+      },
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    },
+      {
+        "type": "select",
+        "id": "select_column",
+        "label": "Section Column",
+        "default": "two",
+        "options": [
+          {
+            "value": "two",
+            "label": "Two"
+          },
+          {
+            "value": "three",
+            "label": "Three"
+          },
+          {
+            "value": "four",
+            "label": "Four"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Video Title"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "vidoes",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "select",
+          "id": "video_type",
+          "label": "t:sections.video.settings.video_type.label",
+          "default": "external",
+          "options": [
+            {
+              "value": "external",
+              "label": "t:sections.video.settings.video_type.options__2.label"
+            },
+            {
+              "value": "shopify",
+              "label": "t:sections.video.settings.video_type.options__1.label"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "Aspect ratio",
+          "default": "default",
+          "options": [
+            {
+              "value": "default",
+              "label": "Default"
+            },
+            {
+              "value": "sp916",
+              "label": "9 / 16"
+            },
+            {
+              "value": "sp169",
+              "label": "16 / 9"
+            },
+            {
+              "value": "sp45",
+              "label": "4 / 5"
+            },
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "sp35",
+              "label": "Height 35%"
+            }
+          ]
+        },
+        {
+          "type": "video",
+          "id": "shopify_video",
+          "label": "t:sections.video.settings.shopify_video.label"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "accept": [
+            "youtube",
+            "vimeo"
+          ],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+          "label": "t:sections.video.settings.video_url.label",
+          "placeholder": "t:sections.video.settings.video_url.placeholder",
+          "info": "t:sections.video.settings.video_url.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Video title",
+          "default": "3 home runs, 5 very"
+        },
+        {
+          "type": "text",
+          "id": "video_text",
+          "label": "Video views",
+          "default": "4K views"
+        },
+        {
+          "type": "text",
+          "id": "video_time",
+          "label": "Video time",
+          "default": "10 hours ago"
+        },
+        {
+          "type": "text",
+          "id": "video_hours",
+          "label": "Video hours",
+          "default": "1:14"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Grid",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "vidoes"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,250 @@
+.f-image-comparison-slider {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  --color-foreground: 34, 34, 34;
+}
+.f-image-comparison-slider[data-animation] {
+  --percent: 95%;
+}
+@media (min-width: 768px) {
+  .f-image-comparison-slider[data-animation] {
+    --percent: 98%;
+  }
+}
+.f-image-comparison-slider[is-visible] {
+  --percent: 50%;
+}
+.f-image-comparison-slider--media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: rgb(243, 243, 243);
+}
+.f-image-comparison-slider__after {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+[data-layout=horizontal] .f-image-comparison-slider__after {
+  clip-path: inset(0px 0px 0px var(--percent, 50%));
+}
+[data-layout=vertical] .f-image-comparison-slider__after {
+  clip-path: inset(var(--percent, 50%) 0px 0px 0px);
+}
+.f-image-comparison-slider__before .placeholder-svg {
+  background-color: rgba(0, 0, 0, 0.4392156863);
+}
+.f-image-comparison-slider__button {
+  position: absolute;
+  z-index: 2;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: none;
+}
+.f-image-comparison-slider__button svg {
+  width: 12px;
+}
+.f-image-comparison-slider__button::after, .f-image-comparison-slider__button::before {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  pointer-events: none;
+}
+[data-layout=horizontal] .f-image-comparison-slider__button::after, [data-layout=horizontal] .f-image-comparison-slider__button::before {
+  width: 0.5rem;
+  height: 50%;
+  left: 50%;
+  margin-left: -0.25rem;
+}
+[data-layout=vertical] .f-image-comparison-slider__button::after, [data-layout=vertical] .f-image-comparison-slider__button::before {
+  width: 50%;
+  height: 0.5rem;
+  top: 50%;
+  margin-top: -0.25rem;
+}
+[data-layout=horizontal] .f-image-comparison-slider__button::before {
+  top: 0;
+  margin-top: -2rem;
+}
+[data-layout=vertical] .f-image-comparison-slider__button::before {
+  left: 0;
+  margin-left: -2rem;
+}
+[data-layout=horizontal] .f-image-comparison-slider__button::after {
+  bottom: 0;
+  margin-bottom: -2rem;
+}
+[data-layout=vertical] .f-image-comparison-slider__button::after {
+  right: 0;
+  margin-right: -2rem;
+}
+[data-layout=horizontal] .f-image-comparison-slider__button {
+  top: 0;
+  left: var(--percent, 50%);
+  width: 28px;
+  height: 100%;
+  margin-left: -14px;
+  cursor: col-resize;
+}
+[data-layout=vertical] .f-image-comparison-slider__button {
+  left: 0;
+  top: var(--percent, 50%);
+  width: 100%;
+  height: 2.8rem;
+  margin-top: -1.4rem;
+  cursor: row-resize;
+}
+.f-image-comparison-slider__button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  color: #222;
+  background-color: #fff;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 21px 24px rgba(0, 0, 0, 0.15);
+}
+[data-layout=vertical] .f-image-comparison-slider__button span {
+  transform: rotate(90deg) translate(-50%, 50%);
+}
+@media (max-width: 639.98px) {
+  .f-image-comparison-slider__button span {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+}
+.f-image-comparison-slider__animation {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1rem;
+  pointer-events: none;
+}
+.f-image-comparison-slider__product {
+  display: flex;
+  margin-top: 2.4rem;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 2rem;
+}
+.f-image-comparison-slider__product-title {
+  line-height: 1.5;
+  padding: 0 !important;
+}
+@media (max-width: 767.98px) {
+  .f-image-comparison-slider__product {
+    margin-top: 1.2rem;
+  }
+}
+.f-image-comparison-slider.f-animating .f-image-comparison-slider__after {
+  transition-property: clip-path;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
+.f-image-comparison-slider.f-animating .f-image-comparison-slider__button {
+  transition-property: top, left;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
+.f-image-comparison-slider--small {
+  --hero-height: 29rem;
+}
+.f-image-comparison-slider--medium {
+  --hero-height: 36rem;
+}
+.f-image-comparison-slider--large {
+  --hero-height: 42rem;
+}
+@media (min-width: 768px) {
+  .f-image-comparison-slider--small {
+    --hero-height: 42rem;
+  }
+  .f-image-comparison-slider--medium {
+    --hero-height: 56rem;
+  }
+  .f-image-comparison-slider--large {
+    --hero-height: 72rem;
+  }
+}
+.f-image-comparison-slider__wrapper {
+  height: var(--hero-height);
+}
+.f-image-comparison-slider__wrapper img, .f-image-comparison-slider__wrapper svg {
+  display: block;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+@media (max-width: 767.98px) {
+  .f-image-comparison-slider__wrapper.has-mobile-image .f-image-comparison-slider--image-desktop {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .f-image-comparison-slider--image-mobile {
+    display: none !important;
+  }
+}
+.f-image-comparison-slider__heading {
+  position: absolute;
+  z-index: 2;
+  color: var(--color-text-body);
+  background: var(--color-background);
+  padding: 8px 20px;
+  top: 20px;
+  left: 20px;
+  min-width: 80px;
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 21px 24px rgba(0, 0, 0, 0.1490196078);
+  text-transform: inherit;
+}
+.f-image-comparison-slider__heading--plain {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  min-height: auto;
+  min-width: auto;
+  top: 15px;
+}
+.f-image-comparison-slider__after .f-image-comparison-slider__heading {
+  left: auto;
+  right: 20px;
+}
+.dragging .f-image-comparison-slider__heading {
+  opacity: 0;
+  visibility: hidden;
+}
+.f-image-comparison-slider[data-layout=vertical] .f-image-comparison-slider__after .f-image-comparison-slider__heading {
+  left: 20px;
+  right: auto;
+  bottom: 20px;
+  top: auto;
+}

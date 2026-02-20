@@ -1,0 +1,113 @@
+.f-hero .container-full {
+  padding: 0;
+}
+.f-hero--small {
+  --hero-height: 29rem;
+}
+.f-hero--medium {
+  --hero-height: 36rem;
+}
+.f-hero--large {
+  --hero-height: 42rem;
+}
+@media (min-width: 768px) {
+  .f-hero--small {
+    --hero-height: 42rem;
+  }
+  .f-hero--medium {
+    --hero-height: 56rem;
+  }
+  .f-hero--large {
+    --hero-height: 72rem;
+  }
+}
+.f-hero__wrapper {
+  min-height: var(--hero-height);
+}
+.f-hero__content {
+  z-index: 1;
+  color: var(--text-color);
+}
+@media (min-width: 768px) {
+  .f-hero__content {
+    max-width: 60%;
+  }
+}
+.f-hero__content .btn--underline {
+  color: currentColor;
+}
+.f-hero__content-wrapper {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.f-hero__content-wrapper:not(.container) {
+  max-width: 100%;
+}
+.f-hero__content-wrapper[class*=-top] {
+  align-items: flex-start;
+}
+.f-hero__content-wrapper[class*=-middle] {
+  align-items: center;
+}
+.f-hero__content-wrapper[class*=-bottom] {
+  align-items: flex-end;
+}
+.f-hero__content-wrapper[class*="--center-"] {
+  justify-content: center;
+}
+.f-hero__content-wrapper[class*="--left-"] {
+  justify-content: flex-start;
+}
+.f-hero__content-wrapper[class*="--right-"] {
+  justify-content: flex-end;
+}
+.f-hero__content-wrapper.f-hero__content--center {
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 767.98px) {
+  .f-hero__wrapper--mobile-stack {
+    padding: 0;
+  }
+  .f-hero__wrapper--mobile-stack:before,
+  .f-hero__wrapper--mobile-stack .bg-overlay {
+    display: none;
+  }
+  .f-hero__wrapper--mobile-stack .f-hero__content-wrapper {
+    padding: 0;
+    position: static;
+  }
+  .f-hero__wrapper--mobile-stack .f-hero__bg--mobile {
+    position: relative;
+  }
+  .f-hero__wrapper--mobile-stack .f-hero__bg--desktop {
+    position: relative !important;
+  }
+  .f-hero__wrapper--mobile-stack .f-hero__bg {
+    height: var(--hero-height);
+    position: relative;
+  }
+  .f-hero__wrapper--mobile-stack .f-hero__content {
+    padding: 2rem 1.5rem;
+    color: var(--color-text-body);
+  }
+  .f-hero__wrapper--mobile-stack .f-video-wrapper {
+    position: relative !important;
+  }
+  .f-hero__content-wrapper {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+.f-hero .f-video-wrapper {
+  height: var(--hero-height);
+}
+
+.overlay_link {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}

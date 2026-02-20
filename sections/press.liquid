@@ -1,0 +1,333 @@
+{{ 'press.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign enable_rtl = settings.enable_rtl
+  assign language_support_rtl = settings.language_support_rtl
+  if enable_rtl and language_support_rtl != blank
+    assign shop_locale = localization.language.iso_code
+    assign language_support_rtl_list = language_support_rtl | split: ','
+    assign is_rtl = language_support_rtl_list | where: shop_locale
+    if is_rtl.size > 0
+      assign enable_rtl = true
+    else
+      assign enable_rtl = false
+    endif
+  endif
+
+  assign section_id = section.settings.custom_id | default: section.id
+  assign custom_class = section.settings.custom_class
+
+  unless custom_class == blank
+      assign custom_class = custom_class | prepend: ' '
+  endunless
+
+  assign container = section.settings.container
+  assign autoplay = section.settings.autoplay
+  assign loop = false
+  assign cellAlign = 'left'
+  if enable_rtl
+    assign cellAlign = 'right'
+  endif
+  if section.blocks.size > 5
+      assign loop = true
+      assign cellAlign = 'center'
+  endif
+  assign autoplay = false
+  if section.settings.autoplay
+      assign autoplay = section.settings.autorotate_speed | times: 1000
+  endif
+
+	assign animation_effect = settings.animations
+	assign animated = false
+	if animation_effect != 'none'
+		assign animated = true
+		if section.settings.animations != 'inherit'
+			assign animation_effect = section.settings.animations
+		endif
+	endif
+%}
+<div
+    id="{{ section_id }}"
+    class="f-press{{ custom_class }} f-section-padding color-{{ section.settings.color_schema }}"
+    data-section-type="f-press"
+    data-section-id="{{ section.id }}"
+    style="--section-padding-top: {{ section.settings.padding_top }}px ; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+    <div class="{{ container }}">
+        {% render 'index-section-header', animation_effect: animation_effect, section_settings: section.settings %}
+        <div class="f-press__wrapper">
+            <div class="f-press__content-wrapper">
+                <flickity-component
+                    class="f-press__content flickity-button-initialized"
+                    data-auto-play="{{ autoplay }}"
+                    data-slider-options='{"prevNextButtons": {{ section.settings.show_nav }}, "autoPlay": {{ autoplay }}, "wrapAround": true, "adaptiveHeight": true}'
+                    data-slider-columns="1"
+                    data-enable-slider="true"
+                    data-calc-button-position="true"
+                    id="f-press__slider-{{ section.id }}"
+                >
+                    {% for block in section.blocks %}
+                        {% if block.settings.title == blank %}
+                            {% continue %}
+                        {% endif %}
+                        <div class="f-press__text w-full text-center" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                            <div class="rte{% if animated %} f-scroll-trigger animate--{{ animation_effect }}{% endif %}">
+                                {{ block.settings.title }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </flickity-component>
+            </div>
+            <div class="f-press__list">
+              {% liquid
+                assign nav_max_count = 5
+                if section.blocks.size <= 5
+                  assign nav_max_count = section.blocks.size | minus: 1
+                endif
+              %}
+                <press-nav-component
+                    class="f-press__slider f-grid{% unless loop %} md:disable-transition{% endunless %}"
+                    data-enable-slider="true"
+                    data-slider-columns="{{ nav_max_count }}"
+                    data-slider-options='{"prevNextButtons": false, "asNavFor": "#f-press__slider-{{ section.id }}", "percentPosition": true, "draggable": false, "wrapAround": {{ loop }}, "cellAlign": "{{ cellAlign }}", "groupCells": 1}'
+                >
+                    {% for block in section.blocks %}
+                        {% if block.settings.title == blank %}
+                            {% continue %}
+                        {% endif %}
+                        {% assign image_width = block.settings.image_width | append: 'px' %}
+                        <div class="f-press__logo" {{ block.shopify_attributes }}>
+													{% if block.settings.image != blank %}
+														{% render 'responsive-image', image: block.settings.image, image_width: image_width %}
+													{% else %}
+															<div class="f-image" style="--aspect-ratio: 16/9">
+																	{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+															</div>
+													{% endif %}
+                        </div>
+                    {% endfor %}
+                </press-nav-component>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.press.name",
+	"disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "class": "f-section-press",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.common.general.name"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_schema",
+      "label": "t:sections.common.color_schema.label",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.header.name"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.common.header.heading",
+      "default": "Press"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.common.heading-size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h3",
+          "label": "t:sections.common.heading-size.options.option__0"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.common.heading-size.options.option__1"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.common.heading-size.options.option__2"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.common.heading-size.options.option__3"
+        },
+        {
+          "value": "h-xl",
+          "label": "t:sections.common.heading-size.options.option__4"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.common.header.description"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.slider.header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav",
+      "label": "t:sections.common.slider.show_nav",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "t:sections.common.slider.autoplay"
+    },
+    {
+      "type": "range",
+      "id": "autorotate_speed",
+      "label": "t:sections.common.slider.autoplay_timeout",
+      "max": 10,
+      "min": 2,
+      "step": 1,
+      "unit": "s",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.section_padding.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.common.section_padding.top_padding.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.common.section_padding.bottom_padding.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.custom_attr.header"
+    },
+    {
+      "type": "text",
+      "id": "custom_id",
+      "label": "t:sections.common.custom_attr.custom_id"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.common.custom_attr.custom_class"
+    },
+		{
+			"type": "header",
+			"content": "t:settings_schema.animations.header.content"
+		},
+		{
+			"type": "select",
+			"id": "animations",
+			"label": "t:settings_schema.animations.header__2.content",
+			"default": "inherit",
+			"options": [
+				{"value": "inherit", "label": "t:settings_schema.animations.settings.animation.options.option_6"},
+				{"value": "fade-in", "label": "t:settings_schema.animations.settings.animation.options.option_2"},
+				{"value": "fade-in-up", "label": "t:settings_schema.animations.settings.animation.options.option_3"},
+				{"value": "fade-in-left", "label": "t:settings_schema.animations.settings.animation.options.option_4"},
+				{"value": "fade-in-right", "label": "t:settings_schema.animations.settings.animation.options.option_5"}
+			]
+		}
+  ],
+  "blocks": [
+    {
+      "type": "press",
+      "name": "t:sections.press.blocks.press.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "t:sections.press.blocks.press.settings.content",
+          "default": "<p>You can add text content from press comments, reviews, or testimonials here.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.press.blocks.press.settings.image"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "t:sections.press.blocks.press.settings.image_width",
+          "default": 150,
+          "min": 20,
+          "step": 2,
+          "max": 200,
+          "unit": "px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.press.presets.name",
+      "category": "Promotional",
+      "blocks": [
+        {
+          "type": "press"
+        },
+        {
+          "type": "press"
+        },
+        {
+          "type": "press"
+        },
+        {
+          "type": "press"
+        },
+        {
+          "type": "press"
+        },
+        {
+          "type": "press"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

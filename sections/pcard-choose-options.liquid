@@ -1,0 +1,101 @@
+{% liquid
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+<modal-dialog id="Choose-Options-Modal" class="f-modal f-modal-choose-options" style="--modal-width: 500px">
+  <div class="f-modal__content" role="dialog" aria-label="Choose options" aria-modal="true" tabindex="-1">
+    <div class="f-modal__inner scroll-container">
+      <button
+        id="ModalClose-ChooseOptions"
+        type="button"
+        class="f-modal__close"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+      <div data-section-id="{{ section.id }}">
+        <div class="">
+          <div class="f-product-single__block f-product-single__block--title">
+            <h2 class="f-product-single__title h4">
+              {{ product.title | escape }}
+            </h2>
+          </div>
+          <div class="f-product-single__block f-product-single__block--price">
+            <div id="f-product-price-{{ section.id }}" role="status">
+              {%- render 'price',
+                product: product,
+                use_variant: true,
+                show_sale_badge: true,
+                sale_badge_type: 'percentage',
+                show_soldout_badge: true,
+                price_class: 'f-price--large text-lg sm:text-xl'
+              -%}
+            </div>
+            {%- if shop.taxes_included -%}
+              <div class="f-product-single__block-tax text-subtext">
+                {{- 'products.product.include_taxes' | t -}}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="f-product-single__block f-product-single__block--variant_picker">
+            {% render 'variant-picker',
+              product: product,
+              show_size_chart: false,
+              update_browser_history: false,
+              show_selected_value: true
+            %}
+          </div>
+          <div class="f-product-single__block f-product-single__block--buy_buttons">
+            <product-form class="f-product-form">
+              {%- form 'product',
+                product,
+                id: product_form_id,
+                class: 'pcard-choose-options',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  disabled
+                >
+                <div class="f-product-form__buttons f-product-form__buttons--show-buynow">
+                  <div class="f-product-form__buttons--qty-atc-group">
+                    {% render 'quantity-input',
+                      section_id: section.id,
+                      form_id: product_form_id,
+                      min: 1,
+                      product_title: product.title,
+                      show_label: true
+                    %}
+                    <button
+                      type="submit"
+                      name="add"
+                      class="f-product-form__submit btn btn--secondary"
+                      {% if product.selected_or_first_available_variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                      <span>
+                        {%- if product.selected_or_first_available_variant.available -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                      {% render 'icon-spinner' %}
+                    </button>
+                  </div>
+                  <div class="f-product-form__button-dynamic">
+                    {{ form | payment_button }}
+                  </div>
+                  <div class="f-product-form__error-message-wrapper" role="alert"></div>
+                </div>
+              {%- endform -%}
+            </product-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal-dialog>

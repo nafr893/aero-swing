@@ -1,0 +1,32 @@
+.f-countdown .container-full {
+  padding: 0;
+}
+.f-countdown .bg-image {
+  z-index: 1;
+  background-size: cover;
+}
+@media (max-width: 639.98px) {
+  .f-countdown .bg-image {
+    left: -1.5rem;
+    right: -1.5rem;
+    width: calc(100% + 3rem);
+  }
+}
+.f-countdown__inner {
+  max-width: 55rem;
+}
+.f-countdown__inner--boxed {
+  z-index: 2;
+  padding: 3rem 2rem;
+}
+@media (max-width: 639.98px) {
+  .f-countdown__inner--boxed {
+    padding: 2rem;
+  }
+}
+.f-countdown__inner h2 {
+  font-weight: bold;
+}
+.f-countdown__inner .btn {
+  margin-top: 2.4rem;
+}

@@ -1,0 +1,114 @@
+.collection-card {
+  color: var(--text-color, #000);
+}
+.collection-card .text-subtext {
+  color: var(--text-color, #000);
+  opacity: 0.75;
+}
+.collection-card__wrapper {
+  display: block;
+  position: relative;
+  color: currentColor !important;
+}
+.collection-card__info {
+  margin-top: 1.6rem;
+}
+.collection-card__title {
+  margin-bottom: 2px;
+}
+.collection-card__title.font-body {
+  text-transform: unset !important;
+}
+.collection-card__action {
+  margin-top: 1.5rem;
+}
+.collection-card__number-count {
+  font-size: 1.4rem;
+}
+.f-grid:not(.flickity-enabled) .collection-card--style-1 {
+  padding-bottom: 1.5rem;
+}
+.collection-card--style-1 .collection-card__info.inline-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.collection-card--style-2 .collection-card__info {
+  position: absolute;
+  margin: 0;
+  padding: 2rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 71%;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  transition: 0.3s all;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.45) 100%);
+}
+@media (max-width: 639.98px) {
+  .collection-card--style-2 .collection-card__info {
+    padding: 1.5rem;
+  }
+}
+.collection-card--style-3 .collection-card__info {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.collection-card--style-3 .collection-card__title {
+  margin-bottom: 0;
+}
+.collection-card--style-3 .collection-card__number-count {
+  opacity: 1;
+  position: absolute;
+  margin: 0;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(var(--color-base-heading));
+  background-color: #fff;
+  padding: 7px 16px;
+  border-radius: 4rem;
+  min-height: 3.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 767.98px) {
+  .collection-card--style-3 .collection-card__number-count {
+    bottom: 2rem;
+  }
+}
+.collection-card--style-3.text-left .collection-card__number-count {
+  left: 2rem;
+  transform: translateX(0);
+}
+.collection-card--style-3.text-right .collection-card__number-count {
+  right: 2rem;
+  left: auto;
+  transform: translateX(0);
+}
+@media (max-width: 767.98px) {
+  .f-swiper .collection-card {
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .f-grid:not(.f-swiper) .collection-card--style-3 .collection-card__number-count {
+    transform: none;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0.8rem;
+  }
+}

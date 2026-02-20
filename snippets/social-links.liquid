@@ -1,0 +1,98 @@
+<ul class="social-links flex items-center list-none {{ class }}">
+    {% if settings['social_facebook_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_facebook_link'] }}" title="{{ 'general.social.links.facebook' | t }}">
+                {% render 'icon-facebook' %}
+                <span class="visually-hidden">Facebook</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_twitter_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_twitter_link'] }}" title="{{ 'general.social.links.twitter' | t }}">
+                {% render 'icon-twitter' %}
+                <span class="visually-hidden">Twitter</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_pinterest_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_pinterest_link'] }}" title="{{ 'general.social.links.pinterest' | t }}">
+                {% render 'icon-pinterest' %}
+                <span class="visually-hidden">Pinterest</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_instagram_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_instagram_link'] }}" title="{{ 'general.social.links.instagram' | t }}">
+                {% render 'icon-instagram' %}
+                <span class="visually-hidden">Instagram</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_snapchat_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_snapchat_link'] }}" title="{{ 'general.social.links.snapchat' | t }}">
+                {% render 'icon-snapchat' %}
+                <span class="visually-hidden">Snapchat</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_tumblr_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_tumblr_link'] }}" title="{{ 'general.social.links.tumblr' | t }}">
+                {% render 'icon-tumblr' %}
+                <span class="visually-hidden">Tumblr</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_youtube_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_youtube_link'] }}" title="{{ 'general.social.links.youtube' | t }}">
+                {% render 'icon-youtube' %}
+                <span class="visually-hidden">Youtube</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_vimeo_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_vimeo_link'] }}" title="{{ 'general.social.links.vimeo' | t }}">
+                {% render 'icon-vimeo' %}
+                <span class="visually-hidden">Vimeo</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_tiktok_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_tiktok_link'] }}" title="{{ 'general.social.links.tiktok' | t }}">
+                {% render 'icon-tiktok', class: 'f-icon-tiktok' %}
+                <span class="visually-hidden">Tiktok</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_linkedin_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_linkedin_link'] }}" title="{{ 'general.social.links.linkedin' | t }}">
+                {% render 'icon-linkedin' %}
+                <span class="visually-hidden">Linkedin</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_spotify_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_spotify_link'] }}" title="{{ 'general.social.links.spotify' | t }}">
+                {% render 'icon-spotify' %}
+                <span class="visually-hidden">Spotify</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if settings['social_whatsapp_link'] != blank %}
+        <li class="social-links__link">
+            <a href="{{ settings['social_whatsapp_link'] }}" title="{{ 'general.social.links.whatsapp' | t }}">
+                {% render 'icon-whatsapp' %}
+                <span class="visually-hidden">Whatsapp</span>
+            </a>
+        </li>
+    {% endif %}
+</ul>
