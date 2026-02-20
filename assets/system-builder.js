@@ -153,7 +153,7 @@ class SystemBuilder extends HTMLElement {
     const container = this.querySelector('[data-chips="shaft-type"]');
     if (!container) return;
 
-    const filtered = this.data.shaftTypes.filter(st => st.sportHandle === this.state.sport);
+    const filtered = this.data.shaftTypes.filter(st => Array.isArray(st.sportHandles) && st.sportHandles.includes(this.state.sport));
     container.innerHTML = '';
 
     if (filtered.length === 0) {
