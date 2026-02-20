@@ -189,45 +189,52 @@ class SystemBuilder extends HTMLElement {
     const display  = this.querySelector('[data-product="shaft"]');
     if (!display) return;
 
-    if (!sizeData || !sizeData.shaft) {
+    if (!sizeData || !sizeData.shafts || sizeData.shafts.length === 0) {
       this.hideShaftProduct();
       return;
     }
 
-    const v           = sizeData.shaft;
-    const imageUrl    = v.image ? this.getImageUrl(v.image, 200) : '';
-    const price       = this.formatMoney(v.price);
-    const displayTitle = v.productTitle
-      ? (v.title && v.title !== 'Default Title' ? `${v.productTitle} - ${v.title}` : v.productTitle)
-      : v.title || 'Product';
-    const isSelected = !!this.selectedProducts.shaft;
+    // Clear shaft selection when a new size is chosen
+    delete this.selectedProducts.shaft;
 
-    display.innerHTML = `
-      <div class="system-builder__product-card${isSelected ? ' system-builder__product-card--selected' : ''}"
-           data-product-card
-           data-product-type="shaft"
-           data-price="${v.price}"
-           role="button"
-           tabindex="0"
-           aria-pressed="${isSelected}"
-           aria-label="${isSelected ? 'Remove from' : 'Add to'} your system: ${this.escAttr(displayTitle)}">
-        <div class="system-builder__product-select-indicator">
-          <span class="system-builder__checkmark"></span>
-        </div>
-        <div class="system-builder__product-image">
-          ${imageUrl
-            ? `<img src="${imageUrl}" alt="${this.escAttr(displayTitle)}" class="system-builder__product-img" loading="lazy">`
-            : '<div class="system-builder__product-placeholder-image"></div>'
-          }
-        </div>
-        <div class="system-builder__product-info">
-          <h4 class="system-builder__product-title">${this.escHtml(displayTitle)}</h4>
-          <p class="system-builder__product-price">${price}</p>
-        </div>
-        <input type="hidden" name="variant_id" value="${v.id}" data-variant-id>
-      </div>
-    `;
+    const currentShaftId = this.selectedProducts.shaft?.id;
 
+    const cardsHtml = sizeData.shafts.map(v => {
+      const imageUrl     = v.image ? this.getImageUrl(v.image, 200) : '';
+      const price        = this.formatMoney(v.price);
+      const displayTitle = v.productTitle
+        ? (v.title && v.title !== 'Default Title' ? `${v.productTitle} - ${v.title}` : v.productTitle)
+        : v.title || 'Product';
+      const isSelected = currentShaftId === v.id;
+
+      return `
+        <div class="system-builder__product-card${isSelected ? ' system-builder__product-card--selected' : ''}"
+             data-product-card
+             data-product-type="shaft"
+             data-price="${v.price}"
+             role="button"
+             tabindex="0"
+             aria-pressed="${isSelected}"
+             aria-label="${isSelected ? 'Remove from' : 'Add to'} your system: ${this.escAttr(displayTitle)}">
+          <div class="system-builder__product-select-indicator">
+            <span class="system-builder__checkmark"></span>
+          </div>
+          <div class="system-builder__product-image">
+            ${imageUrl
+              ? `<img src="${imageUrl}" alt="${this.escAttr(displayTitle)}" class="system-builder__product-img" loading="lazy">`
+              : '<div class="system-builder__product-placeholder-image"></div>'
+            }
+          </div>
+          <div class="system-builder__product-info">
+            <h4 class="system-builder__product-title">${this.escHtml(displayTitle)}</h4>
+            <p class="system-builder__product-price">${price}</p>
+          </div>
+          <input type="hidden" name="variant_id" value="${v.id}" data-variant-id>
+        </div>
+      `;
+    }).join('');
+
+    display.innerHTML = `<div class="system-builder__product-grid">${cardsHtml}</div>`;
     display.hidden = false;
   }
 
@@ -295,33 +302,58 @@ class SystemBuilder extends HTMLElement {
   handleProductCardClick(card) {
     const productType = card.dataset.productType;
     const index       = card.dataset.productIndex;
-
-    // Build the unique slot key
-    const slotKey = productType === 'shaft' ? 'shaft' : `${productType}-${index}`;
-
-    const variantId = card.querySelector('[data-variant-id]')?.value;
+    const variantId   = card.querySelector('[data-variant-id]')?.value;
     if (!variantId) return;
 
-    const price     = parseInt(card.dataset.price || '0', 10);
-    const titleEl   = card.querySelector('.system-builder__product-title');
-    const imgEl     = card.querySelector('.system-builder__product-img');
+    const price   = parseInt(card.dataset.price || '0', 10);
+    const titleEl = card.querySelector('.system-builder__product-title');
+    const imgEl   = card.querySelector('.system-builder__product-img');
 
-    if (this.selectedProducts[slotKey]) {
-      // Deselect
-      delete this.selectedProducts[slotKey];
-      card.classList.remove('system-builder__product-card--selected');
-      card.setAttribute('aria-pressed', 'false');
+    if (productType === 'shaft') {
+      // Shaft variants are mutually exclusive — clicking one deselects the others
+      const clickedId       = parseInt(variantId, 10);
+      const alreadySelected = this.selectedProducts.shaft?.id === clickedId;
+
+      // Reset all shaft card visuals
+      this.querySelectorAll('[data-product-card][data-product-type="shaft"]').forEach(c => {
+        c.classList.remove('system-builder__product-card--selected');
+        c.setAttribute('aria-pressed', 'false');
+      });
+
+      if (alreadySelected) {
+        // Toggle off if clicking the already-selected variant
+        delete this.selectedProducts.shaft;
+      } else {
+        this.selectedProducts.shaft = {
+          id:      clickedId,
+          title:   titleEl?.textContent?.trim() || '',
+          price,
+          image:   imgEl?.src || '',
+          slotKey: 'shaft'
+        };
+        card.classList.add('system-builder__product-card--selected');
+        card.setAttribute('aria-pressed', 'true');
+      }
+
     } else {
-      // Select
-      this.selectedProducts[slotKey] = {
-        id:       parseInt(variantId, 10),
-        title:    titleEl?.textContent?.trim() || '',
-        price,
-        image:    imgEl?.src || '',
-        slotKey
-      };
-      card.classList.add('system-builder__product-card--selected');
-      card.setAttribute('aria-pressed', 'true');
+      // Accessories (balls, pineapples) toggle independently
+      const slotKey = `${productType}-${index}`;
+
+      if (this.selectedProducts[slotKey]) {
+        delete this.selectedProducts[slotKey];
+        card.classList.remove('system-builder__product-card--selected');
+        card.setAttribute('aria-pressed', 'false');
+      } else {
+        this.selectedProducts[slotKey] = {
+          id:      parseInt(variantId, 10),
+          title:   titleEl?.textContent?.trim() || '',
+          price,
+          image:   imgEl?.src || '',
+          slotKey
+        };
+        card.classList.add('system-builder__product-card--selected');
+        card.setAttribute('aria-pressed', 'true');
+      }
     }
 
     this.updateSummary();

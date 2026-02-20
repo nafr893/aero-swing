@@ -55,19 +55,23 @@
   <script type="application/json" data-shaft-sizes>
     [
       {%- for shaft_size in shaft_sizes -%}
-        {%- assign shaft_variant = shaft_size.shaft.value -%}
+        {%- assign shaft_variant_list = shaft_size.shaft.value -%}
         {
           "id": {{ shaft_size.id | json }},
           "handle": {{ shaft_size.system.handle | json }},
           "name": {{ shaft_size.shaft_size | json }},
           "shaftTypeHandle": {{ shaft_size.shaft_type.value.system.handle | default: '' | json }},
-          "shaft": {%- if shaft_variant -%}{
-            "id": {{ shaft_variant.id | json }},
-            "title": {{ shaft_variant.title | json }},
-            "price": {{ shaft_variant.price | json }},
-            "productTitle": {{ shaft_variant.product.title | json }},
-            "image": {{ shaft_variant.image.src | default: shaft_variant.product.featured_image.src | json }}
-          }{%- else -%}null{%- endif -%}
+          "shafts": [
+            {%- for v in shaft_variant_list -%}
+              {
+                "id": {{ v.id | json }},
+                "title": {{ v.title | json }},
+                "price": {{ v.price | json }},
+                "productTitle": {{ v.product.title | json }},
+                "image": {{ v.image.src | default: v.product.featured_image.src | json }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ]
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
