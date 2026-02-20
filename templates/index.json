@@ -1000,7 +1000,7 @@
           "type": "button",
           "settings": {
             "button_label": "Button label",
-            "button_link": "",
+            "button_link": "shopify://pages/aero-swing-kit-builder",
             "button_style": "btn--primary",
             "button_size": ""
           }
