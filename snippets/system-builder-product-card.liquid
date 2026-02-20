@@ -1,0 +1,44 @@
+{%- comment -%}
+  System Builder Product Card (server-side rendered)
+  Used for static accessory panels: balls and pineapples.
+
+  Required parameters:
+  - product:      The Shopify product object
+  - product_type: Type string — 'ball' or 'pineapple'
+  - group:        Group string — 'balls' or 'pineapples'
+  - index:        0-based integer index within the group (forloop.index0)
+
+  Optional parameters:
+  - selected: Boolean, whether the card starts pre-selected (default false)
+{%- endcomment -%}
+
+
+{%- if product != blank -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  <div class="system-builder__product-card{% if selected %} system-builder__product-card--selected{% endif %}"
+       data-product-card
+       data-product-type="{{ product_type }}"
+       data-product-group="{{ group }}"
+       data-product-index="{{ index }}"
+       data-price="{{ variant.price }}"
+       role="button"
+       tabindex="0"
+       aria-pressed="{{ selected | default: false }}"
+       aria-label="{% if selected %}Remove from{% else %}Add to{% endif %} your system: {{ product.title | escape }}">
+    <div class="system-builder__product-select-indicator">
+      <span class="system-builder__checkmark"></span>
+    </div>
+    <div class="system-builder__product-image">
+      {%- if product.featured_image != blank -%}
+        {{ product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'system-builder__product-img' }}
+      {%- else -%}
+        <div class="system-builder__product-placeholder-image"></div>
+      {%- endif -%}
+    </div>
+    <div class="system-builder__product-info">
+      <h4 class="system-builder__product-title">{{ product.title }}</h4>
+      <p class="system-builder__product-price">{{ variant.price | money }}</p>
+    </div>
+    <input type="hidden" name="variant_id" value="{{ variant.id }}" data-variant-id>
+  </div>
+{%- endif -%}
