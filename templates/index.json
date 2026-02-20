@@ -1,1 +1,1102 @@
-{"sections":{"slideshow_CC8Q3q":{"type":"slideshow","blocks":{"slide_Tn3BJ7":{"type":"slide","settings":{"background":"shopify:\/\/shop_images\/Aero-Swing-Banner-Home-Desktop.webp","mb_background":"shopify:\/\/shop_images\/Aero-Banner-Home-Mobile.jpg","image_overlay_opacity":0,"content_position":"center","text_alignment":"center","text_color":"#000000","title":"","heading_size":"h2","subheading":"","description":"","desc_size":"text-desc-base","button_text_1":"","button_link_1":"shopify:\/\/collections\/all-products","button_style_1":"btn--primary","button_size_1":"","make_button_full_width":true,"button_text_2":"","button_link_2":"","button_style_2":"btn--primary","button_size_2":""}},"slide_dEQqiJ":{"type":"slide","disabled":true,"settings":{"background":"shopify:\/\/shop_images\/Aero-Swing-Banner-Home-Desktop.webp","mb_background":"shopify:\/\/shop_images\/NEW_Mobile.jpg","image_overlay_opacity":0,"content_position":"center","text_alignment":"center","text_color":"#000000","title":"","heading_size":"h2","subheading":"","description":"","desc_size":"text-desc-base","button_text_1":"","button_link_1":"shopify:\/\/collections\/all-products","button_style_1":"btn--primary","button_size_1":"","make_button_full_width":true,"button_text_2":"","button_link_2":"","button_style_2":"btn--primary","button_size_2":""}}},"block_order":["slide_Tn3BJ7","slide_dEQqiJ"],"disabled":true,"settings":{"container":"container-full","slideshow_height":"adapt","show_dots":true,"show_nav":false,"autoplay":false,"autorotate_speed":3,"pagination_background":"light","controls_position":"center","pagination_style":"dots","show_text_below":false,"text_alignment_mobile":"center","accessibility_info":"Slideshow about our brand","custom_id":"","custom_class":"","enable_bg_zoom_effect":false}},"hero_yxqzBP":{"type":"hero","settings":{"container":"container-full","image":"shopify:\/\/shop_images\/Aero-Swing-Banner-Home-Desktop.webp","image_mobile":"shopify:\/\/shop_images\/aero-banner-home-mobile.webp","image_overlay_opacity":0,"hero_height":"adapt","content_in_container":false,"content_position":"center","text_alignment":"center","text_color":"#ffffff","show_text_below":true,"text_alignment_mobile":"center","custom_id":"","custom_class":"","image_link":"shopify:\/\/collections\/all-products","animations":"inherit","enable_bg_zoom_effect":true}},"featured_collection_no_slider_EwkhNz":{"type":"featured-collection-no-slider","settings":{"custom_id":"","custom_class":"","container":"container","color_schema":"","heading":"Most Popular Products","heading_size":"h2","description":"","collection":"most-popular-products","pcard_image_ratio":"1\/1","show_vendor":false,"show_all_button_on_top":false,"button_label":"Shop All","button_style":"btn--primary","padding_top":40,"padding_bottom":40,"animations":"inherit"}},"featured_collection_gYb98x":{"type":"featured-collection","disabled":true,"settings":{"container":"container","color_schema":"background-1","header_layout":"vertical","heading":"Most Popular Products","heading_size":"h0","description":"","collection":"all-products","limit":4,"columns":4,"column_gap":"medium","pcard_image_ratio":"1\/1","show_vendor":false,"enable_slider":false,"show_nav":false,"show_dots":false,"show_all_button_on_top":false,"button_label":"View All Products","button_style":"btn--secondary","enable_swipe_mobile":true,"padding_top":48,"padding_bottom":20,"custom_id":"","custom_class":"","animations":"inherit"}},"video_reviews_wyptGd":{"type":"video-reviews","blocks":{"vidoes_tXzLGp":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/Snapinsta.App Video 5E46c85a7267c3550e5ffe14687b6eb1 Video Dashinit.mp4","image":"shopify:\/\/shop_images\/35625b50d7524f00836f795190a34f4f.thumbnail.0000000000.webp","title":"Next Level Bat Speed","video_review":"5","description":"Wind-Resistance Pineapples will increase your bat-speed and will have you launching balls out of the yard."}},"vidoes_kJLWP9":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/long-drive-power.mp4","image":"shopify:\/\/shop_images\/long-drive-power.jpg","title":"Long-Drive Power","video_review":"5","description":"Trusted by professionals who are sending drives 350+ yards. Develop speed and sequencing to launch your drives."}},"vidoes_MAXiNJ":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/elite-bat-lag.mp4","image":"shopify:\/\/shop_images\/elite-bat-lag.webp","title":"Elite Bat Lag","video_review":"5","description":"Maximize your swing efficiency and deliver the barrel for better contact and big time pop."}}},"block_order":["vidoes_tXzLGp","vidoes_kJLWP9","vidoes_MAXiNJ"],"settings":{"padding_top":32,"padding_bottom":32,"container":"container"}},"testimonials_t3tMgq":{"type":"testimonials","blocks":{"testimonial_qTgqCK":{"type":"testimonial","settings":{"text":"<p>I wish I can give 6 stars. If you want to hit the golf ball long, then Aero Swing is your ticket to more distance on your drive.<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_fixVDn":{"type":"testimonial","settings":{"text":"<p>My 9 year old just started baseball this year and has been working with the aero bat daily now for the last week. He has impressed his coaches with his bat speed! It won’t be long before you see these at every field. Highly recommend getting one!<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_XwiteY":{"type":"testimonial","settings":{"text":"<p>I coach softball and have a very competitive 16u team. We are constantly looking for ways to improve bat speed, exit velo, etc. The aero-swing has been the tool to do exactly what it’s meant to! Every single one of my players’ swings have improved in just a short period of time. It’s also a great warmup bat due to how light it is. The girls can get in a few swings before cage work and be loose and ready. 10\/10. You need this!<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_rWPFii":{"type":"testimonial","settings":{"text":"<p>This is a great training tool for any age<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_Ggzk4r":{"type":"testimonial","settings":{"text":"<p>The Aero-Swing training bat is excellent for warmups and improving swing tempo.<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_AjeQnB":{"type":"testimonial","settings":{"text":"<p>Really good as both a training aid as well as for warm up swings.<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_mGxf4d":{"type":"testimonial","settings":{"text":"<p>Players reported feeling more confident in their swings, and I noticed a marked improvement in their timing and power during live batting practice.<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_gWGgf7":{"type":"testimonial","settings":{"text":"<p>Overall, the Aero Swing has become an essential part of our training regimen, and I highly recommend it to any coach looking to elevate their team's hitting skills!<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_NGx99r":{"type":"testimonial","settings":{"text":"<p>Awesome product! We use this to warm up before batting practice and also as part of my son's overload\/underload hitting program. Very well made training tool.<\/p>","author":"","bio":"","product":"","icon":"5-stars"}},"testimonial_pEzaj3":{"type":"testimonial","settings":{"text":"<p>As a baseball coach, I’ve tried countless swing trainers, but the Aero-Bat is the only one that delivers measurable results. My players have seen documented bat speed increases of up to 20MPH after just 2 weeks of use<\/p>","author":"","bio":"Baseball Coach","product":"","icon":"5-stars"}}},"block_order":["testimonial_qTgqCK","testimonial_fixVDn","testimonial_XwiteY","testimonial_rWPFii","testimonial_Ggzk4r","testimonial_AjeQnB","testimonial_mGxf4d","testimonial_gWGgf7","testimonial_NGx99r","testimonial_pEzaj3"],"settings":{"container":"container","color_schema":"inverse","heading":"Trusted By Golf and Baseball Professionals Everywhere","heading_size":"h3","description":"","design":"fancy","columns":4,"column_gap":"medium","enable_slider":true,"show_dots":false,"show_nav":true,"autoplay":true,"autoplay_timeout":4,"padding_top":68,"padding_bottom":68,"custom_id":"","custom_class":"","animations":"inherit"}},"image_with_text_6tDnbC":{"type":"image-with-text","blocks":{"heading_dM7xWw":{"type":"heading","settings":{"heading":"Now online at Dick's Sporting Goods!","heading_size":"h1"}},"text_Ce9t6c":{"type":"text","settings":{"text":"<p>For all of you who have supported Aero-Swing and our products, thanks to you, the Aero-Bat is now available online at Dick's Sporting Goods! Thank you for your continued support!<\/p>"}},"button_Lwy6KJ":{"type":"button","settings":{"button_label":"","button_link":"","button_style":"btn--white","button_size":""}}},"block_order":["heading_dM7xWw","text_Ce9t6c","button_Lwy6KJ"],"disabled":true,"settings":{"container":"container","color_schema":"","image":"shopify:\/\/shop_images\/Dicks_Logo_affebb1c-fcf5-4032-9b4b-39962fc12b00.png","image_width":"50%","show_image_padding":true,"image_position":"left","vertical_alignment":"center","column_gap":"medium","padding_top":40,"padding_bottom":40,"custom_id":"","custom_class":"","animations":"inherit"}},"rich_text_RpPrBU":{"type":"rich-text","blocks":{"heading_PT6UPm":{"type":"heading","settings":{"heading":"Increase Your Swing Speed","heading_size":"h1"}},"text_6hc4EJ":{"type":"text","settings":{"text":"<p>Aero-Swing speed trainers leverage wind resistance to strengthen key muscles for obtaining greater swing speed. Whether you're a first time youth golfer or an experienced long drive professional, everyone can benefit from an Aero-Swing resistance training program.<\/p>"}}},"block_order":["heading_PT6UPm","text_6hc4EJ"],"disabled":true,"custom_css":[],"settings":{"container":"container-narrow","color_schema":"background-1","text_alignment":"center","padding_top":64,"padding_bottom":0,"custom_id":"","custom_class":"","animations":"inherit"}},"featured_product_Y36wAc":{"type":"featured-product","blocks":{"vendor_eCbRdF":{"type":"vendor","settings":{}},"title_UAYpfd":{"type":"title","settings":{"heading_size":"h2"}},"price_UwnNKc":{"type":"price","settings":{"show_sale_badge":true,"sale_badge_type":"text"}},"variant_picker_RJEzgK":{"type":"variant_picker","settings":{"picker_type":"button","variant_picker_show_selected":true}},"quantity_selector_aktPCK":{"type":"quantity_selector","settings":{}},"buy_buttons_QhnDaL":{"type":"buy_buttons","settings":{"show_atc_button":true,"show_dynamic_checkout":true}},"description_CRHYhM":{"type":"description","settings":{}}},"block_order":["vendor_eCbRdF","title_UAYpfd","price_UwnNKc","variant_picker_RJEzgK","quantity_selector_aktPCK","buy_buttons_QhnDaL","description_CRHYhM"],"disabled":true,"settings":{"container":"container","color_schema":"","product":"aero-swing-pineapples-doubles","media_position":"left","media_size":"medium","mobile_thumbnails":"hide","enable_image_zoom":true,"enable_video_looping":false,"padding_top":40,"padding_bottom":40,"custom_id":"","custom_class":"","animations":"inherit"}},"video_NjAJ9L":{"type":"video","custom_css":["div {background-color: #000;}"],"settings":{"container":"container","heading":"","heading_size":"h3","description":"","video_type":"shopify","shopify_video":"shopify:\/\/files\/videos\/generate-more-bat-lag.mp4","video_url":"","cover_image":"shopify:\/\/shop_images\/generate-more-bat-lag.webp","video_ratio":"16:9","padding_top":56,"padding_bottom":4,"custom_id":"","custom_class":"","animations":"inherit"}},"custom_content_UbbGjA":{"type":"custom-content","blocks":{"text_neMANa":{"type":"text","settings":{"title":"Increase Your Swing Speed","heading_size":"h1","subheading":"","text":"<p>Aero-Swing speed trainers leverage wind resistance to strengthen key muscles for obtaining greater swing speed. Whether you're a first time youth golfer or an experienced long drive professional, everyone can benefit from an Aero-Swing resistance training program.<\/p>","alignment":"center","align_text":"left","button_label":"","button_link":"","button_style":"btn--primary","width":"33%","block_custom_class":"","animations":"inherit"}},"image_card_UVgeVb":{"type":"image_card","settings":{"layout":"layout1","text_color":"#000000","image":"shopify:\/\/shop_images\/Screenshot_2024-01-29_at_8.38.37_AM.png","image_ratio":"4\/3","image_overlay_opacity":20,"sub_heading":"","heading":"","heading_size":"h2","description":"","button_label":"Shop Bats","button_link":"shopify:\/\/pages\/baseball","button_style":"btn--primary","alignment":"center","width":"33%","animations":"inherit"}},"image_card_qGEYUU":{"type":"image_card","settings":{"layout":"layout1","text_color":"#000000","image":"shopify:\/\/shop_images\/Screenshot_2024-01-24_at_12.01.31_PM.png","image_ratio":"4\/3","image_overlay_opacity":20,"sub_heading":"","heading":"","heading_size":"h2","description":"","button_label":"Shop Golf","button_link":"shopify:\/\/pages\/golf","button_style":"btn--primary","alignment":"center","width":"33%","animations":"inherit"}}},"block_order":["text_neMANa","image_card_UVgeVb","image_card_qGEYUU"],"disabled":true,"settings":{"container":"container","color_schema":"background-1","heading":"","heading_size":"h2","description":"","column_gap":"medium","padding_top":32,"padding_bottom":32,"custom_id":"","custom_class":""}},"custom_content_UeHzmX":{"type":"custom-content","blocks":{"image_card_c3Dnat":{"type":"image_card","settings":{"layout":"layout1","text_color":"#000000","image":"shopify:\/\/shop_images\/shop-baseball.webp","image_ratio":"4\/3","image_overlay_opacity":40,"sub_heading":"","heading":"'24 ABCA Best In Show Award","heading_size":"h2","description":"","button_label":"Shop Baseball","button_link":"shopify:\/\/pages\/baseball","button_style":"btn--primary","alignment":"center","width":"33%","animations":"inherit"}},"image_card_CzgiNL":{"type":"image_card","settings":{"layout":"layout1","text_color":"#000000","image":"shopify:\/\/shop_images\/shop-golf.webp","image_ratio":"4\/3","image_overlay_opacity":40,"sub_heading":"","heading":"'22 PGA New Product Of The Year","heading_size":"h2","description":"","button_label":"Shop Golf","button_link":"shopify:\/\/pages\/golf","button_style":"btn--primary","alignment":"center","width":"33%","animations":"inherit"}},"image_card_z7YbbH":{"type":"image_card","settings":{"layout":"layout1","text_color":"#000000","image":"shopify:\/\/shop_images\/shop-softball.webp","image_ratio":"4\/3","image_overlay_opacity":40,"sub_heading":"","heading":"Increase Swing Speed 15-20mph+","heading_size":"h2","description":"","button_label":"Shop Softball","button_link":"shopify:\/\/pages\/softball","button_style":"btn--primary","alignment":"center","width":"33%","animations":"inherit"}}},"block_order":["image_card_c3Dnat","image_card_CzgiNL","image_card_z7YbbH"],"custom_css":["h3 {color: #fff;}"],"settings":{"container":"container","color_schema":"background-1","heading":"","heading_size":"h2","description":"","column_gap":"large","padding_top":0,"padding_bottom":28,"custom_id":"","custom_class":""}},"custom_content_yGegxq":{"type":"custom-content","blocks":{"video_fmPDTh":{"type":"video","disabled":true,"settings":{"video_type":"shopify","shopify_video":"shopify:\/\/files\/videos\/Aero-swing Website video (16x9).mp4","video_link":"","video_ratio":"1:1","image":"shopify:\/\/shop_images\/Screenshot_2024-01-26_at_10.37.37_AM.png","alignment":"start","width":"50%","block_custom_class":"","animations":"inherit"}}},"block_order":["video_fmPDTh"],"settings":{"container":"container","color_schema":"inverse","heading":"","heading_size":"h2","description":"","column_gap":"extra-large","padding_top":40,"padding_bottom":0,"custom_id":"","custom_class":""}},"collection_tabs_WQnJKt":{"type":"collection-tabs","blocks":{"collection_CFyBky":{"type":"collection","settings":{"collection":"baseball","image":"shopify:\/\/shop_images\/resistance-through-impact.webp","heading":"Baseball\/Softball - More Power At The Plate","heading_size":"h4","text":"<p>The Aero-Bat warm up and speed trainer weighs less than standard baseball\/softball bats but feels heavier through the impact zone. Concentrated wind resistance technology helps you warm up more efficiently and increases both bat speed and lag.<\/p>","icon":"shopify:\/\/shop_images\/baseball-bat.png"}},"collection_6EcX8m":{"type":"collection","settings":{"collection":"golf","image":"shopify:\/\/shop_images\/extra-25-yards.webp","heading":"Golf - Greater Distance Off The Tee","heading_size":"h4","text":"<p>The Aero-Swing tempo and speed trainer is designed to help you warm up more efficiently and achieve longer distances off the tee. Our patented Pineapple design allows you to add resistance to your clubs without compromising your swing plane.<\/p>","icon":"shopify:\/\/shop_images\/image_5.png"}},"collection_3CNg3X":{"type":"collection","settings":{"collection":"all-products","image":"shopify:\/\/shop_images\/greater-muscle-activation.webp","heading":"More Effective Warm Ups","heading_size":"h4","text":"<p>Aero-Swing uses air drag technology to naturally resist your swing which allows you to warm up more efficiently before competition. Where weighted trainers tend to cause injury, Aero-Swing is designed to reduce club or bat speed immediately after impact. <\/p>","icon":"shopify:\/\/shop_images\/fire.png"}}},"block_order":["collection_CFyBky","collection_6EcX8m","collection_3CNg3X"],"settings":{"container":"container","color_schema":"inverse","heading":"Why Aero-Swing?","heading_size":"h3","subheading":"Improve Your Game","description":"","image_position":"left","image_ratio":"1\/1","prefix_header":"ordinal_number","trigger_behavior":"hover","autoplay":false,"autoplay_duration":8,"padding_top":12,"padding_bottom":52,"custom_id":"","custom_class":"","animations":"inherit"}},"rich_text_eGXzhV":{"type":"rich-text","blocks":{"heading_wLk7HF":{"type":"heading","settings":{"heading":"Wind Resistance Technology","heading_size":"h2"}},"text_w66cVw":{"type":"text","settings":{"text":"<p>Aero-Swing Pineapples use holes and flanges to pull air toward the club shaft creating more resistance in the swing. In combining our standard Pineapples with our mini Pineapple, various levels of resistance can be attained to meet your skill level and training needs.<\/p>"}}},"block_order":["heading_wLk7HF","text_w66cVw"],"settings":{"container":"container-narrow","color_schema":"background-1","text_alignment":"center","padding_top":80,"padding_bottom":0,"custom_id":"","custom_class":"","animations":"inherit"}},"image_comparison_9piiMk":{"type":"image-comparison","blocks":{"image_UGRmd4":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/baseball-slider.webp","heading":"Baseball","color_scheme":"","heading_plain_text":false}},"image_ExfPcN":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/golf-slider.webp","heading":"Golf","color_scheme":"","heading_plain_text":false}}},"block_order":["image_UGRmd4","image_ExfPcN"],"settings":{"container":"container-fluid","color_schema":"background-1","heading":"","heading_size":"h2","description":"","layout":"horizontal","image_height":"small","padding_top":40,"padding_bottom":40,"custom_id":"","custom_class":""}},"video_R3wf6z":{"type":"video","settings":{"container":"container","heading":"","heading_size":"h3","description":"","video_type":"shopify","shopify_video":"shopify:\/\/files\/videos\/jeremy-nowak-endorsement.mp4","video_url":"","cover_image":"shopify:\/\/shop_images\/jeremy-nowak-endorsement.webp","video_ratio":"16:9","padding_top":56,"padding_bottom":4,"custom_id":"","custom_class":"","animations":"inherit"}},"collage_tabs_q6eBtt":{"type":"collage-tabs","blocks":{"tab_edwf7p":{"type":"tab","settings":{"content_color_schema":"","navigation_title":"Golf Shafts","image":"shopify:\/\/shop_images\/aero-whip-shaft.webp","heading":"Golf Shaft Design","heading_size":"h2","subheading":"","description":"<p>The Aero-Whip is a multi purpose training aid and warm up tool, which is great for getting into a rhythm before playing. The Aero-Shaft is a more rigid shaft and is a pure swing speed product. All underloading and overloading workout routines can be performed by using this shaft. <\/p>","text_alignment":"left","button_label":"Shop Golf Shafts","button_link":"shopify:\/\/collections\/shafts","button_style":"btn--secondary"}},"tab_KiUPiF":{"type":"tab","settings":{"content_color_schema":"background-2","navigation_title":"Bats","image":"shopify:\/\/shop_images\/Artboard_1_f8e0a99f-d98e-4b40-b038-7efeb9048dc9.jpg","heading":"Bat Design","heading_size":"h2","subheading":"","description":"<p>The Aero-Bat comes in three different sizes: Pro, Regular, and Youth. Players typically swinging bats 32\" or longer should opt for the Aero-Bat Pro. Those looking for a shorter and more flexible bat will find the Aero-Bat Regular more to their liking. Youth baseball\/softball players should rely on the Aero-Bat Youth until their skills are further developed.<\/p>","text_alignment":"left","button_label":"Shop Bats","button_link":"shopify:\/\/products\/aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device","button_style":"btn--secondary"}},"tab_NJgiWe":{"type":"tab","settings":{"content_color_schema":"","navigation_title":"Pineapples","image":"shopify:\/\/shop_images\/Artboard_1_2.jpg","heading":"Wind Resistance Technology","heading_size":"h2","subheading":"","description":"<p>Aero-Swing Pineapples use holes and flanges to pull air toward the club shaft creating more resistance in the swing. In combining our standard Pineapples with our mini Pineapple, various levels of resistance can be attained to meet your skill level and training needs.<\/p>","text_alignment":"left","button_label":"Shop Pineapples","button_link":"shopify:\/\/collections\/pineapples","button_style":"btn--secondary"}}},"block_order":["tab_edwf7p","tab_KiUPiF","tab_NJgiWe"],"settings":{"container":"container","color_schema":"background-1","desktop_navigation_alignment":"center","desktop_image_position":"right","desktop_image_width":50,"image_aspect_ratio":"1\/1","padding_top":68,"padding_bottom":64,"custom_id":"","custom_class":"","animations":"inherit"}},"rich_text_e6KA9N":{"type":"rich-text","blocks":{"heading_qtUnyM":{"type":"heading","settings":{"heading":"Get Results","heading_size":"h2"}},"text_DtjURj":{"type":"text","settings":{"text":"<p>Aero-Swing has been proven to boost club head speed by up to 25 mph. Follow our guided 18-week training plan to start hitting further than ever before.<\/p>"}},"button_DLPMa6":{"type":"button","settings":{"button_label":"View training plan","button_link":"shopify:\/\/pages\/training","button_style":"btn--primary","button_size":""}}},"block_order":["heading_qtUnyM","text_DtjURj","button_DLPMa6"],"settings":{"container":"container-narrow","color_schema":"background-1","text_alignment":"center","padding_top":16,"padding_bottom":100,"custom_id":"","custom_class":"","animations":"inherit"}},"video_reviews_wUwzFq":{"type":"video-reviews","blocks":{"vidoes_6Dw7er":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/Aero-Bat April 24 Softball testimonial w cap.mp4","title":"👆 Implement exercises for rotation.","video_review":"5","description":"\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""}},"vidoes_7qrWYz":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/Gabi Powel giving the Aero-Whip a good workout!.mp4","title":"👆 Implement exercises for rotation.","video_review":"5","description":"\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""}},"vidoes_q3jjhQ":{"type":"vidoes","settings":{"shopify_video":"shopify:\/\/files\/videos\/Copy of Aero-swing ABCA John Lampros Testimonial 4x5.mp4","title":"👆 Implement exercises for rotation.","video_review":"5","description":"\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""}},"vidoes_M4W3YX":{"type":"vidoes","settings":{"title":"3 home runs, 5 very","video_review":"5","description":""}}},"block_order":["vidoes_6Dw7er","vidoes_7qrWYz","vidoes_q3jjhQ","vidoes_M4W3YX"],"disabled":true,"settings":{"padding_top":100,"padding_bottom":100,"container":"container"}}},"order":["slideshow_CC8Q3q","hero_yxqzBP","featured_collection_no_slider_EwkhNz","featured_collection_gYb98x","video_reviews_wyptGd","testimonials_t3tMgq","image_with_text_6tDnbC","rich_text_RpPrBU","featured_product_Y36wAc","video_NjAJ9L","custom_content_UbbGjA","custom_content_UeHzmX","custom_content_yGegxq","collection_tabs_WQnJKt","rich_text_eGXzhV","image_comparison_9piiMk","video_R3wf6z","collage_tabs_q6eBtt","rich_text_e6KA9N","video_reviews_wUwzFq"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_CC8Q3q": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_Tn3BJ7": {
+          "type": "slide",
+          "settings": {
+            "background": "shopify://shop_images/Aero-Swing-Banner-Home-Desktop.webp",
+            "mb_background": "shopify://shop_images/Aero-Banner-Home-Mobile.jpg",
+            "image_overlay_opacity": 0,
+            "content_position": "center",
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "title": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "",
+            "desc_size": "text-desc-base",
+            "button_text_1": "",
+            "button_link_1": "shopify://collections/all-products",
+            "button_style_1": "btn--primary",
+            "button_size_1": "",
+            "make_button_full_width": true,
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_style_2": "btn--primary",
+            "button_size_2": ""
+          }
+        },
+        "slide_dEQqiJ": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "background": "shopify://shop_images/Aero-Swing-Banner-Home-Desktop.webp",
+            "mb_background": "shopify://shop_images/NEW_Mobile.jpg",
+            "image_overlay_opacity": 0,
+            "content_position": "center",
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "title": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "",
+            "desc_size": "text-desc-base",
+            "button_text_1": "",
+            "button_link_1": "shopify://collections/all-products",
+            "button_style_1": "btn--primary",
+            "button_size_1": "",
+            "make_button_full_width": true,
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_style_2": "btn--primary",
+            "button_size_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_Tn3BJ7",
+        "slide_dEQqiJ"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container-full",
+        "slideshow_height": "adapt",
+        "show_dots": true,
+        "show_nav": false,
+        "autoplay": false,
+        "autorotate_speed": 3,
+        "pagination_background": "light",
+        "controls_position": "center",
+        "pagination_style": "dots",
+        "show_text_below": false,
+        "text_alignment_mobile": "center",
+        "accessibility_info": "Slideshow about our brand",
+        "custom_id": "",
+        "custom_class": "",
+        "enable_bg_zoom_effect": false
+      }
+    },
+    "hero_yxqzBP": {
+      "type": "hero",
+      "settings": {
+        "container": "container-full",
+        "image": "shopify://shop_images/Aero-Swing-Banner-Home-Desktop.webp",
+        "image_mobile": "shopify://shop_images/aero-banner-home-mobile.webp",
+        "image_overlay_opacity": 0,
+        "hero_height": "adapt",
+        "content_in_container": false,
+        "content_position": "center",
+        "text_alignment": "center",
+        "text_color": "#ffffff",
+        "show_text_below": true,
+        "text_alignment_mobile": "center",
+        "custom_id": "",
+        "custom_class": "",
+        "image_link": "shopify://collections/all-products",
+        "animations": "inherit",
+        "enable_bg_zoom_effect": true
+      }
+    },
+    "featured_collection_no_slider_EwkhNz": {
+      "type": "featured-collection-no-slider",
+      "settings": {
+        "custom_id": "",
+        "custom_class": "",
+        "container": "container",
+        "color_schema": "",
+        "heading": "Most Popular Products",
+        "heading_size": "h2",
+        "description": "",
+        "collection": "most-popular-products",
+        "pcard_image_ratio": "1/1",
+        "show_vendor": false,
+        "show_all_button_on_top": false,
+        "button_label": "Shop All",
+        "button_style": "btn--primary",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "animations": "inherit"
+      }
+    },
+    "featured_collection_gYb98x": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "background-1",
+        "header_layout": "vertical",
+        "heading": "Most Popular Products",
+        "heading_size": "h0",
+        "description": "",
+        "collection": "all-products",
+        "limit": 4,
+        "columns": 4,
+        "column_gap": "medium",
+        "pcard_image_ratio": "1/1",
+        "show_vendor": false,
+        "enable_slider": false,
+        "show_nav": false,
+        "show_dots": false,
+        "show_all_button_on_top": false,
+        "button_label": "View All Products",
+        "button_style": "btn--secondary",
+        "enable_swipe_mobile": true,
+        "padding_top": 48,
+        "padding_bottom": 20,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "video_reviews_wyptGd": {
+      "type": "video-reviews",
+      "blocks": {
+        "vidoes_tXzLGp": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Snapinsta.App Video 5E46c85a7267c3550e5ffe14687b6eb1 Video Dashinit.mp4",
+            "image": "shopify://shop_images/35625b50d7524f00836f795190a34f4f.thumbnail.0000000000.webp",
+            "title": "Next Level Bat Speed",
+            "video_review": "5",
+            "description": "Wind-Resistance Pineapples will increase your bat-speed and will have you launching balls out of the yard."
+          }
+        },
+        "vidoes_kJLWP9": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/long-drive-power.mp4",
+            "image": "shopify://shop_images/long-drive-power.jpg",
+            "title": "Long-Drive Power",
+            "video_review": "5",
+            "description": "Trusted by professionals who are sending drives 350+ yards. Develop speed and sequencing to launch your drives."
+          }
+        },
+        "vidoes_MAXiNJ": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/elite-bat-lag.mp4",
+            "image": "shopify://shop_images/elite-bat-lag.webp",
+            "title": "Elite Bat Lag",
+            "video_review": "5",
+            "description": "Maximize your swing efficiency and deliver the barrel for better contact and big time pop."
+          }
+        }
+      },
+      "block_order": [
+        "vidoes_tXzLGp",
+        "vidoes_kJLWP9",
+        "vidoes_MAXiNJ"
+      ],
+      "settings": {
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "container": "container"
+      }
+    },
+    "testimonials_t3tMgq": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_qTgqCK": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>I wish I can give 6 stars. If you want to hit the golf ball long, then Aero Swing is your ticket to more distance on your drive.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_fixVDn": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>My 9 year old just started baseball this year and has been working with the aero bat daily now for the last week. He has impressed his coaches with his bat speed! It won’t be long before you see these at every field. Highly recommend getting one!</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_XwiteY": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>I coach softball and have a very competitive 16u team. We are constantly looking for ways to improve bat speed, exit velo, etc. The aero-swing has been the tool to do exactly what it’s meant to! Every single one of my players’ swings have improved in just a short period of time. It’s also a great warmup bat due to how light it is. The girls can get in a few swings before cage work and be loose and ready. 10/10. You need this!</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_rWPFii": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>This is a great training tool for any age</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_Ggzk4r": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>The Aero-Swing training bat is excellent for warmups and improving swing tempo.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_AjeQnB": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>Really good as both a training aid as well as for warm up swings.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_mGxf4d": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>Players reported feeling more confident in their swings, and I noticed a marked improvement in their timing and power during live batting practice.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_gWGgf7": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>Overall, the Aero Swing has become an essential part of our training regimen, and I highly recommend it to any coach looking to elevate their team's hitting skills!</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_NGx99r": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>Awesome product! We use this to warm up before batting practice and also as part of my son's overload/underload hitting program. Very well made training tool.</p>",
+            "author": "",
+            "bio": "",
+            "product": "",
+            "icon": "5-stars"
+          }
+        },
+        "testimonial_pEzaj3": {
+          "type": "testimonial",
+          "settings": {
+            "text": "<p>As a baseball coach, I’ve tried countless swing trainers, but the Aero-Bat is the only one that delivers measurable results. My players have seen documented bat speed increases of up to 20MPH after just 2 weeks of use</p>",
+            "author": "",
+            "bio": "Baseball Coach",
+            "product": "",
+            "icon": "5-stars"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_qTgqCK",
+        "testimonial_fixVDn",
+        "testimonial_XwiteY",
+        "testimonial_rWPFii",
+        "testimonial_Ggzk4r",
+        "testimonial_AjeQnB",
+        "testimonial_mGxf4d",
+        "testimonial_gWGgf7",
+        "testimonial_NGx99r",
+        "testimonial_pEzaj3"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "Trusted By Golf and Baseball Professionals Everywhere",
+        "heading_size": "h3",
+        "description": "",
+        "design": "fancy",
+        "columns": 4,
+        "column_gap": "medium",
+        "enable_slider": true,
+        "show_dots": false,
+        "show_nav": true,
+        "autoplay": true,
+        "autoplay_timeout": 4,
+        "padding_top": 68,
+        "padding_bottom": 68,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_6tDnbC": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_dM7xWw": {
+          "type": "heading",
+          "settings": {
+            "heading": "Now online at Dick's Sporting Goods!",
+            "heading_size": "h1"
+          }
+        },
+        "text_Ce9t6c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For all of you who have supported Aero-Swing and our products, thanks to you, the Aero-Bat is now available online at Dick's Sporting Goods! Thank you for your continued support!</p>"
+          }
+        },
+        "button_Lwy6KJ": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--white",
+            "button_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_dM7xWw",
+        "text_Ce9t6c",
+        "button_Lwy6KJ"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/Dicks_Logo_affebb1c-fcf5-4032-9b4b-39962fc12b00.png",
+        "image_width": "50%",
+        "show_image_padding": true,
+        "image_position": "left",
+        "vertical_alignment": "center",
+        "column_gap": "medium",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_RpPrBU": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_PT6UPm": {
+          "type": "heading",
+          "settings": {
+            "heading": "Increase Your Swing Speed",
+            "heading_size": "h1"
+          }
+        },
+        "text_6hc4EJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aero-Swing speed trainers leverage wind resistance to strengthen key muscles for obtaining greater swing speed. Whether you're a first time youth golfer or an experienced long drive professional, everyone can benefit from an Aero-Swing resistance training program.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_PT6UPm",
+        "text_6hc4EJ"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "container": "container-narrow",
+        "color_schema": "background-1",
+        "text_alignment": "center",
+        "padding_top": 64,
+        "padding_bottom": 0,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "featured_product_Y36wAc": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor_eCbRdF": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title_UAYpfd": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "price_UwnNKc": {
+          "type": "price",
+          "settings": {
+            "show_sale_badge": true,
+            "sale_badge_type": "text"
+          }
+        },
+        "variant_picker_RJEzgK": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "variant_picker_show_selected": true
+          }
+        },
+        "quantity_selector_aktPCK": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_QhnDaL": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_atc_button": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "description_CRHYhM": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor_eCbRdF",
+        "title_UAYpfd",
+        "price_UwnNKc",
+        "variant_picker_RJEzgK",
+        "quantity_selector_aktPCK",
+        "buy_buttons_QhnDaL",
+        "description_CRHYhM"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "product": "aero-swing-pineapples-doubles",
+        "media_position": "left",
+        "media_size": "medium",
+        "mobile_thumbnails": "hide",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "video_NjAJ9L": {
+      "type": "video",
+      "custom_css": [
+        "div {background-color: #000;}"
+      ],
+      "settings": {
+        "container": "container",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "video_type": "shopify",
+        "shopify_video": "shopify://files/videos/generate-more-bat-lag.mp4",
+        "video_url": "",
+        "cover_image": "shopify://shop_images/generate-more-bat-lag.webp",
+        "video_ratio": "16:9",
+        "padding_top": 56,
+        "padding_bottom": 4,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "custom_content_UbbGjA": {
+      "type": "custom-content",
+      "blocks": {
+        "text_neMANa": {
+          "type": "text",
+          "settings": {
+            "title": "Increase Your Swing Speed",
+            "heading_size": "h1",
+            "subheading": "",
+            "text": "<p>Aero-Swing speed trainers leverage wind resistance to strengthen key muscles for obtaining greater swing speed. Whether you're a first time youth golfer or an experienced long drive professional, everyone can benefit from an Aero-Swing resistance training program.</p>",
+            "alignment": "center",
+            "align_text": "left",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "width": "33%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        },
+        "image_card_UVgeVb": {
+          "type": "image_card",
+          "settings": {
+            "layout": "layout1",
+            "text_color": "#000000",
+            "image": "shopify://shop_images/Screenshot_2024-01-29_at_8.38.37_AM.png",
+            "image_ratio": "4/3",
+            "image_overlay_opacity": 20,
+            "sub_heading": "",
+            "heading": "",
+            "heading_size": "h2",
+            "description": "",
+            "button_label": "Shop Bats",
+            "button_link": "shopify://pages/baseball",
+            "button_style": "btn--primary",
+            "alignment": "center",
+            "width": "33%",
+            "animations": "inherit"
+          }
+        },
+        "image_card_qGEYUU": {
+          "type": "image_card",
+          "settings": {
+            "layout": "layout1",
+            "text_color": "#000000",
+            "image": "shopify://shop_images/Screenshot_2024-01-24_at_12.01.31_PM.png",
+            "image_ratio": "4/3",
+            "image_overlay_opacity": 20,
+            "sub_heading": "",
+            "heading": "",
+            "heading_size": "h2",
+            "description": "",
+            "button_label": "Shop Golf",
+            "button_link": "shopify://pages/golf",
+            "button_style": "btn--primary",
+            "alignment": "center",
+            "width": "33%",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "text_neMANa",
+        "image_card_UVgeVb",
+        "image_card_qGEYUU"
+      ],
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "color_schema": "background-1",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "column_gap": "medium",
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "custom_content_UeHzmX": {
+      "type": "custom-content",
+      "blocks": {
+        "image_card_c3Dnat": {
+          "type": "image_card",
+          "settings": {
+            "layout": "layout1",
+            "text_color": "#000000",
+            "image": "shopify://shop_images/shop-baseball.webp",
+            "image_ratio": "4/3",
+            "image_overlay_opacity": 40,
+            "sub_heading": "",
+            "heading": "'24 ABCA Best In Show Award",
+            "heading_size": "h2",
+            "description": "",
+            "button_label": "Shop Baseball",
+            "button_link": "shopify://pages/baseball",
+            "button_style": "btn--primary",
+            "alignment": "center",
+            "width": "33%",
+            "animations": "inherit"
+          }
+        },
+        "image_card_CzgiNL": {
+          "type": "image_card",
+          "settings": {
+            "layout": "layout1",
+            "text_color": "#000000",
+            "image": "shopify://shop_images/shop-golf.webp",
+            "image_ratio": "4/3",
+            "image_overlay_opacity": 40,
+            "sub_heading": "",
+            "heading": "'22 PGA New Product Of The Year",
+            "heading_size": "h2",
+            "description": "",
+            "button_label": "Shop Golf",
+            "button_link": "shopify://pages/golf",
+            "button_style": "btn--primary",
+            "alignment": "center",
+            "width": "33%",
+            "animations": "inherit"
+          }
+        },
+        "image_card_z7YbbH": {
+          "type": "image_card",
+          "settings": {
+            "layout": "layout1",
+            "text_color": "#000000",
+            "image": "shopify://shop_images/shop-softball.webp",
+            "image_ratio": "4/3",
+            "image_overlay_opacity": 40,
+            "sub_heading": "",
+            "heading": "Increase Swing Speed 15-20mph+",
+            "heading_size": "h2",
+            "description": "",
+            "button_label": "Shop Softball",
+            "button_link": "shopify://pages/softball",
+            "button_style": "btn--primary",
+            "alignment": "center",
+            "width": "33%",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "image_card_c3Dnat",
+        "image_card_CzgiNL",
+        "image_card_z7YbbH"
+      ],
+      "custom_css": [
+        "h3 {color: #fff;}"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "background-1",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "column_gap": "large",
+        "padding_top": 0,
+        "padding_bottom": 28,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "custom_content_yGegxq": {
+      "type": "custom-content",
+      "blocks": {
+        "video_fmPDTh": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "video_type": "shopify",
+            "shopify_video": "shopify://files/videos/Aero-swing Website video (16x9).mp4",
+            "video_link": "",
+            "video_ratio": "1:1",
+            "image": "shopify://shop_images/Screenshot_2024-01-26_at_10.37.37_AM.png",
+            "alignment": "start",
+            "width": "50%",
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "video_fmPDTh"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "column_gap": "extra-large",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "collection_tabs_WQnJKt": {
+      "type": "collection-tabs",
+      "blocks": {
+        "collection_CFyBky": {
+          "type": "collection",
+          "settings": {
+            "collection": "baseball",
+            "image": "shopify://shop_images/resistance-through-impact.webp",
+            "heading": "Baseball/Softball - More Power At The Plate",
+            "heading_size": "h4",
+            "text": "<p>The Aero-Bat warm up and speed trainer weighs less than standard baseball/softball bats but feels heavier through the impact zone. Concentrated wind resistance technology helps you warm up more efficiently and increases both bat speed and lag.</p>",
+            "icon": "shopify://shop_images/baseball-bat.png"
+          }
+        },
+        "collection_6EcX8m": {
+          "type": "collection",
+          "settings": {
+            "collection": "golf",
+            "image": "shopify://shop_images/extra-25-yards.webp",
+            "heading": "Golf - Greater Distance Off The Tee",
+            "heading_size": "h4",
+            "text": "<p>The Aero-Swing tempo and speed trainer is designed to help you warm up more efficiently and achieve longer distances off the tee. Our patented Pineapple design allows you to add resistance to your clubs without compromising your swing plane.</p>",
+            "icon": "shopify://shop_images/image_5.png"
+          }
+        },
+        "collection_3CNg3X": {
+          "type": "collection",
+          "settings": {
+            "collection": "all-products",
+            "image": "shopify://shop_images/greater-muscle-activation.webp",
+            "heading": "More Effective Warm Ups",
+            "heading_size": "h4",
+            "text": "<p>Aero-Swing uses air drag technology to naturally resist your swing which allows you to warm up more efficiently before competition. Where weighted trainers tend to cause injury, Aero-Swing is designed to reduce club or bat speed immediately after impact. </p>",
+            "icon": "shopify://shop_images/fire.png"
+          }
+        }
+      },
+      "block_order": [
+        "collection_CFyBky",
+        "collection_6EcX8m",
+        "collection_3CNg3X"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "heading": "Why Aero-Swing?",
+        "heading_size": "h3",
+        "subheading": "Improve Your Game",
+        "description": "",
+        "image_position": "left",
+        "image_ratio": "1/1",
+        "prefix_header": "ordinal_number",
+        "trigger_behavior": "hover",
+        "autoplay": false,
+        "autoplay_duration": 8,
+        "padding_top": 12,
+        "padding_bottom": 52,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_eGXzhV": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_wLk7HF": {
+          "type": "heading",
+          "settings": {
+            "heading": "Wind Resistance Technology",
+            "heading_size": "h2"
+          }
+        },
+        "text_w66cVw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aero-Swing Pineapples use holes and flanges to pull air toward the club shaft creating more resistance in the swing. In combining our standard Pineapples with our mini Pineapple, various levels of resistance can be attained to meet your skill level and training needs.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wLk7HF",
+        "text_w66cVw"
+      ],
+      "settings": {
+        "container": "container-narrow",
+        "color_schema": "background-1",
+        "text_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "image_comparison_9piiMk": {
+      "type": "image-comparison",
+      "blocks": {
+        "image_UGRmd4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/baseball-slider.webp",
+            "heading": "Baseball",
+            "color_scheme": "",
+            "heading_plain_text": false
+          }
+        },
+        "image_ExfPcN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/golf-slider.webp",
+            "heading": "Golf",
+            "color_scheme": "",
+            "heading_plain_text": false
+          }
+        }
+      },
+      "block_order": [
+        "image_UGRmd4",
+        "image_ExfPcN"
+      ],
+      "settings": {
+        "container": "container-fluid",
+        "color_schema": "background-1",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "layout": "horizontal",
+        "image_height": "small",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "video_R3wf6z": {
+      "type": "video",
+      "settings": {
+        "container": "container",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "video_type": "shopify",
+        "shopify_video": "shopify://files/videos/jeremy-nowak-endorsement.mp4",
+        "video_url": "",
+        "cover_image": "shopify://shop_images/jeremy-nowak-endorsement.webp",
+        "video_ratio": "16:9",
+        "padding_top": 56,
+        "padding_bottom": 4,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "collage_tabs_q6eBtt": {
+      "type": "collage-tabs",
+      "blocks": {
+        "tab_edwf7p": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "",
+            "navigation_title": "Golf Shafts",
+            "image": "shopify://shop_images/aero-whip-shaft.webp",
+            "heading": "Golf Shaft Design",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "<p>The Aero-Whip is a multi purpose training aid and warm up tool, which is great for getting into a rhythm before playing. The Aero-Shaft is a more rigid shaft and is a pure swing speed product. All underloading and overloading workout routines can be performed by using this shaft. </p>",
+            "text_alignment": "left",
+            "button_label": "Shop Golf Shafts",
+            "button_link": "shopify://collections/shafts",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_KiUPiF": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "background-2",
+            "navigation_title": "Bats",
+            "image": "shopify://shop_images/Artboard_1_f8e0a99f-d98e-4b40-b038-7efeb9048dc9.jpg",
+            "heading": "Bat Design",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "<p>The Aero-Bat comes in three different sizes: Pro, Regular, and Youth. Players typically swinging bats 32\" or longer should opt for the Aero-Bat Pro. Those looking for a shorter and more flexible bat will find the Aero-Bat Regular more to their liking. Youth baseball/softball players should rely on the Aero-Bat Youth until their skills are further developed.</p>",
+            "text_alignment": "left",
+            "button_label": "Shop Bats",
+            "button_link": "shopify://products/aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device",
+            "button_style": "btn--secondary"
+          }
+        },
+        "tab_NJgiWe": {
+          "type": "tab",
+          "settings": {
+            "content_color_schema": "",
+            "navigation_title": "Pineapples",
+            "image": "shopify://shop_images/Artboard_1_2.jpg",
+            "heading": "Wind Resistance Technology",
+            "heading_size": "h2",
+            "subheading": "",
+            "description": "<p>Aero-Swing Pineapples use holes and flanges to pull air toward the club shaft creating more resistance in the swing. In combining our standard Pineapples with our mini Pineapple, various levels of resistance can be attained to meet your skill level and training needs.</p>",
+            "text_alignment": "left",
+            "button_label": "Shop Pineapples",
+            "button_link": "shopify://collections/pineapples",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_edwf7p",
+        "tab_KiUPiF",
+        "tab_NJgiWe"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "background-1",
+        "desktop_navigation_alignment": "center",
+        "desktop_image_position": "right",
+        "desktop_image_width": 50,
+        "image_aspect_ratio": "1/1",
+        "padding_top": 68,
+        "padding_bottom": 64,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_e6KA9N": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_qtUnyM": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get Results",
+            "heading_size": "h2"
+          }
+        },
+        "text_DtjURj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aero-Swing has been proven to boost club head speed by up to 25 mph. Follow our guided 18-week training plan to start hitting further than ever before.</p>"
+          }
+        },
+        "button_DLPMa6": {
+          "type": "button",
+          "settings": {
+            "button_label": "View training plan",
+            "button_link": "shopify://pages/training",
+            "button_style": "btn--primary",
+            "button_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_qtUnyM",
+        "text_DtjURj",
+        "button_DLPMa6"
+      ],
+      "settings": {
+        "container": "container-narrow",
+        "color_schema": "background-1",
+        "text_alignment": "center",
+        "padding_top": 16,
+        "padding_bottom": 100,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_Ubcqcq": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_kp3wCi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "h2"
+          }
+        },
+        "text_VqziFR": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.<br> Add details on availability, style, or even provide a review.</p>"
+          }
+        },
+        "button_NmexNg": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "button_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_kp3wCi",
+        "text_VqziFR",
+        "button_NmexNg"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "text_alignment": "center",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "video_reviews_wUwzFq": {
+      "type": "video-reviews",
+      "blocks": {
+        "vidoes_6Dw7er": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Aero-Bat April 24 Softball testimonial w cap.mp4",
+            "title": "👆 Implement exercises for rotation.",
+            "video_review": "5",
+            "description": "\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""
+          }
+        },
+        "vidoes_7qrWYz": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Gabi Powel giving the Aero-Whip a good workout!.mp4",
+            "title": "👆 Implement exercises for rotation.",
+            "video_review": "5",
+            "description": "\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""
+          }
+        },
+        "vidoes_q3jjhQ": {
+          "type": "vidoes",
+          "settings": {
+            "shopify_video": "shopify://files/videos/Copy of Aero-swing ABCA John Lampros Testimonial 4x5.mp4",
+            "title": "👆 Implement exercises for rotation.",
+            "video_review": "5",
+            "description": "\"Soccer is all about rotation, water teaches players how to rotate powerfully, increasing kicking power.\""
+          }
+        },
+        "vidoes_M4W3YX": {
+          "type": "vidoes",
+          "settings": {
+            "title": "3 home runs, 5 very",
+            "video_review": "5",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "vidoes_6Dw7er",
+        "vidoes_7qrWYz",
+        "vidoes_q3jjhQ",
+        "vidoes_M4W3YX"
+      ],
+      "disabled": true,
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "container": "container"
+      }
+    }
+  },
+  "order": [
+    "slideshow_CC8Q3q",
+    "hero_yxqzBP",
+    "featured_collection_no_slider_EwkhNz",
+    "featured_collection_gYb98x",
+    "video_reviews_wyptGd",
+    "testimonials_t3tMgq",
+    "image_with_text_6tDnbC",
+    "rich_text_RpPrBU",
+    "featured_product_Y36wAc",
+    "video_NjAJ9L",
+    "custom_content_UbbGjA",
+    "custom_content_UeHzmX",
+    "custom_content_yGegxq",
+    "collection_tabs_WQnJKt",
+    "rich_text_eGXzhV",
+    "image_comparison_9piiMk",
+    "video_R3wf6z",
+    "collage_tabs_q6eBtt",
+    "rich_text_e6KA9N",
+    "rich_text_Ubcqcq",
+    "video_reviews_wUwzFq"
+  ]
+}
