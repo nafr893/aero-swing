@@ -225,6 +225,7 @@ class SystemBuilder extends HTMLElement {
              data-product-card
              data-product-type="shaft"
              data-price="${v.price}"
+             data-image="${this.escAttr(v.image || '')}"
              role="button"
              tabindex="0"
              aria-pressed="${isSelected}"
@@ -321,6 +322,7 @@ class SystemBuilder extends HTMLElement {
     const price   = parseInt(card.dataset.price || '0', 10);
     const titleEl = card.querySelector('.system-builder__product-title');
     const imgEl   = card.querySelector('.system-builder__product-img');
+    const rawImage = card.dataset.image || imgEl?.src || '';
 
     if (productType === 'shaft') {
       // Shaft variants are mutually exclusive — clicking one deselects the others
@@ -341,7 +343,7 @@ class SystemBuilder extends HTMLElement {
           id:      clickedId,
           title:   titleEl?.textContent?.trim() || '',
           price,
-          image:   imgEl?.src || '',
+          image:   rawImage,
           slotKey: 'shaft'
         };
         card.classList.add('system-builder__product-card--selected');
@@ -361,7 +363,7 @@ class SystemBuilder extends HTMLElement {
           id:      parseInt(variantId, 10),
           title:   titleEl?.textContent?.trim() || '',
           price,
-          image:   imgEl?.src || '',
+          image:   rawImage,
           slotKey
         };
         card.classList.add('system-builder__product-card--selected');
