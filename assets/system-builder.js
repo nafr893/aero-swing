@@ -225,7 +225,7 @@ class SystemBuilder extends HTMLElement {
              data-product-card
              data-product-type="shaft"
              data-price="${v.price}"
-             data-image="${this.escAttr(v.image || '')}"
+             data-image="${this.escAttr(imageUrl)}"
              role="button"
              tabindex="0"
              aria-pressed="${isSelected}"
@@ -418,7 +418,7 @@ class SystemBuilder extends HTMLElement {
     if (itemsContainer) {
       itemsContainer.innerHTML = entries.map(product => {
         const imageHtml = product.image
-          ? `<img src="${this.getImageUrl(product.image, 120)}" alt="${this.escAttr(product.title)}" loading="lazy">`
+          ? `<img src="${product.image}" alt="${this.escAttr(product.title)}" loading="lazy">`
           : '';
         return `
           <div class="system-builder__summary-item">
