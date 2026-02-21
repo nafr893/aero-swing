@@ -14,6 +14,72 @@
       "disabled": true,
       "settings": {}
     },
+    "hero_p6Md4L": {
+      "type": "hero",
+      "blocks": {
+        "title_ijfRHy": {
+          "type": "title",
+          "settings": {
+            "title": "AERO-SWING BUILDER",
+            "heading_size": "h2"
+          }
+        },
+        "text_WcefQc": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Build your own training setup!</p>"
+          }
+        },
+        "button_TteVrm": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "button_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "title_ijfRHy",
+        "text_WcefQc",
+        "button_TteVrm"
+      ],
+      "name": "t:sections.hero.presets.name",
+      "settings": {
+        "container": "container-full",
+        "image": "shopify://shop_images/DSC04171_d990ad21-29a1-442d-b160-30122cb93db0.jpg",
+        "image_mobile": "shopify://shop_images/Untitleddesign.jpg",
+        "image_overlay_opacity": 40,
+        "hero_height": "medium",
+        "content_in_container": false,
+        "content_position": "center",
+        "text_alignment": "center",
+        "text_color": "#FFFFFF",
+        "show_text_below": false,
+        "text_alignment_mobile": "center",
+        "custom_id": "",
+        "custom_class": "",
+        "image_link": "",
+        "animations": "inherit",
+        "enable_bg_zoom_effect": true
+      }
+    },
+    "custom_html_yztJWY": {
+      "type": "custom-html",
+      "name": "t:sections.custom-html.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "custom_html": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "system_builder_VE3dgz": {
       "type": "system-builder",
       "name": "System Builder",
@@ -24,9 +90,13 @@
         "shaft_type_step_title": "2. Select Shaft Type",
         "shaft_size_step_title": "3. Select Shaft Size",
         "balls_step_title": "4. Add Balls",
-        "balls_products": [],
+        "balls_products": [
+          "aero-balls-premium-edition-12-pack"
+        ],
         "pineapples_step_title": "5. Add Pineapples",
-        "pineapples_products": [],
+        "pineapples_products": [
+          "pineapple-replacements"
+        ],
         "summary_title": "Your Selection",
         "total_label": "Total",
         "add_to_cart_text": "Add All to Cart"
@@ -35,6 +105,8 @@
   },
   "order": [
     "main",
+    "hero_p6Md4L",
+    "custom_html_yztJWY",
     "system_builder_VE3dgz"
   ]
 }
