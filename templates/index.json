@@ -983,23 +983,10 @@
     "rich_text_Ubcqcq": {
       "type": "rich-text",
       "blocks": {
-        "heading_kp3wCi": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h2"
-          }
-        },
-        "text_VqziFR": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.<br> Add details on availability, style, or even provide a review.</p>"
-          }
-        },
         "button_NmexNg": {
           "type": "button",
           "settings": {
-            "button_label": "Button label",
+            "button_label": "SYSTEM BUILDER TEST",
             "button_link": "shopify://pages/aero-swing-kit-builder",
             "button_style": "btn--primary",
             "button_size": ""
@@ -1007,8 +994,6 @@
         }
       },
       "block_order": [
-        "heading_kp3wCi",
-        "text_VqziFR",
         "button_NmexNg"
       ],
       "name": "t:sections.rich-text.presets.name",
