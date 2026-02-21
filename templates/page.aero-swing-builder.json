@@ -84,7 +84,7 @@
       "type": "system-builder",
       "name": "System Builder",
       "settings": {
-        "heading": "Build Your System",
+        "heading": "",
         "subheading": "",
         "sport_step_title": "1. Select Your Sport",
         "shaft_type_step_title": "2. Select Shaft Type",
@@ -101,12 +101,27 @@
         "total_label": "Total",
         "add_to_cart_text": "Add All to Cart"
       }
+    },
+    "custom_html_tYn6K6": {
+      "type": "custom-html",
+      "name": "t:sections.custom-html.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "custom_html": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "main",
     "hero_p6Md4L",
     "custom_html_yztJWY",
-    "system_builder_VE3dgz"
+    "system_builder_VE3dgz",
+    "custom_html_tYn6K6"
   ]
 }
