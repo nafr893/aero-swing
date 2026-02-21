@@ -90,9 +90,13 @@
         "shaft_type_step_title": "2. Select Shaft Type",
         "shaft_size_step_title": "3. Select Shaft Size",
         "balls_step_title": "4. Add Balls",
-        "balls_products": [],
+        "balls_products": [
+          "aero-balls-premium-edition-12-pack"
+        ],
         "pineapples_step_title": "5. Add Pineapples",
-        "pineapples_products": [],
+        "pineapples_products": [
+          "pineapple-replacements"
+        ],
         "summary_title": "Your Selection",
         "total_label": "Total",
         "add_to_cart_text": "Add All to Cart"
