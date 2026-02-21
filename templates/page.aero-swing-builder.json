@@ -80,6 +80,20 @@
         "padding_bottom": 40
       }
     },
+    "custom_html_tYn6K6": {
+      "type": "custom-html",
+      "name": "t:sections.custom-html.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h3",
+        "description": "",
+        "custom_html": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "system_builder_VE3dgz": {
       "type": "system-builder",
       "name": "System Builder",
@@ -107,6 +121,7 @@
     "main",
     "hero_p6Md4L",
     "custom_html_yztJWY",
-    "system_builder_VE3dgz"
+    "system_builder_VE3dgz",
+    "custom_html_tYn6K6"
   ]
 }
