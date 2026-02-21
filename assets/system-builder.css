@@ -649,7 +649,7 @@ border-radius: 100px;
 
  .system-builder__chip {
    padding: var(--spacing-2, 8px) var(--spacing-3, 12px);
-   font-size: 0.8125rem;
+   font-size: 1rem;
  }
 
 
