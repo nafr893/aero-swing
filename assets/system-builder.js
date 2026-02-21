@@ -483,11 +483,11 @@ class SystemBuilder extends HTMLElement {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ items })
+        body: JSON.stringify({ items, sections: ['cart-drawer'] })
       });
 
       if (!response.ok) throw new Error('Failed to add to cart');
-      await response.json();
+      const addedState = await response.json();
 
       const cartResponse = await fetch('/cart.js', { headers: { 'Accept': 'application/json' } });
       const cart = await cartResponse.json();
@@ -503,8 +503,8 @@ class SystemBuilder extends HTMLElement {
         detail: { cart }
       }));
 
-      // Open the cart drawer
-      window.FoxThemeEvents?.emit('ON_ITEM_ADDED', cart);
+      // Open the cart drawer and render its contents (addedState includes sections HTML)
+      window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
 
       button.textContent = 'Added!';
       setTimeout(() => {
