@@ -171,8 +171,8 @@
  border-radius: var(--border-radius-sm, 4px);
  background: var(--color-background, #fff);
  color: var(--text-color, #333);
- font-size: 0.875rem;
- font-weight: 500;
+ font-size: 1.25rem;
+ font-weight: 800;
  cursor: pointer;
  transition: all 0.15s ease;
  white-space: nowrap;
@@ -414,7 +414,7 @@
  font-weight: 600;
  text-transform: uppercase;
  letter-spacing: 0.05em;
- font-size: 0.875rem;
+ font-size: 1.5rem;
 }
 
 
@@ -514,6 +514,7 @@
  padding: var(--spacing-6, 24px) var(--spacing-4, 16px);
  text-align: center;
  color: var(--text-color-secondary, #666);
+ font-size: 1rem; 
 }
 
 
@@ -535,7 +536,7 @@
  padding: var(--spacing-4, 16px) 0;
  border-top: 2px solid var(--color-border, #e5e5e5);
  margin-top: var(--spacing-2, 8px);
- font-size: 1rem;
+ font-size: 1.5rem;
 }
 
 
