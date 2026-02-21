@@ -503,11 +503,14 @@ class SystemBuilder extends HTMLElement {
         detail: { cart }
       }));
 
+      // Open the cart drawer
+      window.FoxThemeEvents?.emit('ON_ITEM_ADDED', cart);
+
       button.textContent = 'Added!';
       setTimeout(() => {
-        button.textContent = originalText;
+        this.resetBuilder();
         button.disabled = false;
-      }, 2000);
+      }, 1500);
 
     } catch (error) {
       console.error('System Builder: Error adding to cart', error);
@@ -517,6 +520,34 @@ class SystemBuilder extends HTMLElement {
         button.disabled = false;
       }, 2000);
     }
+  }
+
+
+  // ---------------------------------------------------------------------------
+  // Reset
+  // ---------------------------------------------------------------------------
+
+  resetBuilder() {
+    // Clear state
+    this.state.sport     = null;
+    this.state.shaftType = null;
+    this.state.shaftSize = null;
+    this.selectedProducts = {};
+
+    // Deselect all chips visually
+    this.querySelectorAll('[data-chip]').forEach(c => {
+      c.classList.remove('system-builder__chip--selected');
+      c.setAttribute('aria-pressed', 'false');
+    });
+
+    // Hide dynamically-shown steps and clear their content
+    this.hideStep('shaft-type');
+    this.hideStep('shaft-size');
+    this.clearShaftSizeChips();
+    this.hideShaftProduct();
+    this.hideAccessoryPanels();
+
+    this.updateSummary();
   }
 
 

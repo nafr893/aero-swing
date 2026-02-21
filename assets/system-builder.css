@@ -525,6 +525,10 @@
 
 
 /* Summary footer */
+.system-builder__summary-empty[hidden] {
+ display: none;
+}
+
 .system-builder__summary-footer[hidden] {
  display: none;
 }
