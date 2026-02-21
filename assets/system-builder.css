@@ -561,12 +561,13 @@
  color: var(--color-primary-contrast, #fff);
  border: none;
  border-radius: var(--border-radius-sm, 4px);
- font-size: 1rem;
+ font-size: 1.5rem;
  font-weight: 600;
  text-transform: uppercase;
  letter-spacing: 0.05em;
  cursor: pointer;
  transition: background 0.15s ease;
+ text-align: center;
 }
 
 
