@@ -56,7 +56,7 @@
         "content_in_container": false,
         "content_position": "center",
         "text_alignment": "center",
-        "text_color": "#FFFFFF",
+        "text_color": "#ffffff",
         "show_text_below": false,
         "text_alignment_mobile": "center",
         "custom_id": "",
@@ -99,7 +99,22 @@
         ],
         "summary_title": "Your Selection",
         "total_label": "Total",
-        "add_to_cart_text": "Add All to Cart"
+        "add_to_cart_text": "Add All to Cart",
+        "sport_1_handle": "baseball",
+        "sport_1_shaft_type_title": "Select Bat Type",
+        "sport_1_shaft_size_title": "Select Bat Size",
+        "sport_2_handle": "cricket",
+        "sport_2_shaft_type_title": "Select Bat Type",
+        "sport_2_shaft_size_title": "Select Bat Size",
+        "sport_3_handle": "golf",
+        "sport_3_shaft_type_title": "Select Shaft Type",
+        "sport_3_shaft_size_title": "Select Shaft Size",
+        "sport_4_handle": "tennis",
+        "sport_4_shaft_type_title": "Select Racquet Type",
+        "sport_4_shaft_size_title": "Select Racquet Size",
+        "sport_5_handle": "",
+        "sport_5_shaft_type_title": "",
+        "sport_5_shaft_size_title": ""
       }
     },
     "custom_html_tYn6K6": {
