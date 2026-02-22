@@ -6,15 +6,29 @@
   - product:      The Shopify product object
   - product_type: Type string — 'ball' or 'pineapple'
   - group:        Group string — 'balls' or 'pineapples'
-  - index:        0-based integer index within the group (forloop.index0)
+  - index:        0-based integer index within the group
 
   Optional parameters:
+  - variant:  A specific variant to render. Falls back to selected_or_first_available_variant.
   - selected: Boolean, whether the card starts pre-selected (default false)
 {%- endcomment -%}
 
 
 {%- if product != blank -%}
-  {%- assign variant = product.selected_or_first_available_variant -%}
+  {%- unless variant -%}
+    {%- assign variant = product.selected_or_first_available_variant -%}
+  {%- endunless -%}
+
+  {%- comment -%} Show variant name only when it's meaningful (not 'Default Title') {%- endcomment -%}
+  {%- if variant.title != 'Default Title' -%}
+    {%- assign card_title = product.title | append: ' — ' | append: variant.title -%}
+  {%- else -%}
+    {%- assign card_title = product.title -%}
+  {%- endif -%}
+
+  {%- comment -%} Prefer the variant-specific image so each colour shows its own photo {%- endcomment -%}
+  {%- assign card_image = variant.image | default: product.featured_image -%}
+
   <div class="system-builder__product-card{% if selected %} system-builder__product-card--selected{% endif %}"
        data-product-card
        data-product-type="{{ product_type }}"
@@ -24,19 +38,19 @@
        role="button"
        tabindex="0"
        aria-pressed="{{ selected | default: false }}"
-       aria-label="{% if selected %}Remove from{% else %}Add to{% endif %} your system: {{ product.title | escape }}">
+       aria-label="{% if selected %}Remove from{% else %}Add to{% endif %} your system: {{ card_title | escape }}">
     <div class="system-builder__product-select-indicator">
       <span class="system-builder__checkmark"></span>
     </div>
     <div class="system-builder__product-image">
-      {%- if product.featured_image != blank -%}
-        {{ product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'system-builder__product-img' }}
+      {%- if card_image != blank -%}
+        {{ card_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'system-builder__product-img' }}
       {%- else -%}
         <div class="system-builder__product-placeholder-image"></div>
       {%- endif -%}
     </div>
     <div class="system-builder__product-info">
-      <h4 class="system-builder__product-title">{{ product.title }}</h4>
+      <h4 class="system-builder__product-title">{{ card_title }}</h4>
       <p class="system-builder__product-price">{{ variant.price | money }}</p>
     </div>
     <input type="hidden" name="variant_id" value="{{ variant.id }}" data-variant-id>

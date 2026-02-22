@@ -174,13 +174,18 @@
           <h3 class="system-builder__step-title h4">{{ section.settings.balls_step_title }}</h3>
           {%- if section.settings.balls_products != blank -%}
             <div class="system-builder__product-grid" data-product-group="balls">
+              {%- assign ball_index = 0 -%}
               {%- for product in section.settings.balls_products -%}
-                {%- render 'system-builder-product-card',
-                  product: product,
-                  product_type: 'ball',
-                  group: 'balls',
-                  index: forloop.index0
-                -%}
+                {%- for variant in product.variants -%}
+                  {%- render 'system-builder-product-card',
+                    product: product,
+                    variant: variant,
+                    product_type: 'ball',
+                    group: 'balls',
+                    index: ball_index
+                  -%}
+                  {%- assign ball_index = ball_index | plus: 1 -%}
+                {%- endfor -%}
               {%- endfor -%}
             </div>
           {%- else -%}
@@ -194,13 +199,18 @@
           <h3 class="system-builder__step-title h4">{{ section.settings.pineapples_step_title }}</h3>
           {%- if section.settings.pineapples_products != blank -%}
             <div class="system-builder__product-grid" data-product-group="pineapples">
+              {%- assign pineapple_index = 0 -%}
               {%- for product in section.settings.pineapples_products -%}
+                {%- for variant in product.variants -%}
                 {%- render 'system-builder-product-card',
                   product: product,
+                  variant: variant,
                   product_type: 'pineapple',
                   group: 'pineapples',
-                  index: forloop.index0
+                  index: pineapple_index
                 -%}
+                  {%- assign pineapple_index = pineapple_index | plus: 1 -%}
+                {%- endfor -%}
               {%- endfor -%}
             </div>
           {%- else -%}
