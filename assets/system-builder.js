@@ -35,6 +35,9 @@ class SystemBuilder extends HTMLElement {
 
   connectedCallback() {
     this.loadData();
+    // Cache the original step titles so we can restore them on reset
+    this.defaultShaftTypeTitle = this.querySelector('[data-step="shaft-type"] .system-builder__step-title')?.textContent?.trim() || '';
+    this.defaultShaftSizeTitle = this.querySelector('[data-step="shaft-size"] .system-builder__step-title')?.textContent?.trim() || '';
     this.bindEvents();
     this.updateSummary();
   }
@@ -50,9 +53,12 @@ class SystemBuilder extends HTMLElement {
       const shaftTypesEl = this.querySelector('[data-shaft-types]');
       const shaftSizesEl = this.querySelector('[data-shaft-sizes]');
 
-      this.data.sports     = sportsEl     ? JSON.parse(sportsEl.textContent)     : [];
-      this.data.shaftTypes = shaftTypesEl ? JSON.parse(shaftTypesEl.textContent) : [];
-      this.data.shaftSizes = shaftSizesEl ? JSON.parse(shaftSizesEl.textContent) : [];
+      const sportLabelsEl  = this.querySelector('[data-sport-labels]');
+
+      this.data.sports      = sportsEl      ? JSON.parse(sportsEl.textContent)      : [];
+      this.data.shaftTypes  = shaftTypesEl  ? JSON.parse(shaftTypesEl.textContent)  : [];
+      this.data.shaftSizes  = shaftSizesEl  ? JSON.parse(shaftSizesEl.textContent)  : [];
+      this.data.sportLabels = sportLabelsEl ? JSON.parse(sportLabelsEl.textContent) : [];
 
       // Debug: inspect the loaded data
       console.log('[SB] sports:', this.data.sports);
@@ -123,6 +129,7 @@ class SystemBuilder extends HTMLElement {
         this.state.shaftSize = null;
         // Clear anything downstream
         delete this.selectedProducts.shaft;
+        this.updateStepTitles(value);
         this.renderShaftTypes();
         this.hideStep('shaft-size');
         this.clearShaftSizeChips();
@@ -250,6 +257,21 @@ class SystemBuilder extends HTMLElement {
 
     display.innerHTML = `<div class="system-builder__product-grid">${cardsHtml}</div>`;
     display.hidden = false;
+  }
+
+
+  updateStepTitles(sportHandle) {
+    const labelData = this.data.sportLabels?.find(l => l.sportHandle === sportHandle);
+
+    const shaftTypeTitleEl = this.querySelector('[data-step="shaft-type"] .system-builder__step-title');
+    const shaftSizeTitleEl = this.querySelector('[data-step="shaft-size"] .system-builder__step-title');
+
+    if (shaftTypeTitleEl) {
+      shaftTypeTitleEl.textContent = labelData?.shaftTypeTitle || this.defaultShaftTypeTitle;
+    }
+    if (shaftSizeTitleEl) {
+      shaftSizeTitleEl.textContent = labelData?.shaftSizeTitle || this.defaultShaftSizeTitle;
+    }
   }
 
 
@@ -539,6 +561,12 @@ class SystemBuilder extends HTMLElement {
       c.classList.remove('system-builder__chip--selected');
       c.setAttribute('aria-pressed', 'false');
     });
+
+    // Reset step titles to section defaults
+    const shaftTypeTitleEl = this.querySelector('[data-step="shaft-type"] .system-builder__step-title');
+    const shaftSizeTitleEl = this.querySelector('[data-step="shaft-size"] .system-builder__step-title');
+    if (shaftTypeTitleEl) shaftTypeTitleEl.textContent = this.defaultShaftTypeTitle;
+    if (shaftSizeTitleEl) shaftSizeTitleEl.textContent = this.defaultShaftSizeTitle;
 
     // Hide dynamically-shown steps and clear their content
     this.hideStep('shaft-type');

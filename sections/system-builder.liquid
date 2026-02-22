@@ -21,6 +21,27 @@
 
 <system-builder class="system-builder section-{{ section.id }}" id="system-builder-{{ section.id }}">
   {%- comment -%} Data payloads for JavaScript {%- endcomment -%}
+
+  {%- assign sport_label_slots = '1,2,3,4,5' | split: ',' -%}
+  <script type="application/json" data-sport-labels>
+    [
+      {%- assign first_label = true -%}
+      {%- for slot in sport_label_slots -%}
+        {%- assign h_key  = 'sport_' | append: slot | append: '_handle' -%}
+        {%- assign h_val  = section.settings[h_key] -%}
+        {%- if h_val != blank -%}
+          {%- unless first_label -%},{%- endunless -%}
+          {
+            "sportHandle":    {{ h_val | json }},
+            "shaftTypeTitle": {{ section.settings['sport_' | append: slot | append: '_shaft_type_title'] | json }},
+            "shaftSizeTitle": {{ section.settings['sport_' | append: slot | append: '_shaft_size_title'] | json }}
+          }
+          {%- assign first_label = false -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  </script>
+
   <script type="application/json" data-sports>
     [
       {%- for sport in sports -%}
@@ -330,7 +351,30 @@
       "id": "add_to_cart_text",
       "label": "Add to Cart Button Text",
       "default": "Add All to Cart"
-    }
+    },
+    {
+      "type": "header",
+      "content": "Sport Step Label Overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Override step titles per sport (e.g. show 'Select Bat Size' for baseball). Enter the sport's metaobject handle and the titles you want. Leave any title blank to use the section defaults above."
+    },
+    { "type": "text", "id": "sport_1_handle",          "label": "Sport 1 — Handle",          "info": "e.g. baseball" },
+    { "type": "text", "id": "sport_1_shaft_type_title", "label": "Sport 1 — Shaft Type Title", "info": "e.g. Select Bat Type" },
+    { "type": "text", "id": "sport_1_shaft_size_title", "label": "Sport 1 — Shaft Size Title", "info": "e.g. Select Bat Size" },
+    { "type": "text", "id": "sport_2_handle",          "label": "Sport 2 — Handle" },
+    { "type": "text", "id": "sport_2_shaft_type_title", "label": "Sport 2 — Shaft Type Title" },
+    { "type": "text", "id": "sport_2_shaft_size_title", "label": "Sport 2 — Shaft Size Title" },
+    { "type": "text", "id": "sport_3_handle",          "label": "Sport 3 — Handle" },
+    { "type": "text", "id": "sport_3_shaft_type_title", "label": "Sport 3 — Shaft Type Title" },
+    { "type": "text", "id": "sport_3_shaft_size_title", "label": "Sport 3 — Shaft Size Title" },
+    { "type": "text", "id": "sport_4_handle",          "label": "Sport 4 — Handle" },
+    { "type": "text", "id": "sport_4_shaft_type_title", "label": "Sport 4 — Shaft Type Title" },
+    { "type": "text", "id": "sport_4_shaft_size_title", "label": "Sport 4 — Shaft Size Title" },
+    { "type": "text", "id": "sport_5_handle",          "label": "Sport 5 — Handle" },
+    { "type": "text", "id": "sport_5_shaft_type_title", "label": "Sport 5 — Shaft Type Title" },
+    { "type": "text", "id": "sport_5_shaft_size_title", "label": "Sport 5 — Shaft Size Title" }
   ],
   "presets": [
     {
