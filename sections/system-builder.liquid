@@ -64,6 +64,7 @@
           "id": {{ shaft_type.id | json }},
           "handle": {{ shaft_type.system.handle | json }},
           "name": {{ shaft_type.shaft_type | json }},
+          "sortOrder": {{ shaft_type.sort_order.value | default: 999 | json }},
           "sportHandles": [
             {%- for sport_ref in shaft_type.sport.value -%}
               {{ sport_ref.system.handle | json }}{%- unless forloop.last -%},{%- endunless -%}
