@@ -27,14 +27,16 @@
     [
       {%- assign first_label = true -%}
       {%- for slot in sport_label_slots -%}
-        {%- assign h_key  = 'sport_' | append: slot | append: '_handle' -%}
-        {%- assign h_val  = section.settings[h_key] -%}
+        {%- assign h_key    = 'sport_' | append: slot | append: '_handle' -%}
+        {%- assign type_key = 'sport_' | append: slot | append: '_shaft_type_title' -%}
+        {%- assign size_key = 'sport_' | append: slot | append: '_shaft_size_title' -%}
+        {%- assign h_val    = section.settings[h_key] -%}
         {%- if h_val != blank -%}
           {%- unless first_label -%},{%- endunless -%}
           {
             "sportHandle":    {{ h_val | json }},
-            "shaftTypeTitle": {{ section.settings['sport_' | append: slot | append: '_shaft_type_title'] | json }},
-            "shaftSizeTitle": {{ section.settings['sport_' | append: slot | append: '_shaft_size_title'] | json }}
+            "shaftTypeTitle": {{ section.settings[type_key] | json }},
+            "shaftSizeTitle": {{ section.settings[size_key] | json }}
           }
           {%- assign first_label = false -%}
         {%- endif -%}
