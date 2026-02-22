@@ -84,6 +84,9 @@ class SystemBuilder extends HTMLElement {
       const removeBtn = e.target.closest('[data-summary-remove]');
       if (removeBtn) return this.handleRemoveFromSummary(removeBtn);
 
+      const qtyBtn = e.target.closest('[data-qty-change]');
+      if (qtyBtn) return this.handleQtyChange(qtyBtn);
+
       const productCard = e.target.closest('[data-product-card]');
       if (productCard) return this.handleProductCardClick(productCard);
 
@@ -362,11 +365,12 @@ class SystemBuilder extends HTMLElement {
         delete this.selectedProducts.shaft;
       } else {
         this.selectedProducts.shaft = {
-          id:      clickedId,
-          title:   titleEl?.textContent?.trim() || '',
+          id:       clickedId,
+          title:    titleEl?.textContent?.trim() || '',
           price,
-          image:   rawImage,
-          slotKey: 'shaft'
+          image:    rawImage,
+          slotKey:  'shaft',
+          quantity: 1
         };
         card.classList.add('system-builder__product-card--selected');
         card.setAttribute('aria-pressed', 'true');
@@ -382,11 +386,12 @@ class SystemBuilder extends HTMLElement {
         card.setAttribute('aria-pressed', 'false');
       } else {
         this.selectedProducts[slotKey] = {
-          id:      parseInt(variantId, 10),
-          title:   titleEl?.textContent?.trim() || '',
+          id:       parseInt(variantId, 10),
+          title:    titleEl?.textContent?.trim() || '',
           price,
-          image:   rawImage,
-          slotKey
+          image:    rawImage,
+          slotKey,
+          quantity: 1
         };
         card.classList.add('system-builder__product-card--selected');
         card.setAttribute('aria-pressed', 'true');
@@ -418,6 +423,20 @@ class SystemBuilder extends HTMLElement {
   }
 
 
+  handleQtyChange(button) {
+    const slotKey = button.dataset.slotKey;
+    const delta   = parseInt(button.dataset.qtyChange, 10);
+    if (!slotKey || !this.selectedProducts[slotKey]) return;
+
+    const product = this.selectedProducts[slotKey];
+    const newQty  = (product.quantity || 1) + delta;
+    if (newQty < 1) return; // minimum 1
+
+    product.quantity = newQty;
+    this.updateSummary();
+  }
+
+
   // ---------------------------------------------------------------------------
   // Summary
   // ---------------------------------------------------------------------------
@@ -439,6 +458,7 @@ class SystemBuilder extends HTMLElement {
     // Rebuild summary item list
     if (itemsContainer) {
       itemsContainer.innerHTML = entries.map(product => {
+        const qty       = product.quantity || 1;
         const imageHtml = product.image
           ? `<img src="${product.image}" alt="${this.escAttr(product.title)}" loading="lazy">`
           : '';
@@ -447,7 +467,12 @@ class SystemBuilder extends HTMLElement {
             <div class="system-builder__summary-item-image">${imageHtml}</div>
             <div class="system-builder__summary-item-details">
               <span class="system-builder__summary-name">${this.escHtml(product.title)}</span>
-              <span class="system-builder__summary-price">${this.formatMoney(product.price)}</span>
+              <span class="system-builder__summary-price">${this.formatMoney((product.price || 0) * qty)}</span>
+              <div class="system-builder__qty">
+                <button type="button" class="system-builder__qty-btn" data-qty-change="-1" data-slot-key="${product.slotKey}" aria-label="Decrease quantity">−</button>
+                <span class="system-builder__qty-value">${qty}</span>
+                <button type="button" class="system-builder__qty-btn" data-qty-change="1" data-slot-key="${product.slotKey}" aria-label="Increase quantity">+</button>
+              </div>
             </div>
             <button type="button"
                     class="system-builder__summary-remove"
@@ -458,8 +483,8 @@ class SystemBuilder extends HTMLElement {
       }).join('');
     }
 
-    // Total
-    const total   = entries.reduce((sum, p) => sum + (p.price || 0), 0);
+    // Total (sum of price × quantity per line)
+    const total   = entries.reduce((sum, p) => sum + (p.price || 0) * (p.quantity || 1), 0);
     const totalEl = summary.querySelector('[data-total-price]');
     if (totalEl) totalEl.textContent = this.formatMoney(total);
 
@@ -485,7 +510,7 @@ class SystemBuilder extends HTMLElement {
   async handleAddToCart(button) {
     const items = Object.values(this.selectedProducts)
       .filter(p => p.id)
-      .map(p => ({ id: p.id, quantity: 1 }));
+      .map(p => ({ id: p.id, quantity: p.quantity || 1 }));
 
     if (items.length === 0) {
       const original = button.dataset.originalText || button.textContent.trim();
