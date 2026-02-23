@@ -159,6 +159,54 @@
         "animations": "inherit"
       }
     },
+    "image_with_text_TAeGAN": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_irpLgW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Customize Your Training Setup",
+            "heading_size": "h2"
+          }
+        },
+        "text_UDzVK8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Build your ideal setup with our System Builder. Get personalized training gear recommendations based on your sport, swing length, and more.</p>"
+          }
+        },
+        "button_VKjBQc": {
+          "type": "button",
+          "settings": {
+            "button_label": "EXPLORE",
+            "button_link": "shopify://pages/aero-swing-kit-builder",
+            "button_style": "btn--primary",
+            "button_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_irpLgW",
+        "text_UDzVK8",
+        "button_VKjBQc"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/shop-baseball.webp",
+        "image_width": "50%",
+        "show_image_padding": true,
+        "image_position": "left",
+        "vertical_alignment": "center",
+        "column_gap": "medium",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
     "video_reviews_wyptGd": {
       "type": "video-reviews",
       "blocks": {
@@ -980,34 +1028,6 @@
         "animations": "inherit"
       }
     },
-    "rich_text_Ubcqcq": {
-      "type": "rich-text",
-      "blocks": {
-        "button_NmexNg": {
-          "type": "button",
-          "settings": {
-            "button_label": "SYSTEM BUILDER TEST",
-            "button_link": "shopify://pages/aero-swing-kit-builder",
-            "button_style": "btn--primary",
-            "button_size": ""
-          }
-        }
-      },
-      "block_order": [
-        "button_NmexNg"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "text_alignment": "center",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "custom_id": "",
-        "custom_class": "",
-        "animations": "inherit"
-      }
-    },
     "video_reviews_wUwzFq": {
       "type": "video-reviews",
       "blocks": {
@@ -1066,6 +1086,7 @@
     "hero_yxqzBP",
     "featured_collection_no_slider_EwkhNz",
     "featured_collection_gYb98x",
+    "image_with_text_TAeGAN",
     "video_reviews_wyptGd",
     "testimonials_t3tMgq",
     "image_with_text_6tDnbC",
@@ -1081,7 +1102,6 @@
     "video_R3wf6z",
     "collage_tabs_q6eBtt",
     "rich_text_e6KA9N",
-    "rich_text_Ubcqcq",
     "video_reviews_wUwzFq"
   ]
 }
