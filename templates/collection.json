@@ -1,1 +1,98 @@
-{"sections":{"banner":{"type":"main-collection-banner","blocks":{"banner_efTFrY":{"type":"banner","settings":{"collection":"all-products"}}},"block_order":["banner_efTFrY"],"settings":{"container":"container","color_schema":"inverse","image_height":"medium","text_alignment":"center","show_breadcrumb":false,"show_desc":false,"show_collection_image":true,"use_image_as_background":true,"image_overlay_opacity":50,"animations":"inherit","enable_bg_zoom_effect":false}},"breadcrumb_4X8FEw":{"type":"breadcrumb","disabled":true,"settings":{"brc_container":"container","brc_text_alignment":"start","padding_top":32,"padding_bottom":0}},"84cedf81-fdc0-4359-929a-67e807c581de":{"type":"hero","disabled":true,"settings":{"container":"container","image":"{{ collection.image }}","image_overlay_opacity":0,"hero_height":"medium","content_in_container":false,"content_position":"center","text_alignment":"center","text_color":"#ffffff","show_text_below":true,"text_alignment_mobile":"center","custom_id":"","custom_class":"","image_link":"","animations":"inherit","enable_bg_zoom_effect":false}},"product-grid":{"type":"main-collection-product-grid","settings":{"container":"container","products_per_page":20,"columns":3,"column_gap":"medium","enable_product_count":true,"enable_filtering":false,"enable_sorting":false,"sidebar_position":"right","group_collapsible":true,"default_state_collapsible":"collapsed","open_first_group":false,"filter_group_heading_size":"h5","show_results_count":true,"paginate_type":"infinite","padding_top":24,"padding_bottom":52}}},"order":["banner","breadcrumb_4X8FEw","84cedf81-fdc0-4359-929a-67e807c581de","product-grid"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "banner_efTFrY": {
+          "type": "banner",
+          "settings": {
+            "collection": "all-products"
+          }
+        }
+      },
+      "block_order": [
+        "banner_efTFrY"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "inverse",
+        "image_height": "large",
+        "text_alignment": "center",
+        "show_breadcrumb": false,
+        "show_desc": false,
+        "show_collection_image": true,
+        "use_image_as_background": true,
+        "image_overlay_opacity": 0,
+        "animations": "inherit",
+        "enable_bg_zoom_effect": false
+      }
+    },
+    "breadcrumb_4X8FEw": {
+      "type": "breadcrumb",
+      "disabled": true,
+      "settings": {
+        "brc_container": "container",
+        "brc_text_alignment": "start",
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
+    "84cedf81-fdc0-4359-929a-67e807c581de": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {
+        "container": "container",
+        "image": "{{ collection.image }}",
+        "image_overlay_opacity": 0,
+        "hero_height": "medium",
+        "content_in_container": false,
+        "content_position": "center",
+        "text_alignment": "center",
+        "text_color": "#ffffff",
+        "show_text_below": true,
+        "text_alignment_mobile": "center",
+        "custom_id": "",
+        "custom_class": "",
+        "image_link": "",
+        "animations": "inherit",
+        "enable_bg_zoom_effect": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "container": "container",
+        "products_per_page": 20,
+        "columns": 3,
+        "column_gap": "medium",
+        "enable_product_count": true,
+        "enable_filtering": false,
+        "enable_sorting": false,
+        "sidebar_position": "right",
+        "group_collapsible": true,
+        "default_state_collapsible": "collapsed",
+        "open_first_group": false,
+        "filter_group_heading_size": "h5",
+        "show_results_count": true,
+        "paginate_type": "infinite",
+        "padding_top": 24,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "breadcrumb_4X8FEw",
+    "84cedf81-fdc0-4359-929a-67e807c581de",
+    "product-grid"
+  ]
+}
