@@ -245,6 +245,7 @@ class SystemBuilder extends HTMLElement {
           <div class="system-builder__product-select-indicator">
             <span class="system-builder__checkmark"></span>
           </div>
+          ${v.preorder ? '<div class="system-builder__badge system-builder__badge--preorder">Pre-Order</div>' : ''}
           <div class="system-builder__product-image">
             ${imageUrl
               ? `<img src="${imageUrl}" alt="${this.escAttr(displayTitle)}" class="system-builder__product-img" loading="lazy">`

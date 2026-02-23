@@ -105,7 +105,8 @@
                 "title": {{ v.title | json }},
                 "price": {{ v.price | json }},
                 "productTitle": {{ v.product.title | json }},
-                "image": {{ v.image.src | default: v.product.featured_image.src | json }}
+                "image": {{ v.image.src | default: v.product.featured_image.src | json }},
+                "preorder": {% if v.inventory_management == 'shopify' and v.inventory_quantity <= 0 and v.inventory_policy == 'continue' %}true{% else %}false{% endif %}
               }{%- unless forloop.last -%},{%- endunless -%}
             {%- endfor -%}
           ]
