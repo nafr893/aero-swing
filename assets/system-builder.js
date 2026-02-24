@@ -513,7 +513,7 @@ class SystemBuilder extends HTMLElement {
   async handleAddToCart(button) {
     const items = Object.values(this.selectedProducts)
       .filter(p => p.id)
-      .map(p => ({ id: p.id, quantity: p.quantity || 1 }));
+      .map(p => ({ id: p.id, quantity: p.quantity || 1, properties: { _source: 'System Builder' } }));
 
     if (items.length === 0) {
       const original = button.dataset.originalText || button.textContent.trim();
