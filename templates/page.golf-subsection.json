@@ -303,6 +303,7 @@
         "buy_buttons_BkHCW4",
         "description_iYBJ88"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "",
@@ -550,6 +551,7 @@
         "buy_buttons_3VL9YF",
         "description_BQDC4d"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "",
