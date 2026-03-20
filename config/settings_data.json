@@ -43,6 +43,7 @@
     "predictive_search_collection": "all",
     "show_free_shipping_message": true,
     "enable_confetti_effect": false,
+    "free_shipping_limit": "150",
     "pcard_image_ratio": "1/1",
     "pcard_show_second_img": true,
     "pcard_show_color_swatch": false,
