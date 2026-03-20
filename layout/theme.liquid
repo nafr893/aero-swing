@@ -806,6 +806,13 @@ popup.style.transform = 'translateX(-50%)'; // Center horizontally
       setTimeout(fetchCart, 700);
     }
   });
+
+  // System builder uses fetch instead of form submit — handle it the same way
+  document.addEventListener('system-builder:item-added', () => {
+    popupDismissed = false;
+    localStorage.removeItem('fsp_dismissed');
+    setTimeout(fetchCart, 700);
+  });
 });
 </script>
 
