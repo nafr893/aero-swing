@@ -555,6 +555,8 @@ class SystemBuilder extends HTMLElement {
 
       // Open the cart drawer and render its contents (addedState includes sections HTML)
       window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
+      // Update the free shipping progress bar (cart-goal subscribes to this with direct data)
+      window.FoxThemeEvents?.emit('ON_CART_UPDATED', cart);
 
       button.textContent = 'Added!';
       setTimeout(() => {
