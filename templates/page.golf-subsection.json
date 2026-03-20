@@ -75,6 +75,35 @@
         "padding_bottom": 40
       }
     },
+    "featured_collection_qKANCc": {
+      "type": "featured-collection",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "header_layout": "vertical",
+        "heading": "Golf",
+        "heading_size": "h2",
+        "description": "",
+        "collection": "golf",
+        "limit": 12,
+        "columns": 4,
+        "column_gap": "medium",
+        "pcard_image_ratio": "",
+        "show_vendor": false,
+        "enable_slider": false,
+        "show_nav": false,
+        "show_dots": false,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "enable_swipe_mobile": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
     "video_reviews_mfzFmn": {
       "type": "video-reviews",
       "blocks": {
@@ -274,6 +303,7 @@
         "buy_buttons_BkHCW4",
         "description_iYBJ88"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "",
@@ -521,6 +551,7 @@
         "buy_buttons_3VL9YF",
         "description_BQDC4d"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "",
@@ -629,35 +660,6 @@
         "padding_bottom": 0,
         "custom_id": "",
         "custom_class": ""
-      }
-    },
-    "featured_collection_qKANCc": {
-      "type": "featured-collection",
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "header_layout": "vertical",
-        "heading": "Golf",
-        "heading_size": "h2",
-        "description": "",
-        "collection": "golf",
-        "limit": 8,
-        "columns": 3,
-        "column_gap": "medium",
-        "pcard_image_ratio": "",
-        "show_vendor": false,
-        "enable_slider": false,
-        "show_nav": false,
-        "show_dots": false,
-        "show_all_button_on_top": false,
-        "button_label": "",
-        "button_style": "btn--primary",
-        "enable_swipe_mobile": false,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "custom_id": "",
-        "custom_class": "",
-        "animations": "inherit"
       }
     },
     "video_grid_MkKR7t": {
