@@ -1,6 +1,6 @@
 .f-cartgoal {
-  --cartgoal-pending-color: #FFBC11;
-  --cartgoal-success-color: #3D9851;
+  --cartgoal-pending-color: #5ab243;
+  --cartgoal-success-color: #5ab243;
   color: var(--cartgoal-pending-color);
   transition: 0.3s all;
   position: relative;
@@ -44,23 +44,6 @@
   transition: width 0.35s ease-in-out;
   transition-delay: 0.5s;
   border-radius: 1rem;
-}
-.f-cartgoal__icon {
-  position: absolute;
-  left: var(--progress, 0%);
-  top: -1rem;
-  border: 0.1rem solid currentColor;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: currentColor;
-  background: #fff;
-  width: 2.6rem;
-  height: 2.6rem;
-  transition: left 0.35s ease-in-out, transform 0.2s ease;
-  transition-delay: 0.5s;
-  margin-left: -1.3rem;
 }
 .f-cartgoal:not(.f-cartgoal__drawer):not(.hidden) {
   padding: 0;
