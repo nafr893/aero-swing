@@ -353,13 +353,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Add Aero-Balls to cart via popup ---
   document.getElementById('add-aeroballs').addEventListener('click', async () => {
+    closePopup();
+    setCookie('upsell_declined', 'true', 3); // prevent observer from reopening
     const res = await fetch('/cart/add.js', {
       method: 'POST',
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify({id: AEROBALL_VARIANT_ID, quantity: 1, sections: ['cart-drawer']})
     });
     const addedState = await res.json();
-    closePopup();
     window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
   });
 
