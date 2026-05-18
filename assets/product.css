@@ -472,7 +472,7 @@
 }
 @media (max-width: 767.98px) {
   .f-product__media-viewer:not(.f-product__media-only--image) [data-media-viewer]:before {
-    padding-top: 125%;
+    padding-top: calc(100% / (0 + var(--media-aspect-ratio, 1)));
   }
 }
 .f-product__media-viewer .f-product__media-list {
