@@ -1448,6 +1448,119 @@ product-modal .f-modal__content {
   max-width: 800px;
 }
 
+/* Variant card picker */
+.variant-picker__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 1rem;
+}
+
+.variant-picker__card-header-label {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.variant-cards-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.2rem;
+}
+
+.variant-cards-track::-webkit-scrollbar {
+  display: none;
+}
+
+.variant-picker__option:has(.variant-card) {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.variant-picker__option input[type="radio"] + .variant-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.4rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.8rem;
+  cursor: pointer;
+  min-width: 11rem;
+  background: var(--color-bg-1, #fff);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.variant-picker__option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.variant-picker__option input[type="radio"]:checked + .variant-card {
+  border-color: var(--color-text-body);
+  box-shadow: 0 0 0 1px var(--color-text-body);
+}
+
+.variant-picker__option input[type="radio"] + .variant-card:hover {
+  border-color: var(--color-text-body);
+}
+
+.variant-card__name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+}
+
+.variant-card__price {
+  font-size: 1.3rem;
+  color: var(--color-text-body);
+}
+
+.variant-card__stock {
+  font-size: 1.2rem;
+  color: #2e7d32;
+}
+
+.variant-card__stock.is-low {
+  color: #c0392b;
+}
+
+.variant-picker__option--soldout .variant-card__stock {
+  color: var(--color-text-subtle, #888);
+}
+
+/* Variant info block */
+variant-info-block {
+  display: block;
+}
+
+.variant-info {
+  margin-top: 1.4rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--color-bg-2, #f5f5f5);
+  border-radius: 0.8rem;
+}
+
+.variant-info__recommended {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.variant-info__recommended:last-child {
+  margin-bottom: 0;
+}
+
+.variant-info__description {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--color-text-body);
+}
+
 .open-foxkit-sizechart {
   top: -0.3rem !important;
 }

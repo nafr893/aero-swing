@@ -19,6 +19,7 @@
         </button>
     </modal-opener>
 {%- endcapture -%}
+
 <div class="variant-picker" data-variant-picker data-product-id="{{ product.id }}" data-enable-variant-group-images="{{ enableVariantGroupImg }}" data-disable-default-variant="{{ disable_default_variant }}" data-variant-option-none-text="{{ 'products.product.variant_option_none_text' | t }}" data-variant-selection-needed-text="{{ 'products.product.variant_selection_needed_text' | t }}" data-section="{{ section.id }}" data-product-handle="{{ product.handle }}" data-product-url="{{ product.url }}" data-max-options="{{ product.options_with_values.size }}">
     {%- unless product.has_only_default_variant -%}
         <variant-picker class="no-js-hidden" data-update-url="{{ update_browser_history }}">
@@ -40,6 +41,7 @@
                             assign variant_picker_type = picker_type
                         endif
                     endif
+                    assign size_chart_in_header = false
                 %}
                 <div class="variant-picker__field-wrapper">
                     {% case variant_picker_type %}
@@ -89,7 +91,7 @@
                                                 data-fallback-value="{{- value_fallback | downcase -}}"
                                                 data-has-custom-image="{% if images[img_file_name] != blank %}true{% else %}false{% endif %}"
                                                 data-tippy-theme="color-{{ color_schema }}"
-                                                data-tippy-content="{{ value }}" 
+                                                data-tippy-content="{{ value }}"
                                                 data-tippy-placement="top"
                                             >
                                                 <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
@@ -107,45 +109,90 @@
                                 </div>
                             </variant-color>
                         {% else %}
+                            {%- assign size_chart_in_header = true -%}
                             <variant-button class="variant-picker__field" data-picker-field="radio" data-option-name="{{ option.name }}" data-selected-value="{{ option.selected_value }}">
-                                <div class="js variant-picker__input variant-picker__button">
-                                    <label class="form__label">
+                                <div class="variant-picker__card-header">
+                                    <span class="variant-picker__card-header-label">
                                         <span class="font-semibold">{{ option_label }}:</span>
-                                        {% if show_selected_value %}
-                                            <span class="selected-value">{{ option.selected_value }}</span>
-                                        {% endif %}
-                                    </label>
-                                    <div class="variant-picker__option-values">
-                                        {%- for value in option.values -%}
-                                            <div
-                                                class="variant-picker__option"
-                                                data-option-position="{{ option.position }}"
-                                                data-option-type="{{ variant_picker_type }}"
-                                                data-value="{{- value | escape -}}"
+                                        <span class="selected-value"> {{ option.selected_value }}</span>
+                                    </span>
+                                    {%- if is_size and show_size_chart -%}
+                                        {{- size_chart_button -}}
+                                    {%- endif -%}
+                                </div>
+                                <div class="variant-cards-track">
+                                    {%- for value in option.values -%}
+                                        {%- case option.position -%}
+                                            {%- when 1 -%}{%- assign card_variant = product.variants | where: 'option1', value | first -%}
+                                            {%- when 2 -%}{%- assign card_variant = product.variants | where: 'option2', value | first -%}
+                                            {%- when 3 -%}{%- assign card_variant = product.variants | where: 'option3', value | first -%}
+                                        {%- endcase -%}
+                                        <div
+                                            class="variant-picker__option"
+                                            data-option-position="{{ option.position }}"
+                                            data-option-type="{{ variant_picker_type }}"
+                                            data-value="{{- value | escape -}}"
+                                        >
+                                            <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                               name="{{ option.name }}"
+                                               value="{{ value | escape }}"
+                                               form="{{ product_form_id }}"
+                                               {% if option.selected_value == value %}checked{% endif %}
                                             >
-                                                <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                                   name="{{ option.name }}"
-                                                   value="{{ value | escape }}"
-                                                   form="{{ product_form_id }}"
-                                                   {% if option.selected_value == value %}checked{% endif %}
-                                                >
-                                                <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-picker__option-button variant-picker__option-button--{{ variant_picker_type | default: 'button' }}">
-                                                    {{- value -}}
-                                                </label>
-                                            </div>
-                                        {%- endfor -%}
-                                    </div>
+                                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-card">
+                                                <span class="variant-card__name">{{ value }}</span>
+                                                {%- if card_variant -%}
+                                                    <span class="variant-card__price">{{ card_variant.price | money }}</span>
+                                                    <span class="variant-card__stock{% if card_variant.inventory_quantity > 0 and card_variant.inventory_quantity < 20 %} is-low{% endif %}">
+                                                        {%- if card_variant.available == false -%}
+                                                            Sold Out
+                                                        {%- elsif card_variant.inventory_quantity > 0 and card_variant.inventory_quantity < 20 -%}
+                                                            {{ card_variant.inventory_quantity }} remaining
+                                                        {%- else -%}
+                                                            In Stock
+                                                        {%- endif -%}
+                                                    </span>
+                                                {%- endif -%}
+                                            </label>
+                                        </div>
+                                    {%- endfor -%}
                                 </div>
                             </variant-button>
                     {% endcase %}
-                    {%- if is_size and show_size_chart -%}
-                        {{- size_chart_button -}}
-                    {%- endif -%}
+                    {%- unless size_chart_in_header -%}
+                        {%- if is_size and show_size_chart -%}
+                            {{- size_chart_button -}}
+                        {%- endif -%}
+                    {%- endunless -%}
                     {% if is_size %}
                         <button class="open-size-chart open-foxkit-sizechart btn btn--with-icon btn--plain foxkit-hidden" aria-label="{{ 'products.product.open_size_chart' | t }}"><span><u>{{ 'products.product.open_size_chart' | t }}</u></span></button>
                     {% endif %}
                 </div>
             {%- endfor -%}
+
+            {%- assign sel = product.selected_or_first_available_variant -%}
+            <variant-info-block data-section="{{ section.id }}" data-product-id="{{ product.id }}">
+                {%- if sel.metafields.custom.recommended_for != blank or sel.metafields.custom.description != blank -%}
+                <div class="variant-info">
+                    {%- if sel.metafields.custom.recommended_for != blank -%}
+                    <p class="variant-info__recommended"><strong>Recommended for:</strong> {{ sel.metafields.custom.recommended_for }}</p>
+                    {%- endif -%}
+                    {%- if sel.metafields.custom.description != blank -%}
+                    <p class="variant-info__description">{{ sel.metafields.custom.description }}</p>
+                    {%- endif -%}
+                </div>
+                {%- endif -%}
+                <script type="application/json">
+                {
+                    {%- for variant in product.variants -%}
+                    "{{ variant.id }}": {
+                        "recommended_for": {{ variant.metafields.custom.recommended_for | json }},
+                        "description": {{ variant.metafields.custom.description | json }}
+                    }{% unless forloop.last %},{% endunless %}
+                    {%- endfor -%}
+                }
+                </script>
+            </variant-info-block>
         </variant-picker>
         <script type="application/json">
            {{ product.variants | json }}

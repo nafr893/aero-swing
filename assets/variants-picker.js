@@ -679,3 +679,45 @@ if (!customElements.get('variant-button')) {
 		customElements.define('variant-color', VariantColor)
 	}
 }
+
+if (!customElements.get('variant-info-block')) {
+	customElements.define('variant-info-block', class VariantInfoBlock extends HTMLElement {
+		connectedCallback() {
+			this.sectionId = this.dataset.section
+			this.infoEl = this.querySelector('.variant-info')
+			try {
+				this.infoData = JSON.parse(this.querySelector('[type="application/json"]').textContent)
+			} catch (e) {
+				return
+			}
+
+			document.addEventListener('change', (e) => {
+				if (e.target.name === 'id' && e.target.closest(`#product-form-${this.sectionId}`)) {
+					this.updateInfo(Number(e.target.value))
+				}
+			})
+		}
+
+		updateInfo(variantId) {
+			const info = this.infoData[variantId]
+			if (!info) return
+
+			if (!this.infoEl) {
+				this.infoEl = document.createElement('div')
+				this.infoEl.className = 'variant-info'
+				this.querySelector('[type="application/json"]').before(this.infoEl)
+			}
+
+			let html = ''
+			if (info.recommended_for) {
+				html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${info.recommended_for}</p>`
+			}
+			if (info.description) {
+				html += `<p class="variant-info__description">${info.description}</p>`
+			}
+
+			this.infoEl.innerHTML = html
+			this.infoEl.hidden = !html
+		}
+	})
+}
