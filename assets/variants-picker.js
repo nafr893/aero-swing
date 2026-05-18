@@ -168,6 +168,9 @@ if (!customElements.get('variant-picker')) {
 			}
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
+
+			const infoBlock = this.querySelector('variant-info-block')
+			if (infoBlock) infoBlock.updateInfo(this.currentVariant ? this.currentVariant.id : null)
 		}
 
 		getMediaGallery() {
@@ -692,21 +695,10 @@ if (!customElements.get('variant-info-block')) {
 			}
 
 			this.updateInfo(Number(this.dataset.initialVariant))
-
-			const sectionId = this.dataset.section
-			const picker = this.closest('variant-picker')
-			if (picker) {
-				picker.addEventListener('change', () => {
-					setTimeout(() => {
-						const idInput = document.querySelector(`#product-form-${sectionId} input[name="id"]`)
-						if (idInput?.value) this.updateInfo(Number(idInput.value))
-					}, 0)
-				})
-			}
 		}
 
 		updateInfo(variantId) {
-			const info = this.infoData[variantId] || {}
+			const info = variantId ? (this.infoData[variantId] || {}) : {}
 			const hasText = str => typeof str === 'string' && str.replace(/<[^>]*>/g, '').trim().length > 0
 
 			let html = ''
