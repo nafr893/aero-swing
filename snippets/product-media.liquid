@@ -121,11 +121,14 @@
           {% render 'product-thumbnail', media: media, index: forloop.index0, loop: enable_video_looping, modal_id: section.id, xr_button: true, media_width: media_width %}
         {%- endfor -%}
         {% if mobile_thumbnails == 'hide' and product.media.size > 1 %}
-        <div class="flickity-page-counter no-js-hidden md:hidden">
+        <div class="flickity-page-counter f-product__media-counter no-js-hidden md:hidden">
           <span class="flickity-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
+          <span aria-hidden="true">/</span>
           <span class="visually-hidden">{{ 'sections.slideshow.of' | t }}</span>
           <span class="flickity-counter--total">{{ product.media.size }}</span>
+        </div>
+        <div class="f-product__media-progress no-js-hidden md:hidden" aria-hidden="true">
+          <div class="f-product__media-progress-fill"></div>
         </div>
         {% endif %}
       </flickity-component>

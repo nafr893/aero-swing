@@ -14,6 +14,7 @@ if (!customElements.get('media-gallery')) {
 				medias: ['.f-product__media'],
 				xrButton: '[data-first-xr-button]',
 				sliderCounter: '.flickity-counter--current',
+				progressBar: '.f-product__media-progress-fill',
 				toggleZoom: ['.js-photoswipe--zoom']
 			}
 
@@ -115,6 +116,11 @@ if (!customElements.get('media-gallery')) {
 				if (this.mediaGallery && typeof this.mediaGallery == 'object') {
 					clearInterval(this.check)
 					this.mediaGallery.on('change', this.onSlideChanged.bind(this))
+
+					if (this.domNodes.progressBar) {
+						const total = this.domNodes.medias.length
+						this.domNodes.progressBar.style.width = `${(1 / total) * 100}%`
+					}
 
 					if (this.thumbnails) {
 						if (this.thumbnails.cells && this.thumbnails.cells[0]) this.thumbnails.select(0)
@@ -284,6 +290,11 @@ if (!customElements.get('media-gallery')) {
 
 			if (this.domNodes.sliderCounter) {
 				this.domNodes.sliderCounter.textContent = index + 1
+			}
+
+			if (this.domNodes.progressBar) {
+				const total = this.domNodes.medias.length
+				this.domNodes.progressBar.style.width = `${((index + 1) / total) * 100}%`
 			}
 
 			this.domNodes.mediaGallery.classList.remove('pointer-move')

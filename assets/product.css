@@ -515,6 +515,35 @@
     padding-bottom: 4.6rem;
     border-bottom: 1px solid var(--color-border);
   }
+  .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper.flickity-controls-group-mb__bottom .f-product__media-counter {
+    left: 1.5rem !important;
+    transform: none !important;
+    width: auto !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    font-size: 1.3rem !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+    bottom: 1.2rem !important;
+  }
+  .f-product__media-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.12);
+    z-index: 5;
+    pointer-events: none;
+  }
+  .f-product__media-progress-fill {
+    height: 100%;
+    background: #000;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
 }
 @media (max-width: 639.98px) {
   .f-product__media.is-selected {
