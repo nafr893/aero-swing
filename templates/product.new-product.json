@@ -58,6 +58,13 @@
             "size_chart_from_page": "size-chart"
           }
         },
+        "product_addon_ff7aHU": {
+          "type": "product_addon",
+          "settings": {
+            "addon_product": "aero-balls-12-pack",
+            "description": "The only recommended balls for use with the Aero-Bat."
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -111,6 +118,7 @@
         "59ca3415-b1aa-4301-b178-ad6e434ba477",
         "quantity_selector",
         "variant_picker",
+        "product_addon_ff7aHU",
         "buy_buttons",
         "description_zRa7VQ",
         "2115d0d9-102e-4377-a68b-42b8ed4a4edc",
