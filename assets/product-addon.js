@@ -1,0 +1,121 @@
+if (!customElements.get('product-addon')) {
+  customElements.define('product-addon', class ProductAddon extends HTMLElement {
+    connectedCallback() {
+      this.variants = JSON.parse(this.querySelector('[data-variants-json]').textContent)
+      this.cartKey   = null
+      this.qty       = 0
+
+      const first = this.variants.find(v => v.available) || this.variants[0]
+      this.selectedVariantId = first?.id
+
+      this.priceEl      = this.querySelector('[data-addon-price]')
+      this.addedPriceEl = this.querySelector('[data-added-price]')
+      this.qtyDisplay   = this.querySelector('[data-qty-display]')
+      this.addedRow     = this.querySelector('.product-addon__added-row')
+
+      this.querySelectorAll('[data-swatch]').forEach(s =>
+        s.addEventListener('click', () => this._selectSwatch(s))
+      )
+      this.querySelector('[data-add-btn]').addEventListener('click', () => this._add())
+      this.querySelector('[data-qty-minus]').addEventListener('click', () => this._changeQty(-1))
+      this.querySelector('[data-qty-plus]').addEventListener('click', () => this._changeQty(1))
+      this.querySelector('[data-remove-btn]').addEventListener('click', () => this._remove())
+
+      this._renderPrice(this._currentVariant()?.price, this.priceEl)
+    }
+
+    _selectSwatch(el) {
+      this.selectedVariantId = Number(el.dataset.variantId)
+      this.querySelectorAll('[data-swatch]').forEach(s =>
+        s.classList.toggle('is-selected', s === el)
+      )
+      this._renderPrice(this._currentVariant()?.price, this.priceEl)
+      if (this.cartKey) this._swapVariant()
+    }
+
+    async _add() {
+      if (!this.selectedVariantId) return
+      const btn = this.querySelector('[data-add-btn]')
+      btn.disabled = true
+      try {
+        const res  = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: this.selectedVariantId, quantity: 1 })
+        })
+        const item = await res.json()
+        if (!res.ok) throw new Error(item.description)
+        this.cartKey = item.key
+        this.qty     = 1
+        this._setAdded()
+        window.FoxThemeEvents?.emit('ON_ITEM_ADDED', item)
+      } catch (e) {
+        console.error('[product-addon] add failed:', e)
+      }
+      btn.disabled = false
+    }
+
+    async _changeQty(delta) {
+      const newQty = this.qty + delta
+      if (newQty < 1) return
+      await this._cartChange(this.cartKey, newQty)
+      this.qty = newQty
+      this._updateAddedRow()
+      window.FoxThemeEvents?.emit('ON_CART_UPDATED')
+    }
+
+    async _remove() {
+      await this._cartChange(this.cartKey, 0)
+      this.cartKey = null
+      this.qty     = 0
+      this.classList.remove('is-added')
+      this.addedRow.setAttribute('aria-hidden', 'true')
+      window.FoxThemeEvents?.emit('ON_CART_UPDATED')
+    }
+
+    async _swapVariant() {
+      await this._cartChange(this.cartKey, 0)
+      const res  = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: this.selectedVariantId, quantity: this.qty })
+      })
+      const item = await res.json()
+      if (res.ok) {
+        this.cartKey = item.key
+        this._updateAddedRow()
+        window.FoxThemeEvents?.emit('ON_CART_UPDATED')
+      }
+    }
+
+    _cartChange(key, quantity) {
+      return fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity })
+      })
+    }
+
+    _setAdded() {
+      this.classList.add('is-added')
+      this.addedRow.removeAttribute('aria-hidden')
+      this._updateAddedRow()
+    }
+
+    _updateAddedRow() {
+      const v = this._currentVariant()
+      if (v) this._renderPrice(v.price * this.qty, this.addedPriceEl)
+      if (this.qtyDisplay) this.qtyDisplay.textContent = this.qty
+    }
+
+    _renderPrice(cents, el) {
+      if (!el || cents == null) return
+      const fmt = window.FoxThemeSettings?.money_format
+      el.textContent = fmt ? formatMoney(cents, fmt) : '$' + (cents / 100).toFixed(2)
+    }
+
+    _currentVariant() {
+      return this.variants.find(v => v.id === this.selectedVariantId)
+    }
+  })
+}

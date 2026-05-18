@@ -250,6 +250,8 @@
 
                         </div>
                     </div>
+                {%- when 'product_addon' -%}
+                    {% render 'product-addon', block: block, section: section, product: product %}
                 {%- when 'addons' -%}
                     {% liquid
                         assign show_share = block.settings.show_share

@@ -75,6 +75,12 @@
 {% if product.options_with_values.size > 0 %}
   <script src="{{ 'variants-picker.js' | asset_url }}" defer="defer"></script>
 {% endif %}
+{% for block in section.blocks %}
+  {% if block.type == 'product_addon' and block.settings.addon_product != blank %}
+    <script src="{{ 'product-addon.js' | asset_url }}" defer="defer"></script>
+    {% break %}
+  {% endif %}
+{% endfor %}
 {% if section.settings.enable_image_zoom %}
 	{%- liquid 
 		assign media_list = product.media | where: 'media_type', 'image'
@@ -1054,6 +1060,23 @@
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.addons.settings.ask_question.content"
+        }
+      ]
+    },
+    {
+      "type": "product_addon",
+      "name": "Product Add-on",
+      "settings": [
+        {
+          "type": "product",
+          "id": "addon_product",
+          "label": "Add-on product"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Short description",
+          "placeholder": "e.g. The only recommended balls for use with the Aero-Bat."
         }
       ]
     },

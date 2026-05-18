@@ -1,0 +1,84 @@
+{%- liquid
+  assign addon_product = block.settings.addon_product
+  if addon_product == blank
+    echo nil
+  endif
+  assign first_variant = addon_product.selected_or_first_available_variant
+-%}
+
+{%- if addon_product != blank -%}
+<product-addon
+  class="product-addon"
+  data-product-id="{{ addon_product.id }}"
+  data-section-id="{{ section.id }}">
+
+  <div class="product-addon__card">
+    <div class="product-addon__main">
+
+      <div class="product-addon__image-wrap">
+        {%- if addon_product.featured_image -%}
+          <img
+            src="{{ addon_product.featured_image | image_url: width: 120 }}"
+            alt="{{ addon_product.featured_image.alt | default: addon_product.title | escape }}"
+            width="60"
+            height="60"
+            loading="lazy">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="product-addon__info">
+        <p class="product-addon__title">{{ addon_product.title }}</p>
+
+        {%- if addon_product.variants.size > 1 -%}
+        <div class="product-addon__swatches">
+          {%- for variant in addon_product.variants -%}
+            <button
+              type="button"
+              class="product-addon__swatch{% if forloop.first %} is-selected{% endif %}"
+              data-swatch
+              data-variant-id="{{ variant.id }}"
+              title="{{ variant.title | escape }}"
+              {% unless variant.available %}disabled aria-disabled="true"{% endunless %}
+              {%- if variant.featured_image -%}
+                style="background-image: url('{{ variant.featured_image | image_url: width: 40 }}')"
+              {%- endif -%}
+            ></button>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+
+        {%- if block.settings.description != blank -%}
+          <p class="product-addon__desc">{{ block.settings.description }}</p>
+        {%- endif -%}
+
+        <p class="product-addon__price" data-addon-price>
+          {{ first_variant.price | money }}
+        </p>
+      </div>
+
+      <div class="product-addon__action">
+        <button type="button" class="product-addon__add-btn" data-add-btn>
+          Add +
+        </button>
+      </div>
+
+    </div>
+
+    <div class="product-addon__added-row" aria-hidden="true">
+      <span class="product-addon__added-label">Added &mdash; <span data-added-price></span></span>
+      <div class="product-addon__qty-controls">
+        <button type="button" class="product-addon__qty-btn" data-qty-minus aria-label="Decrease quantity">&minus;</button>
+        <span class="product-addon__qty-num" data-qty-display>1</span>
+        <button type="button" class="product-addon__qty-btn" data-qty-plus aria-label="Increase quantity">+</button>
+      </div>
+      <button type="button" class="product-addon__remove" data-remove-btn>Remove</button>
+    </div>
+  </div>
+
+  <script type="application/json" data-variants-json>
+    {{ addon_product.variants | json }}
+  </script>
+</product-addon>
+{%- endif -%}
