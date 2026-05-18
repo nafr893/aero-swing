@@ -1080,68 +1080,42 @@
         "container": "container"
       }
     },
-    "featured_product_bhTxzQ": {
-      "type": "featured-product",
+    "rich_text_pKYcXn": {
+      "type": "rich-text",
       "blocks": {
-        "vendor_xFhbzT": {
-          "type": "vendor",
-          "settings": {}
-        },
-        "title_68Tydj": {
-          "type": "title",
+        "heading_CzA9aa": {
+          "type": "heading",
           "settings": {
+            "heading": "Talk about your brand",
             "heading_size": "h2"
           }
         },
-        "price_MMagfB": {
-          "type": "price",
+        "text_MWTp3f": {
+          "type": "text",
           "settings": {
-            "show_sale_badge": true,
-            "sale_badge_type": "text"
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.<br> Add details on availability, style, or even provide a review.</p>"
           }
         },
-        "variant_picker_Aqqb6p": {
-          "type": "variant_picker",
+        "button_dKr99R": {
+          "type": "button",
           "settings": {
-            "picker_type": "button",
-            "variant_picker_show_selected": true
+            "button_label": "Button label",
+            "button_link": "shopify://products/aero-bat",
+            "button_style": "btn--primary",
+            "button_size": ""
           }
-        },
-        "quantity_selector_KDk3ry": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_QymMHV": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_atc_button": true,
-            "show_dynamic_checkout": true
-          }
-        },
-        "description_XbMgkG": {
-          "type": "description",
-          "settings": {}
         }
       },
       "block_order": [
-        "vendor_xFhbzT",
-        "title_68Tydj",
-        "price_MMagfB",
-        "variant_picker_Aqqb6p",
-        "quantity_selector_KDk3ry",
-        "buy_buttons_QymMHV",
-        "description_XbMgkG"
+        "heading_CzA9aa",
+        "text_MWTp3f",
+        "button_dKr99R"
       ],
-      "name": "t:sections.featured-product.presets.name",
+      "name": "t:sections.rich-text.presets.name",
       "settings": {
         "container": "container",
         "color_schema": "",
-        "product": "aero-bat",
-        "media_position": "left",
-        "media_size": "medium",
-        "mobile_thumbnails": "hide",
-        "enable_image_zoom": true,
-        "enable_video_looping": false,
+        "text_alignment": "center",
         "padding_top": 40,
         "padding_bottom": 40,
         "custom_id": "",
@@ -1172,6 +1146,6 @@
     "collage_tabs_q6eBtt",
     "rich_text_e6KA9N",
     "video_reviews_wUwzFq",
-    "featured_product_bhTxzQ"
+    "rich_text_pKYcXn"
   ]
 }
