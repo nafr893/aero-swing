@@ -1079,6 +1079,75 @@
         "padding_bottom": 100,
         "container": "container"
       }
+    },
+    "featured_product_bhTxzQ": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor_xFhbzT": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title_68Tydj": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "price_MMagfB": {
+          "type": "price",
+          "settings": {
+            "show_sale_badge": true,
+            "sale_badge_type": "text"
+          }
+        },
+        "variant_picker_Aqqb6p": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "variant_picker_show_selected": true
+          }
+        },
+        "quantity_selector_KDk3ry": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_QymMHV": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_atc_button": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "description_XbMgkG": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor_xFhbzT",
+        "title_68Tydj",
+        "price_MMagfB",
+        "variant_picker_Aqqb6p",
+        "quantity_selector_KDk3ry",
+        "buy_buttons_QymMHV",
+        "description_XbMgkG"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "product": "aero-bat",
+        "media_position": "left",
+        "media_size": "medium",
+        "mobile_thumbnails": "hide",
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
     }
   },
   "order": [
@@ -1102,6 +1171,7 @@
     "video_R3wf6z",
     "collage_tabs_q6eBtt",
     "rich_text_e6KA9N",
-    "video_reviews_wUwzFq"
+    "video_reviews_wUwzFq",
+    "featured_product_bhTxzQ"
   ]
 }
