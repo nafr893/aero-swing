@@ -702,13 +702,12 @@ if (!customElements.get('variant-info-block')) {
 		updateInfo(variantId) {
 			const info = this.infoData[variantId] || {}
 
+			const rec  = (typeof info.recommended_for === 'string') ? info.recommended_for.trim() : ''
+			const desc = (typeof info.description === 'string') ? info.description.trim() : ''
+
 			let html = ''
-			if (info.recommended_for) {
-				html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${info.recommended_for}</p>`
-			}
-			if (info.description) {
-				html += `<p class="variant-info__description">${info.description}</p>`
-			}
+			if (rec)  html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${rec}</p>`
+			if (desc) html += `<div class="variant-info__description">${desc}</div>`
 
 			this.infoEl.innerHTML = html
 			this.infoEl.style.display = html ? '' : 'none'

@@ -179,9 +179,11 @@
                 <script type="application/json">
                 {
                     {%- for variant in product.variants -%}
+                    {%- capture rec -%}{{ variant.metafields.custom.recommended_for }}{%- endcapture -%}
+                    {%- capture desc -%}{{ variant.metafields.custom.description }}{%- endcapture -%}
                     "{{ variant.id }}": {
-                        "recommended_for": {{ variant.metafields.custom.recommended_for | json }},
-                        "description": {{ variant.metafields.custom.description | json }}
+                        "recommended_for": {{ rec | strip | json }},
+                        "description": {{ desc | strip | json }}
                     }{% unless forloop.last %},{% endunless %}
                     {%- endfor -%}
                 }
