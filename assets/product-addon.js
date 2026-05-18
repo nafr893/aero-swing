@@ -38,7 +38,10 @@ if (!customElements.get('product-addon')) {
 
     _updateSelectedColor(el) {
       const label = this.querySelector('[data-selected-color]')
-      if (label) label.textContent = el.dataset.colorValue || el.title
+      if (!label) return
+      const optionLabel = label.dataset.optionLabel || ''
+      const value = el.dataset.colorValue || el.title
+      label.innerHTML = `<span class="product-addon__option-label">${optionLabel}:</span> ${value}`
     }
 
     _updateImage() {

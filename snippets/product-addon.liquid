@@ -32,7 +32,7 @@
         <p class="product-addon__title">{{ addon_product.title }}</p>
 
         {%- if addon_product.variants.size > 1 -%}
-        <p class="product-addon__selected-color" data-selected-color>{{ addon_product.selected_or_first_available_variant.option1 }}</p>
+        <p class="product-addon__selected-color" data-selected-color data-option-label="{{ addon_product.options[0] | escape }}"><span class="product-addon__option-label">{{ addon_product.options[0] }}:</span> {{ addon_product.selected_or_first_available_variant.option1 }}</p>
         <div class="product-addon__swatches">
           {%- for variant in addon_product.variants -%}
             <button

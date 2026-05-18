@@ -1627,6 +1627,9 @@ product-addon {
   margin: 0 0 0.4rem;
   color: var(--color-text-body, #111);
 }
+.product-addon__option-label {
+  color: rgba(0,0,0,0.5);
+}
 
 .product-addon__swatches {
   display: flex;
