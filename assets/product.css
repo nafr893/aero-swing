@@ -512,8 +512,14 @@
     bottom: 1.5rem;
   }
   .f-product__media-viewer--thumbs-hide:not(.f-product__media-only--image) [data-media-viewer] {
-    padding-bottom: 4.6rem;
-    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper.flickity-controls-group-mb__bottom.flickity-show-controls {
+    padding-bottom: 0 !important;
+  }
+  .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper .flickity-button {
+    display: none !important;
   }
   .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper.flickity-controls-group-mb__bottom .f-product__media-counter {
     left: 1.5rem !important;
