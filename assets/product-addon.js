@@ -31,7 +31,16 @@ if (!customElements.get('product-addon')) {
         s.classList.toggle('is-selected', s === el)
       )
       this._renderPrice(this._currentVariant()?.price, this.priceEl)
+      this._updateImage()
       if (this.cartKey) this._swapVariant()
+    }
+
+    _updateImage() {
+      const imgEl = this.querySelector('.product-addon__image-wrap img')
+      if (!imgEl) return
+      const v = this._currentVariant()
+      const src = v?.featured_image?.src
+      if (src) imgEl.src = src
     }
 
     async _add() {
