@@ -4,17 +4,10 @@
     echo nil
   endif
   assign first_variant = addon_product.selected_or_first_available_variant
-  assign addon_option_name = addon_product.options[0] | downcase
+  assign addon_option_name = addon_product.options[0] | downcase | strip
   assign addon_is_color = false
-  if settings.color_swatches_enable and settings.color_swatches_trigger != blank
-    assign color_triggers = settings.color_swatches_trigger | downcase | split: ','
-    for trigger in color_triggers
-      assign trigger_trimmed = trigger | strip
-      if trigger_trimmed == addon_option_name
-        assign addon_is_color = true
-        break
-      endif
-    endfor
+  if addon_option_name == 'color'
+    assign addon_is_color = true
   endif
 -%}
 
