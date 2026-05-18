@@ -683,7 +683,7 @@ if (!customElements.get('variant-button')) {
 if (!customElements.get('variant-info-block')) {
 	customElements.define('variant-info-block', class VariantInfoBlock extends HTMLElement {
 		connectedCallback() {
-			this.sectionId = this.dataset.section
+			this.productId = this.dataset.productId
 			this.infoEl = this.querySelector('.variant-info')
 			try {
 				this.infoData = JSON.parse(this.querySelector('[type="application/json"]').textContent)
@@ -691,16 +691,13 @@ if (!customElements.get('variant-info-block')) {
 				return
 			}
 
-			document.addEventListener('change', (e) => {
-				if (e.target.name === 'id' && e.target.closest(`#product-form-${this.sectionId}`)) {
-					this.updateInfo(Number(e.target.value))
-				}
+			window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
+				this.updateInfo(variant.id)
 			})
 		}
 
 		updateInfo(variantId) {
-			const info = this.infoData[variantId]
-			if (!info) return
+			const info = this.infoData[variantId] || {}
 
 			if (!this.infoEl) {
 				this.infoEl = document.createElement('div')
