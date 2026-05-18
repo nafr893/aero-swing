@@ -1706,17 +1706,17 @@ product-addon {
 
 .product-addon__added-label {
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 700;
   flex: 1 1 auto;
 }
 
 .product-addon__qty-controls {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
   border: 1.5px solid #C4C4C4;
-  border-radius: 6px;
-  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
   background: #fff;
 }
 
@@ -1724,16 +1724,16 @@ product-addon {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1;
-  padding: 0 0.2rem;
+  padding: 0 0.1rem;
   color: var(--color-text-body, #111);
 }
 
 .product-addon__qty-num {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 500;
-  min-width: 1.6rem;
+  min-width: 1.4rem;
   text-align: center;
 }
 

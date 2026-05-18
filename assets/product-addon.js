@@ -71,16 +71,25 @@ if (!customElements.get('product-addon')) {
       await this._cartChange(this.cartKey, newQty)
       this.qty = newQty
       this._updateAddedRow()
-      window.FoxThemeEvents?.emit('ON_CART_UPDATED')
+      const cart = await fetch('/cart.js').then(r => r.json())
+      window.FoxThemeEvents?.emit('ON_CART_UPDATED', cart)
     }
 
     async _remove() {
-      await this._cartChange(this.cartKey, 0)
-      this.cartKey = null
-      this.qty     = 0
-      this.classList.remove('is-added')
-      this.addedRow.setAttribute('aria-hidden', 'true')
-      window.FoxThemeEvents?.emit('ON_CART_UPDATED')
+      const btn = this.querySelector('[data-remove-btn]')
+      if (btn) btn.disabled = true
+      try {
+        await this._cartChange(this.cartKey, 0)
+        this.cartKey = null
+        this.qty     = 0
+        this.classList.remove('is-added')
+        this.addedRow.setAttribute('aria-hidden', 'true')
+        const cart = await fetch('/cart.js').then(r => r.json())
+        window.FoxThemeEvents?.emit('ON_CART_UPDATED', cart)
+      } catch (e) {
+        console.error('[product-addon] remove failed:', e)
+      }
+      if (btn) btn.disabled = false
     }
 
     async _swapVariant() {
