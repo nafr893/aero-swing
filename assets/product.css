@@ -1642,8 +1642,8 @@ product-addon {
 }
 
 .product-addon__swatch.is-selected {
-  border-color: #2D9712;
-  box-shadow: 0 0 0 1px #2D9712;
+  border-color: #111;
+  box-shadow: 0 0 0 1px #111;
 }
 
 .product-addon__swatch:disabled {

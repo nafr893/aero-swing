@@ -48,10 +48,19 @@ if (!customElements.get('product-addon')) {
       const btn = this.querySelector('[data-add-btn]')
       btn.disabled = true
       try {
-        const res  = await fetch('/cart/add.js', {
+        const cartDrawer = document.querySelector('cart-drawer')
+        const sections = cartDrawer
+          ? cartDrawer.getSectionsToRender().map(s => s.id)
+          : []
+        const res = await fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: this.selectedVariantId, quantity: 1 })
+          body: JSON.stringify({
+            id: this.selectedVariantId,
+            quantity: 1,
+            sections,
+            sections_url: window.location.pathname
+          })
         })
         const item = await res.json()
         if (!res.ok) throw new Error(item.description)
