@@ -13,9 +13,10 @@ if (!customElements.get('product-addon')) {
       this.qtyDisplay   = this.querySelector('[data-qty-display]')
       this.addedRow     = this.querySelector('.product-addon__added-row')
 
-      this.querySelectorAll('[data-swatch]').forEach(s =>
+      this.querySelectorAll('[data-swatch]').forEach(s => {
         s.addEventListener('click', () => this._selectSwatch(s))
-      )
+        this._applySwatchColor(s)
+      })
       this.querySelector('[data-add-btn]').addEventListener('click', () => this._add())
       this.querySelector('[data-qty-minus]').addEventListener('click', () => this._changeQty(-1))
       this.querySelector('[data-qty-plus]').addEventListener('click', () => this._changeQty(1))
@@ -112,6 +113,13 @@ if (!customElements.get('product-addon')) {
       if (!el || cents == null) return
       const fmt = window.FoxThemeSettings?.money_format
       el.textContent = fmt ? formatMoney(cents, fmt) : '$' + (cents / 100).toFixed(2)
+    }
+
+    _applySwatchColor(el) {
+      const { colorSwatches = [] } = window.FoxThemeSettings || {}
+      const value = (el.dataset.colorValue || '').toLowerCase()
+      const match = colorSwatches.find(c => c.key.toLowerCase() === value)
+      el.style.backgroundColor = match ? match.value : value
     }
 
     _currentVariant() {

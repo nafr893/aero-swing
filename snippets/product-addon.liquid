@@ -40,10 +40,8 @@
               data-swatch
               data-variant-id="{{ variant.id }}"
               title="{{ variant.title | escape }}"
+              data-color-value="{{ variant.option1 | escape }}"
               {% unless variant.available %}disabled aria-disabled="true"{% endunless %}
-              {%- if variant.featured_image -%}
-                style="background-image: url('{{ variant.featured_image | image_url: width: 40 }}')"
-              {%- endif -%}
             ></button>
           {%- endfor -%}
         </div>
