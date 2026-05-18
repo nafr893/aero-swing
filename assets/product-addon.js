@@ -125,10 +125,26 @@ if (!customElements.get('product-addon')) {
     }
 
     _applySwatchColor(el) {
-      const { colorSwatches = [] } = window.FoxThemeSettings || {}
+      const colorMap = this._colorMap()
       const value = (el.dataset.colorValue || '').toLowerCase()
-      const match = colorSwatches.find(c => c.key.toLowerCase() === value)
-      el.style.backgroundColor = match ? match.value : value
+      const words = value.split(/[\s\-]+/).filter(Boolean)
+      const color = colorMap[value] || words.reduce((found, w) => found || colorMap[w], '') || value
+      el.style.backgroundColor = color
+    }
+
+    _colorMap() {
+      if (this._cachedColorMap) return this._cachedColorMap
+      const str = window.FoxThemeSettings?.custom_colors || ''
+      const map = {}
+      str.split(',').forEach(entry => {
+        const idx = entry.indexOf(':')
+        if (idx < 0) return
+        const key = entry.slice(0, idx).replace(/[\r\n]/g, '').trim().toLowerCase()
+        const val = entry.slice(idx + 1).replace(/[\r\n]/g, '').trim()
+        if (key && val) map[key] = val
+      })
+      this._cachedColorMap = map
+      return map
     }
 
     _currentVariant() {
