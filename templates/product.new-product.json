@@ -25,7 +25,7 @@
         "richtext_x8JpMr": {
           "type": "richtext",
           "settings": {
-            "text": ""
+            "text": "<p>{{ product.metafields.custom.short_description.value }}</p>"
           }
         },
         "price": {
