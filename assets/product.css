@@ -617,8 +617,8 @@ media-gallery {
 }
 @media (max-width: 767.98px) {
   .f-product__media-viewer:not(.f-product__media-only--image) .f-product__media {
-    width: 80%;
-    margin: 0 0.2rem;
+    width: 100%;
+    margin: 0;
     height: 100%;
   }
   .f-product__media-viewer:not(.f-product__media-only--image) .f-product__media .deferred-media > *:not(.zoom):not(.deferred-media__poster-button), .f-product__media-viewer:not(.f-product__media-only--image) .f-product__media .deferred-media model-viewer, .f-product__media-viewer:not(.f-product__media-only--image) .f-product__media .deferred-media iframe {
