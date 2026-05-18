@@ -1713,10 +1713,10 @@ product-addon {
 .product-addon__qty-controls {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border: 1.5px solid #C4C4C4;
-  border-radius: 4px;
-  padding: 0.1rem 0.4rem;
+  height: 36px;
+  width: 110px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--btn-rounded, 0);
   background: #fff;
 }
 
@@ -1726,14 +1726,20 @@ product-addon {
   cursor: pointer;
   font-size: 1.4rem;
   line-height: 1;
-  padding: 0 0.1rem;
+  padding: 0;
+  width: 36px;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
   color: var(--color-text-body, #111);
 }
 
 .product-addon__qty-num {
   font-size: 1.3rem;
   font-weight: 500;
-  min-width: 1.4rem;
+  flex: 1 1 auto;
   text-align: center;
 }
 
