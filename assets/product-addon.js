@@ -67,7 +67,7 @@ if (!customElements.get('product-addon')) {
         this.cartKey = item.key
         this.qty     = 1
         this._setAdded()
-        window.FoxThemeEvents?.emit('ON_ITEM_ADDED', item)
+        this._syncCart(item)
       } catch (e) {
         console.error('[product-addon] add failed:', e)
       }
@@ -114,6 +114,22 @@ if (!customElements.get('product-addon')) {
         this._updateAddedRow()
         window.FoxThemeEvents?.emit('ON_CART_UPDATED')
       }
+    }
+
+    async _syncCart(addResponse) {
+      const cartEl = window.FoxTheme?.Cart
+      if (cartEl && addResponse?.sections) {
+        cartEl.classList.remove('is-empty')
+        cartEl.getSectionsToRender().forEach(section => {
+          const el = section.selector
+            ? document.querySelector(section.selector)
+            : document.getElementById(section.id)
+          const html = addResponse.sections[section.id]
+          if (el && html) el.innerHTML = cartEl.getSectionInnerHTML(html, section.selector)
+        })
+      }
+      const cart = await fetch('/cart.js').then(r => r.json())
+      window.FoxThemeEvents?.emit('ON_CART_UPDATED', cart)
     }
 
     _cartChange(key, quantity) {
