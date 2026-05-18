@@ -1485,12 +1485,12 @@ product-modal .f-modal__content {
   flex-direction: column;
   gap: 0.4rem;
   padding: 1rem 1.4rem;
-  border: 1.5px solid var(--color-border);
-  border-radius: 0.8rem;
+  border: 1.5px solid #C4C4C4;
+  border-radius: 5px;
   cursor: pointer;
   min-width: 11rem;
-  background: var(--color-bg-1, #fff);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: transparent;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .variant-picker__option input[type="radio"] {
@@ -1501,12 +1501,14 @@ product-modal .f-modal__content {
 }
 
 .variant-picker__option input[type="radio"]:checked + .variant-card {
-  border-color: var(--color-text-body);
-  box-shadow: 0 0 0 1px var(--color-text-body);
+  border: 1.5px solid #2D9712;
+  border-radius: 5px;
+  background: #EBF3EB;
+  box-shadow: none;
 }
 
 .variant-picker__option input[type="radio"] + .variant-card:hover {
-  border-color: var(--color-text-body);
+  border-color: #2D9712;
 }
 
 .variant-card__name {
