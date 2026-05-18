@@ -2,8 +2,10 @@ if (!customElements.get('product-addon')) {
   customElements.define('product-addon', class ProductAddon extends HTMLElement {
     connectedCallback() {
       this.variants = JSON.parse(this.querySelector('[data-variants-json]').textContent)
-      this.cartKey   = null
-      this.qty       = 0
+      this.cartKey        = null
+      this.qty            = 0
+      this.overridePrice  = this.dataset.overridePrice ? Number(this.dataset.overridePrice) : null
+      this.mainProductId  = this.dataset.mainProductId ? Number(this.dataset.mainProductId) : null
 
       const first = this.variants.find(v => v.available) || this.variants[0]
       this.selectedVariantId = first?.id
@@ -22,7 +24,9 @@ if (!customElements.get('product-addon')) {
       this.querySelector('[data-qty-plus]').addEventListener('click', () => this._changeQty(1))
       this.querySelector('[data-remove-btn]').addEventListener('click', () => this._remove())
 
-      this._renderPrice(this._currentVariant()?.price, this.priceEl)
+      this._renderPrice(this.overridePrice ?? this._currentVariant()?.price, this.priceEl)
+
+      if (this.mainProductId) this._watchMainProduct()
     }
 
     _selectSwatch(el) {
@@ -30,7 +34,7 @@ if (!customElements.get('product-addon')) {
       this.querySelectorAll('[data-swatch]').forEach(s =>
         s.classList.toggle('is-selected', s === el)
       )
-      this._renderPrice(this._currentVariant()?.price, this.priceEl)
+      this._renderPrice(this.overridePrice ?? this._currentVariant()?.price, this.priceEl)
       this._updateImage()
       this._updateSelectedColor(el)
       if (this.cartKey) this._swapVariant()
@@ -61,15 +65,17 @@ if (!customElements.get('product-addon')) {
         const sections = cartDrawer
           ? cartDrawer.getSectionsToRender().map(s => s.id)
           : []
+        const body = {
+          id: this.selectedVariantId,
+          quantity: 1,
+          sections,
+          sections_url: window.location.pathname
+        }
+        if (this.mainProductId) body.properties = { _bundle_main: this.mainProductId }
         const res = await fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: this.selectedVariantId,
-            quantity: 1,
-            sections,
-            sections_url: window.location.pathname
-          })
+          body: JSON.stringify(body)
         })
         const item = await res.json()
         if (!res.ok) throw new Error(item.description)
@@ -112,10 +118,12 @@ if (!customElements.get('product-addon')) {
 
     async _swapVariant() {
       await this._cartChange(this.cartKey, 0)
+      const body = { id: this.selectedVariantId, quantity: this.qty }
+      if (this.mainProductId) body.properties = { _bundle_main: this.mainProductId }
       const res  = await fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: this.selectedVariantId, quantity: this.qty })
+        body: JSON.stringify(body)
       })
       const item = await res.json()
       if (res.ok) {
@@ -123,6 +131,22 @@ if (!customElements.get('product-addon')) {
         this._updateAddedRow()
         window.FoxThemeEvents?.emit('ON_CART_UPDATED')
       }
+    }
+
+    // Watch for the main product being removed from cart and auto-remove this add-on
+    _watchMainProduct() {
+      window.FoxThemeEvents?.subscribe?.('ON_CART_UPDATED', async (cart) => {
+        if (!this.cartKey || !cart?.items) return
+        const mainStillInCart = cart.items.some(item =>
+          item.product_id === this.mainProductId
+        )
+        if (!mainStillInCart) {
+          this.cartKey = null
+          this.qty     = 0
+          this.classList.remove('is-added')
+          this.addedRow?.setAttribute('aria-hidden', 'true')
+        }
+      })
     }
 
     async _syncCart(addResponse) {
@@ -156,8 +180,8 @@ if (!customElements.get('product-addon')) {
     }
 
     _updateAddedRow() {
-      const v = this._currentVariant()
-      if (v) this._renderPrice(v.price * this.qty, this.addedPriceEl)
+      const price = this.overridePrice ?? this._currentVariant()?.price
+      if (price != null) this._renderPrice(price * this.qty, this.addedPriceEl)
       if (this.qtyDisplay) this.qtyDisplay.textContent = this.qty
     }
 
