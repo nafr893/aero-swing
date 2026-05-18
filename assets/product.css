@@ -1655,6 +1655,21 @@ product-addon {
   box-shadow: 0 0 0 1px #111;
 }
 
+.product-addon__swatch--text {
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  padding: 0.3rem 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.product-addon__swatch--text.is-selected {
+  background-color: #111;
+  color: #fff;
+}
+
 .product-addon__swatch:disabled {
   opacity: 0.4;
   cursor: not-allowed;

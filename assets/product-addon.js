@@ -15,7 +15,7 @@ if (!customElements.get('product-addon')) {
 
       this.querySelectorAll('[data-swatch]').forEach(s => {
         s.addEventListener('click', () => this._selectSwatch(s))
-        this._applySwatchColor(s)
+        if (!s.classList.contains('product-addon__swatch--text')) this._applySwatchColor(s)
       })
       this.querySelector('[data-add-btn]').addEventListener('click', () => this._add())
       this.querySelector('[data-qty-minus]').addEventListener('click', () => this._changeQty(-1))
