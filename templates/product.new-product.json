@@ -73,6 +73,26 @@
             "show_gift_card_recipient": true
           }
         },
+        "richtext_TXkLHM": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>Frequently Bought Together</strong></p>"
+          }
+        },
+        "product_addon_XzJ439": {
+          "type": "product_addon",
+          "settings": {
+            "addon_product": "aero-bat",
+            "description": ""
+          }
+        },
+        "product_addon_J64p6T": {
+          "type": "product_addon",
+          "settings": {
+            "addon_product": "pineapple-replacements",
+            "description": ""
+          }
+        },
         "description_zRa7VQ": {
           "type": "description",
           "settings": {}
@@ -120,6 +140,9 @@
         "variant_picker",
         "product_addon_ff7aHU",
         "buy_buttons",
+        "richtext_TXkLHM",
+        "product_addon_XzJ439",
+        "product_addon_J64p6T",
         "description_zRa7VQ",
         "2115d0d9-102e-4377-a68b-42b8ed4a4edc",
         "f11043ac-1746-42ad-a36b-91ff4cc9f432",
