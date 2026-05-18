@@ -521,27 +521,23 @@
   .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper .flickity-button {
     display: none !important;
   }
-  .f-product__media-viewer--thumbs-hide [data-media-viewer] .flickity-wrapper.flickity-controls-group-mb__bottom .f-product__media-counter {
-    left: 1.5rem !important;
-    transform: none !important;
-    width: auto !important;
-    border: none !important;
-    background: transparent !important;
-    padding: 0 !important;
-    min-height: 0 !important;
-    font-size: 1.3rem !important;
-    font-weight: 500 !important;
-    line-height: 1.5 !important;
-    bottom: 1.2rem !important;
+  .f-product__media-viewer--thumbs-hide [data-media-viewer] .f-product__media-counter {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    z-index: 10;
+    font-size: 1.3rem;
+    font-weight: 500;
+    pointer-events: none;
   }
-  .f-product__media-progress {
+  .f-product__media-viewer--thumbs-hide [data-media-viewer] .f-product__media-progress {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 3px;
     background: rgba(0, 0, 0, 0.12);
-    z-index: 5;
+    z-index: 10;
     pointer-events: none;
   }
   .f-product__media-progress-fill {
