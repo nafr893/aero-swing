@@ -472,7 +472,7 @@
 }
 @media (max-width: 767.98px) {
   .f-product__media-viewer:not(.f-product__media-only--image) [data-media-viewer]:before {
-    padding-top: calc(80% / (0 + var(--media-aspect-ratio, 1)));
+    padding-top: 125%;
   }
 }
 .f-product__media-viewer .f-product__media-list {
@@ -531,7 +531,7 @@
     pointer-events: none;
     background: rgba(0, 0, 0, 0.45);
     color: #fff;
-    padding: 0.4rem;
+    padding: 0.5rem 0.9rem;
     border-radius: 4px;
     line-height: 1;
   }
