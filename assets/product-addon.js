@@ -32,7 +32,13 @@ if (!customElements.get('product-addon')) {
       )
       this._renderPrice(this._currentVariant()?.price, this.priceEl)
       this._updateImage()
+      this._updateSelectedColor(el)
       if (this.cartKey) this._swapVariant()
+    }
+
+    _updateSelectedColor(el) {
+      const label = this.querySelector('[data-selected-color]')
+      if (label) label.textContent = el.dataset.colorValue || el.title
     }
 
     _updateImage() {

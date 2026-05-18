@@ -171,17 +171,11 @@
             {%- endfor -%}
 
             {%- assign sel = product.selected_or_first_available_variant -%}
-            <variant-info-block data-section="{{ section.id }}" data-product-id="{{ product.id }}">
-                {%- if sel.metafields.custom.recommended_for != blank or sel.metafields.custom.description != blank -%}
-                <div class="variant-info">
-                    {%- if sel.metafields.custom.recommended_for != blank -%}
-                    <p class="variant-info__recommended"><strong>Recommended for:</strong> {{ sel.metafields.custom.recommended_for }}</p>
-                    {%- endif -%}
-                    {%- if sel.metafields.custom.description != blank -%}
-                    <p class="variant-info__description">{{ sel.metafields.custom.description }}</p>
-                    {%- endif -%}
-                </div>
-                {%- endif -%}
+            <variant-info-block
+                data-section="{{ section.id }}"
+                data-product-id="{{ product.id }}"
+                data-initial-variant="{{ sel.id }}">
+                <div class="variant-info" style="display:none"></div>
                 <script type="application/json">
                 {
                     {%- for variant in product.variants -%}

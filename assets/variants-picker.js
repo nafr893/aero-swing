@@ -691,19 +691,16 @@ if (!customElements.get('variant-info-block')) {
 				return
 			}
 
+			this.updateInfo(Number(this.dataset.initialVariant))
+
 			window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
-				this.updateInfo(variant.id)
+				if (variant) this.updateInfo(variant.id)
+				else this.infoEl.style.display = 'none'
 			})
 		}
 
 		updateInfo(variantId) {
 			const info = this.infoData[variantId] || {}
-
-			if (!this.infoEl) {
-				this.infoEl = document.createElement('div')
-				this.infoEl.className = 'variant-info'
-				this.querySelector('[type="application/json"]').before(this.infoEl)
-			}
 
 			let html = ''
 			if (info.recommended_for) {
@@ -714,7 +711,7 @@ if (!customElements.get('variant-info-block')) {
 			}
 
 			this.infoEl.innerHTML = html
-			this.infoEl.hidden = !html
+			this.infoEl.style.display = html ? '' : 'none'
 		}
 	})
 }
