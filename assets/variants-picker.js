@@ -694,10 +694,13 @@ if (!customElements.get('variant-info-block')) {
 			this.updateInfo(Number(this.dataset.initialVariant))
 
 			const sectionId = this.dataset.section
-			const form = document.getElementById(`product-form-${sectionId}`)
-			if (form) {
-				form.addEventListener('change', (e) => {
-					if (e.target.name === 'id') this.updateInfo(Number(e.target.value))
+			const picker = this.closest('variant-picker')
+			if (picker) {
+				picker.addEventListener('change', () => {
+					setTimeout(() => {
+						const idInput = document.querySelector(`#product-form-${sectionId} input[name="id"]`)
+						if (idInput?.value) this.updateInfo(Number(idInput.value))
+					}, 0)
 				})
 			}
 		}
