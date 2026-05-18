@@ -693,23 +693,22 @@ if (!customElements.get('variant-info-block')) {
 
 			this.updateInfo(Number(this.dataset.initialVariant))
 
-			window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
-				if (variant) this.updateInfo(variant.id)
-				else this.infoEl.style.display = 'none'
-			})
+			const sectionId = this.dataset.section
+			const form = document.getElementById(`product-form-${sectionId}`)
+			if (form) {
+				form.addEventListener('change', (e) => {
+					if (e.target.name === 'id') this.updateInfo(Number(e.target.value))
+				})
+			}
 		}
 
 		updateInfo(variantId) {
 			const info = this.infoData[variantId] || {}
-
-			const rec  = typeof info.recommended_for === 'string' ? info.recommended_for.trim() : ''
-			const desc = typeof info.description === 'string' ? info.description.trim() : ''
-
-			const hasContent = str => str.replace(/<[^>]*>/g, '').trim().length > 0
+			const hasText = str => typeof str === 'string' && str.replace(/<[^>]*>/g, '').trim().length > 0
 
 			let html = ''
-			if (hasContent(rec))  html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${rec}</p>`
-			if (hasContent(desc)) html += `<div class="variant-info__description">${desc}</div>`
+			if (hasText(info.recommended_for)) html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${info.recommended_for.trim()}</p>`
+			if (hasText(info.description))     html += `<div class="variant-info__description">${info.description.trim()}</div>`
 
 			this.infoEl.innerHTML = html
 			this.infoEl.style.display = html ? '' : 'none'
