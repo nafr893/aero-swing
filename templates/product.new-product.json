@@ -234,6 +234,32 @@
         "title": ""
       }
     },
+    "1764000671c44ad9b4": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_whREJx": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_whREJx"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "image_with_text_aawANt": {
       "type": "image-with-text",
       "blocks": {
@@ -578,37 +604,12 @@
         "custom_class": "",
         "animations": "inherit"
       }
-    },
-    "1764000671c44ad9b4": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_whREJx": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_whREJx"
-      ],
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "heading": "",
-        "heading_size": "h2",
-        "description": "",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
     }
   },
   "order": [
     "main",
     "video_grid_G9W4CM",
+    "1764000671c44ad9b4",
     "image_with_text_aawANt",
     "gallery_images_XkTmpU",
     "image_with_text_DNc76N",
@@ -616,7 +617,6 @@
     "image_with_text_FRKhKF",
     "gallery_images_KC3QUF",
     "custom_content_37Exbj",
-    "featured_collection_rgWa97",
-    "1764000671c44ad9b4"
+    "featured_collection_rgWa97"
   ]
 }
