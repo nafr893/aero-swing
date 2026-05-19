@@ -1779,6 +1779,11 @@ product-addon {
   white-space: nowrap;
 }
 
+.product-addon__add-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* ── Product Tabs ──────────────────────────────────────────────── */
 .product-tabs {
   display: block;

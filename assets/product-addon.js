@@ -19,12 +19,14 @@ if (!customElements.get('product-addon')) {
         s.addEventListener('click', () => this._selectSwatch(s))
         if (!s.classList.contains('product-addon__swatch--text')) this._applySwatchColor(s)
       })
-      this.querySelector('[data-add-btn]').addEventListener('click', () => this._add())
+      this.addBtn = this.querySelector('[data-add-btn]')
+      this.addBtn.addEventListener('click', () => this._add())
       this.querySelector('[data-qty-minus]').addEventListener('click', () => this._changeQty(-1))
       this.querySelector('[data-qty-plus]').addEventListener('click', () => this._changeQty(1))
       this.querySelector('[data-remove-btn]').addEventListener('click', () => this._remove())
 
       this._renderPrice(this.overridePrice ?? this._currentVariant()?.price, this.priceEl)
+      this._updateAddBtn()
 
       if (this.mainProductId) this._watchMainProduct()
     }
@@ -37,6 +39,7 @@ if (!customElements.get('product-addon')) {
       this._renderPrice(this.overridePrice ?? this._currentVariant()?.price, this.priceEl)
       this._updateImage()
       this._updateSelectedColor(el)
+      this._updateAddBtn()
       if (this.cartKey) this._swapVariant()
     }
 
@@ -57,7 +60,7 @@ if (!customElements.get('product-addon')) {
     }
 
     async _add() {
-      if (!this.selectedVariantId) return
+      if (!this.selectedVariantId || !this._currentVariant()?.available) return
       const btn = this.querySelector('[data-add-btn]')
       btn.disabled = true
       try {
@@ -212,6 +215,15 @@ if (!customElements.get('product-addon')) {
       })
       this._cachedColorMap = map
       return map
+    }
+
+    _updateAddBtn() {
+      if (!this.addBtn) return
+      const available = this._currentVariant()?.available ?? false
+      this.addBtn.disabled = !available
+      this.addBtn.querySelector('span')
+        ? this.addBtn.querySelector('span').textContent = available ? 'Add +' : 'Sold Out'
+        : this.addBtn.textContent = available ? 'Add +' : 'Sold Out'
     }
 
     _currentVariant() {
