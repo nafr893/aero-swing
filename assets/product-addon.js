@@ -223,8 +223,8 @@ if (!customElements.get('product-addon')) {
       const available = this._currentVariant()?.available ?? false
       this.addBtn.disabled = !available
       this.addBtn.querySelector('span')
-        ? this.addBtn.querySelector('span').textContent = available ? 'Add +' : 'Sold Out'
-        : this.addBtn.textContent = available ? 'Add +' : 'Sold Out'
+        ? this.addBtn.querySelector('span').textContent = available ? 'Add +' : 'Out of Stock'
+        : this.addBtn.textContent = available ? 'Add +' : 'Out of Stock'
     }
 
     _currentVariant() {

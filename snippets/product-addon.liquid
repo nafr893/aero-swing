@@ -51,7 +51,7 @@
               data-variant-id="{{ variant.id }}"
               title="{{ variant.option1 | escape }}"
               data-color-value="{{ variant.option1 | escape }}"
-              {% unless variant.available %}disabled aria-disabled="true"{% endunless %}
+              {% unless variant.available %}data-sold-out="true"{% endunless %}
             ></button>
             {%- else -%}
             <button
@@ -61,7 +61,7 @@
               data-variant-id="{{ variant.id }}"
               title="{{ variant.option1 | escape }}"
               data-color-value="{{ variant.option1 | escape }}"
-              {% unless variant.available %}disabled aria-disabled="true"{% endunless %}
+              {% unless variant.available %}data-sold-out="true"{% endunless %}
             >{{ variant.option1 }}</button>
             {%- endif -%}
           {%- endfor -%}

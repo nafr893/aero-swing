@@ -1784,6 +1784,20 @@ product-addon {
   cursor: not-allowed;
 }
 
+.product-addon__swatch[data-sold-out] {
+  opacity: 0.45;
+  position: relative;
+}
+
+.product-addon__swatch[data-sold-out]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, transparent calc(50% - 0.5px), #999 calc(50% - 0.5px), #999 calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 /* ── Product Tabs ──────────────────────────────────────────────── */
 .product-tabs {
   display: block;
