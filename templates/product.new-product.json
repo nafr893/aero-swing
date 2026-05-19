@@ -98,6 +98,23 @@
           "disabled": true,
           "settings": {}
         },
+        "product_tabs_VKLWNg": {
+          "type": "product_tabs",
+          "settings": {
+            "tab_1_title": "Description",
+            "tab_1_content": "<p><strong>WIND RESISTANCE TECHNOLOGY</strong><br/>Patented pineapples concentrate resistance at the ball impact point — no weights, just air.<br/><br/><strong>TRAINS LAG & TIMING</strong><br/>The flexible bat teaches proper lag, tempo, and timing for a more efficient swing path.<br/><br/><strong>UP TO 20MPH GAIN</strong><br/>Documented swing speed increases of up to 20 MPH with consistent use.<br/><br/><strong>PERFECT ON-DECK BAT<br/></strong>Save energy for the plate. Warm up faster and more effectively than with any weighted bat.<br/><br/><strong>USED BY 13 MLB TEAMS</strong><br/>Trusted by professional coaches and players at the highest level of the game.<br/><br/><strong>AERO-BALLS COMPATIBLE</strong><br/>Aero-Balls are the only recommended balls for use with the Aero-Bat for full practice sessions.</p>",
+            "tab_2_title": "Size Guide",
+            "tab_2_content": "",
+            "tab_3_title": "How It Works",
+            "tab_3_content": "<p>Aero Swing’s patented Pineapple wind resistors are specifically designed to concentrate<br/>maximum air drag directly at the ball impact point of the barrel. As you swing, the resistance<br/>loads your fast-twitch muscles through the full swing path. When you pick up your game bat,<br/>those same muscles fire explosively — creating speed, bat lag, generating torque, and<br/>delivering more power to the contact zone than ever before.</p>",
+            "tab_4_title": "Shipping & Returns",
+            "tab_4_content": "",
+            "tab_5_title": "",
+            "tab_5_content": "",
+            "tab_6_title": "",
+            "tab_6_content": ""
+          }
+        },
         "2115d0d9-102e-4377-a68b-42b8ed4a4edc": {
           "type": "shipping",
           "disabled": true,
@@ -145,6 +162,7 @@
         "product_addon_XzJ439",
         "product_addon_J64p6T",
         "description_zRa7VQ",
+        "product_tabs_VKLWNg",
         "2115d0d9-102e-4377-a68b-42b8ed4a4edc",
         "f11043ac-1746-42ad-a36b-91ff4cc9f432",
         "e303936e-d82d-4e37-8b83-e227d48fbb3d"
@@ -158,28 +176,6 @@
         "mobile_thumbnails": "hide",
         "enable_image_zoom": true,
         "enable_video_looping": false
-      }
-    },
-    "product_recommendations_xKaL9T": {
-      "type": "product-recommendations",
-      "name": "t:sections.product-recommendations.name",
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "remove_params": false,
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "description": "",
-        "limit": 8,
-        "columns": 4,
-        "column_gap": "medium",
-        "enable_slider": true,
-        "show_nav": true,
-        "show_dots": false,
-        "enable_swipe_mobile": true,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "animations": "inherit"
       }
     },
     "video_grid_G9W4CM": {
@@ -238,6 +234,32 @@
         "title": ""
       }
     },
+    "1764000671c44ad9b4": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_whREJx": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_whREJx"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "heading_size": "h2",
+        "description": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "image_with_text_aawANt": {
       "type": "image-with-text",
       "blocks": {
@@ -259,6 +281,7 @@
         "heading_TRMzRx",
         "text_HbtyGV"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "inverse",
@@ -321,6 +344,7 @@
         "image_6QedqD",
         "image_mY6daM"
       ],
+      "disabled": true,
       "settings": {
         "container": "container-full",
         "color_schema": "inverse",
@@ -362,6 +386,7 @@
         "heading_CWE4LE",
         "text_8geDhF"
       ],
+      "disabled": true,
       "settings": {
         "container": "container",
         "color_schema": "inverse",
@@ -550,37 +575,41 @@
         "custom_class": ""
       }
     },
-    "1764000671c44ad9b4": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_whREJx": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_whREJx"
-      ],
+    "featured_collection_rgWa97": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.name",
       "settings": {
         "container": "container",
         "color_schema": "",
-        "heading": "",
+        "header_layout": "vertical",
+        "heading": "Featured collection",
         "heading_size": "h2",
         "description": "",
+        "collection": "bundles",
+        "limit": 8,
+        "columns": 5,
+        "column_gap": "medium",
+        "pcard_image_ratio": "",
+        "show_vendor": false,
+        "enable_slider": true,
+        "show_nav": false,
+        "show_dots": false,
+        "show_all_button_on_top": false,
+        "button_label": "",
+        "button_style": "btn--primary",
+        "enable_swipe_mobile": true,
         "padding_top": 40,
-        "padding_bottom": 40
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
       }
     }
   },
   "order": [
     "main",
-    "product_recommendations_xKaL9T",
     "video_grid_G9W4CM",
+    "1764000671c44ad9b4",
     "image_with_text_aawANt",
     "gallery_images_XkTmpU",
     "image_with_text_DNc76N",
@@ -588,6 +617,6 @@
     "image_with_text_FRKhKF",
     "gallery_images_KC3QUF",
     "custom_content_37Exbj",
-    "1764000671c44ad9b4"
+    "featured_collection_rgWa97"
   ]
 }
