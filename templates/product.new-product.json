@@ -585,6 +585,7 @@
         "container": "container",
         "color_schema": "",
         "header_layout": "vertical",
+        "header_alignment": "left",
         "heading": "Bundle And Save",
         "heading_size": "h2",
         "description": "",
