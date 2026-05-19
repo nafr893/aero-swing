@@ -97,12 +97,13 @@
 
   var mainBtn = mainForm.querySelector('[type="submit"][name="add"]');
 
-  // Show/hide based on main ATC button visibility
+  // Show only when the ATC button has been scrolled past (above viewport)
   if (mainBtn && 'IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function(entries) {
-      var visible = entries[0].isIntersecting;
-      stickyBar.classList.toggle('is-visible', !visible);
-      stickyBar.setAttribute('aria-hidden', visible ? 'true' : 'false');
+      var entry = entries[0];
+      var show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      stickyBar.classList.toggle('is-visible', show);
+      stickyBar.setAttribute('aria-hidden', show ? 'false' : 'true');
     }, { threshold: 0.2 });
     observer.observe(mainBtn);
   }
