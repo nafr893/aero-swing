@@ -95,6 +95,7 @@
         },
         "description_zRa7VQ": {
           "type": "description",
+          "disabled": true,
           "settings": {}
         },
         "2115d0d9-102e-4377-a68b-42b8ed4a4edc": {
