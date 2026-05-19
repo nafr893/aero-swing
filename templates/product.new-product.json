@@ -46,6 +46,7 @@
         },
         "quantity_selector": {
           "type": "quantity_selector",
+          "disabled": true,
           "settings": {}
         },
         "variant_picker": {
@@ -104,11 +105,11 @@
             "tab_1_title": "Description",
             "tab_1_content": "<p><strong>WIND RESISTANCE TECHNOLOGY</strong><br/>Patented pineapples concentrate resistance at the ball impact point — no weights, just air.<br/><br/><strong>TRAINS LAG & TIMING</strong><br/>The flexible bat teaches proper lag, tempo, and timing for a more efficient swing path.<br/><br/><strong>UP TO 20MPH GAIN</strong><br/>Documented swing speed increases of up to 20 MPH with consistent use.<br/><br/><strong>PERFECT ON-DECK BAT<br/></strong>Save energy for the plate. Warm up faster and more effectively than with any weighted bat.<br/><br/><strong>USED BY 13 MLB TEAMS</strong><br/>Trusted by professional coaches and players at the highest level of the game.<br/><br/><strong>AERO-BALLS COMPATIBLE</strong><br/>Aero-Balls are the only recommended balls for use with the Aero-Bat for full practice sessions.</p>",
             "tab_2_title": "Size Guide",
-            "tab_2_content": "",
+            "tab_2_content": "<p><strong>Hybrid - 45\"</strong>  Used by players wanting to feel the extra exaggerated lag.<br/><br/><strong>Pro - 36\"</strong> Used by advanced youth, college and pro players.  This bat is less flexible.<br/><br/><strong>Standard - 34\"</strong> Used by pre teens to high school.  This bat is more flexible than the Pro.<br/><br/><strong>Youth - 30\"</strong>  Used by t-ball players and pre teens.  This bat only has two pineapples and is very flexible.</p>",
             "tab_3_title": "How It Works",
-            "tab_3_content": "<p>Aero Swing’s patented Pineapple wind resistors are specifically designed to concentrate<br/>maximum air drag directly at the ball impact point of the barrel. As you swing, the resistance<br/>loads your fast-twitch muscles through the full swing path. When you pick up your game bat,<br/>those same muscles fire explosively — creating speed, bat lag, generating torque, and<br/>delivering more power to the contact zone than ever before.</p>",
+            "tab_3_content": "<p>The Aero-Bat is a flexible bat that holds Aero-Swing patented Pineapples.  These pineapples are specifically designed to pull the most air into them during the swing, maximizing air flow at the ball impact point.   Small air diverters are positioned above each hole, helping to pull more air into the pineapple.  As the bat is swung, the air resistance in the pineapples will help the bat bend and flex during the swing, helping the batter feel the load of the bat and the lag as the swing continues forward.</p>",
             "tab_4_title": "Shipping & Returns",
-            "tab_4_content": "",
+            "tab_4_content": "<p><strong>All orders are processed within 1 - 2 days after payment is confirmed.<br/><br/></strong>Aero-Swing offers a 30-day return policy from the date of purchase on all un-discounted product sales. All returned product and packaging must be in \"like new\" condition. </p><p><strong>Return Address:</strong></p><p>AERO-SWING</p><p>8705 Chase Tayler Place </p><p>Louisville, KY 40299</p>",
             "tab_5_title": "",
             "tab_5_content": "",
             "tab_6_title": "",
@@ -127,6 +128,7 @@
         },
         "f11043ac-1746-42ad-a36b-91ff4cc9f432": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "icon": "box",
             "heading": "Shipping Information",
@@ -138,6 +140,7 @@
         },
         "e303936e-d82d-4e37-8b83-e227d48fbb3d": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "icon": "return",
             "heading": "Return Policy",
@@ -582,7 +585,7 @@
         "container": "container",
         "color_schema": "",
         "header_layout": "vertical",
-        "heading": "Featured collection",
+        "heading": "Bundle And Save",
         "heading_size": "h2",
         "description": "",
         "collection": "bundles",
