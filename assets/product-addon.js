@@ -136,14 +136,15 @@ if (!customElements.get('product-addon')) {
       }
     }
 
-    // Watch for the main product being removed from cart and auto-remove this add-on
     _watchMainProduct() {
-      window.FoxThemeEvents?.subscribe?.('ON_CART_UPDATED', async (cart) => {
-        if (!this.cartKey || !cart?.items) return
-        const mainStillInCart = cart.items.some(item =>
-          item.product_id === this.mainProductId
-        )
-        if (!mainStillInCart) {
+      let mainWasInCart = false
+      window.FoxThemeEvents?.subscribe?.('ON_CART_UPDATED', (cart) => {
+        if (!cart?.items) return
+        const mainInCart = cart.items.some(item => item.product_id === this.mainProductId)
+        if (mainInCart) {
+          mainWasInCart = true
+        } else if (mainWasInCart && this.cartKey) {
+          mainWasInCart = false
           this.cartKey = null
           this.qty     = 0
           this.classList.remove('is-added')
