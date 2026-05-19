@@ -263,6 +263,74 @@
         "padding_bottom": 40
       }
     },
+    "collapsible_tabs_yxAkX4": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "content_n6D8Tk": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "What size should I order?",
+            "content": "<p>Our recommended general sizes are: youth  &lt;10 years old, Standard 9-15 years old, Pro &gt;16 years old, Hybrid, All ages.     These sizes are pure general recommendations.  If you have a athlete that is around 11 or 12, and isn’t a very fast swinger, stick with the youth.  All aero-bats have removable pineapples, so if you want to lighten the load at any time, simply remove a pineapple.  The hybrid is for all ages.   A smaller athlete can swing a hybrid with just one pineapple on it. There is also a difference between boys and girls development stages.  Take that into consideration when ordering.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_CJDadY": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Collapsible tab heading",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_pd9dDy": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Collapsible tab heading",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_HTTHWy": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Collapsible tab heading",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "content_n6D8Tk",
+        "content_CJDadY",
+        "content_pd9dDy",
+        "content_HTTHWy"
+      ],
+      "name": "Collapsible tabs",
+      "settings": {
+        "container": "container",
+        "heading": "Collapsible tabs",
+        "heading_size": "h2",
+        "subheading": "",
+        "description": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
     "image_with_text_aawANt": {
       "type": "image-with-text",
       "blocks": {
@@ -614,6 +682,7 @@
     "main",
     "video_grid_G9W4CM",
     "1764000671c44ad9b4",
+    "collapsible_tabs_yxAkX4",
     "image_with_text_aawANt",
     "gallery_images_XkTmpU",
     "image_with_text_DNc76N",
