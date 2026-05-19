@@ -137,6 +137,7 @@
                                                name="{{ option.name }}"
                                                value="{{ value | escape }}"
                                                form="{{ product_form_id }}"
+                                               {% if card_variant %}data-variant-id="{{ card_variant.id }}"{% endif %}
                                                {% if option.selected_value == value %}checked{% endif %}
                                             >
                                             <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-card">

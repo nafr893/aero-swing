@@ -687,7 +687,6 @@ if (!customElements.get('variant-info-block')) {
 	customElements.define('variant-info-block', class VariantInfoBlock extends HTMLElement {
 		connectedCallback() {
 			this.productId = this.dataset.productId
-			this.infoEl = this.querySelector('.variant-info')
 			try {
 				this.infoData = JSON.parse(this.querySelector('[type="application/json"]').textContent)
 			} catch (e) {
@@ -695,9 +694,36 @@ if (!customElements.get('variant-info-block')) {
 			}
 
 			this.updateInfo(Number(this.dataset.initialVariant))
+
+			// Primary: FoxThemeEvents variant change (most reliable — fires with resolved variant)
+			const bindEvents = () => {
+				if (window.FoxThemeEvents) {
+					window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
+						this.updateInfo(variant ? variant.id : null)
+					})
+				}
+			}
+			if (window.FoxThemeEvents) {
+				bindEvents()
+			} else {
+				// FoxThemeEvents loads async — wait for it
+				window.addEventListener('load', bindEvents, { once: true })
+			}
+
+			// Fallback: direct radio listeners on cards with data-variant-id
+			const picker = this.closest('variant-picker')
+			if (picker) {
+				picker.querySelectorAll('input[type="radio"][data-variant-id]').forEach(radio => {
+					radio.addEventListener('change', () => {
+						if (radio.checked) this.updateInfo(Number(radio.dataset.variantId))
+					})
+				})
+			}
 		}
 
 		updateInfo(variantId) {
+			const infoEl = this.querySelector('.variant-info')
+			if (!infoEl) return
 			const info = variantId ? (this.infoData[variantId] || {}) : {}
 			const hasText = str => typeof str === 'string' && str.replace(/<[^>]*>/g, '').trim().length > 0
 
@@ -705,8 +731,8 @@ if (!customElements.get('variant-info-block')) {
 			if (hasText(info.recommended_for)) html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${info.recommended_for.trim()}</p>`
 			if (hasText(info.description))     html += `<div class="variant-info__description">${info.description.trim()}</div>`
 
-			this.infoEl.innerHTML = html
-			this.infoEl.style.display = html ? '' : 'none'
+			infoEl.innerHTML = html
+			infoEl.style.display = html ? '' : 'none'
 		}
 	})
 }
