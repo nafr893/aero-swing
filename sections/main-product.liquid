@@ -147,6 +147,12 @@
     {% break %}
   {% endif %}
 {% endfor %}
+{% for block in section.blocks %}
+  {% if block.type == 'product_tabs' %}
+    <script src="{{ 'product-tabs.js' | asset_url }}" defer="defer"></script>
+    {% break %}
+  {% endif %}
+{% endfor %}
 {% if section.settings.enable_image_zoom %}
 	{%- liquid 
 		assign media_list = product.media | where: 'media_type', 'image'
@@ -1150,6 +1156,25 @@
           "label": "Bundle price (override)",
           "info": "Price in dollars when added alongside the main product. Set up a matching Shopify Automatic Discount to enforce this at checkout."
         }
+      ]
+    },
+    {
+      "type": "product_tabs",
+      "name": "Product Tabs",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "tab_1_title", "label": "Tab 1 title", "default": "Description" },
+        { "type": "richtext", "id": "tab_1_content", "label": "Tab 1 content" },
+        { "type": "text", "id": "tab_2_title", "label": "Tab 2 title", "default": "Size Guide" },
+        { "type": "richtext", "id": "tab_2_content", "label": "Tab 2 content" },
+        { "type": "text", "id": "tab_3_title", "label": "Tab 3 title", "default": "How It Works" },
+        { "type": "richtext", "id": "tab_3_content", "label": "Tab 3 content" },
+        { "type": "text", "id": "tab_4_title", "label": "Tab 4 title", "default": "Shipping & Returns" },
+        { "type": "richtext", "id": "tab_4_content", "label": "Tab 4 content" },
+        { "type": "text", "id": "tab_5_title", "label": "Tab 5 title" },
+        { "type": "richtext", "id": "tab_5_content", "label": "Tab 5 content" },
+        { "type": "text", "id": "tab_6_title", "label": "Tab 6 title" },
+        { "type": "richtext", "id": "tab_6_content", "label": "Tab 6 content" }
       ]
     },
     {

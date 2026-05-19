@@ -515,6 +515,79 @@
                             </details>
                         </noscript>
                     {% endif %}
+                {%- when 'product_tabs' -%}
+                    <product-tabs class="product-tabs" {{ block.shopify_attributes }}>
+                        <div class="product-tabs__nav-wrap">
+                            <div class="product-tabs__nav" role="tablist">
+                                {%- assign _tab_num = 0 -%}
+                                {%- for _n in (1..6) -%}
+                                    {%- liquid
+                                        case _n
+                                            when 1
+                                                assign _title = block.settings.tab_1_title
+                                            when 2
+                                                assign _title = block.settings.tab_2_title
+                                            when 3
+                                                assign _title = block.settings.tab_3_title
+                                            when 4
+                                                assign _title = block.settings.tab_4_title
+                                            when 5
+                                                assign _title = block.settings.tab_5_title
+                                            when 6
+                                                assign _title = block.settings.tab_6_title
+                                        endcase
+                                    -%}
+                                    {%- if _title != blank -%}
+                                        <button
+                                            class="product-tabs__tab{% if _tab_num == 0 %} is-active{% endif %}"
+                                            role="tab"
+                                            data-tab="{{ _tab_num }}"
+                                            aria-selected="{% if _tab_num == 0 %}true{% else %}false{% endif %}"
+                                        >{{ _title }}</button>
+                                        {%- assign _tab_num = _tab_num | plus: 1 -%}
+                                    {%- endif -%}
+                                {%- endfor -%}
+                            </div>
+                        </div>
+                        <div class="product-tabs__panels">
+                            {%- assign _tab_num = 0 -%}
+                            {%- for _n in (1..6) -%}
+                                {%- liquid
+                                    case _n
+                                        when 1
+                                            assign _title = block.settings.tab_1_title
+                                            assign _content = block.settings.tab_1_content
+                                        when 2
+                                            assign _title = block.settings.tab_2_title
+                                            assign _content = block.settings.tab_2_content
+                                        when 3
+                                            assign _title = block.settings.tab_3_title
+                                            assign _content = block.settings.tab_3_content
+                                        when 4
+                                            assign _title = block.settings.tab_4_title
+                                            assign _content = block.settings.tab_4_content
+                                        when 5
+                                            assign _title = block.settings.tab_5_title
+                                            assign _content = block.settings.tab_5_content
+                                        when 6
+                                            assign _title = block.settings.tab_6_title
+                                            assign _content = block.settings.tab_6_content
+                                    endcase
+                                -%}
+                                {%- if _title != blank -%}
+                                    <div
+                                        class="product-tabs__panel{% if _tab_num == 0 %} is-active{% endif %}"
+                                        role="tabpanel"
+                                        data-panel="{{ _tab_num }}"
+                                        {% if _tab_num != 0 %}hidden{% endif %}
+                                    >
+                                        <div class="rte">{{ _content }}</div>
+                                    </div>
+                                    {%- assign _tab_num = _tab_num | plus: 1 -%}
+                                {%- endif -%}
+                            {%- endfor -%}
+                        </div>
+                    </product-tabs>
                 {%- when 'complementary' -%}
                     <product-recommendations class="f-complementary-products block{% if block.settings.make_collapsible_row %} is-accordion{% else %} relative{% endif %}" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary">
                         {%- if recommendations.performed and recommendations.products_count > 0 -%}
