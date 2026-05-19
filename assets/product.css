@@ -1778,3 +1778,66 @@ product-addon {
   padding: 0;
   white-space: nowrap;
 }
+
+/* ── Sticky mobile ATC ─────────────────────────────────────────── */
+.sticky-mobile-atc {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .sticky-mobile-atc {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--color-background, #fff);
+    border-top: 1px solid var(--color-border, #e0e0e0);
+    padding: 10px 16px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    transform: translateY(110%);
+    transition: transform 0.28s ease;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+  }
+
+  .sticky-mobile-atc.is-visible {
+    transform: translateY(0);
+  }
+
+  .sticky-mobile-atc__inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sticky-mobile-atc__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sticky-mobile-atc__title {
+    display: block;
+    font-weight: 600;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+
+  .sticky-mobile-atc__price {
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 2px;
+    color: var(--color-text-body, #111);
+  }
+
+  .sticky-mobile-atc__btn {
+    flex-shrink: 0;
+    min-width: 130px;
+    height: 42px;
+    font-size: 1.4rem;
+    padding: 0 16px;
+  }
+}

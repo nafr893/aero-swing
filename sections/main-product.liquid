@@ -63,6 +63,72 @@
         </div>
     </div>
 </div>
+<div class="sticky-mobile-atc" id="sticky-mobile-atc-{{ section.id }}" aria-hidden="true">
+  <div class="sticky-mobile-atc__inner">
+    <div class="sticky-mobile-atc__info">
+      <span class="sticky-mobile-atc__title">{{ product.title }}</span>
+      <span class="sticky-mobile-atc__price" id="sticky-mobile-atc-price-{{ section.id }}">
+        {{ product.selected_or_first_available_variant.price | money }}
+      </span>
+    </div>
+    <button
+      type="submit"
+      name="add"
+      form="product-form-{{ section.id }}"
+      class="sticky-mobile-atc__btn btn btn--primary"
+      id="sticky-mobile-atc-btn-{{ section.id }}"
+      {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+    >
+      {%- if product.selected_or_first_available_variant.available -%}
+        {{ 'products.product.add_to_cart' | t }}
+      {%- else -%}
+        {{ 'products.product.sold_out' | t }}
+      {%- endif -%}
+    </button>
+  </div>
+</div>
+<script>
+(function() {
+  var stickyBar = document.getElementById('sticky-mobile-atc-{{ section.id }}');
+  var stickyPrice = document.getElementById('sticky-mobile-atc-price-{{ section.id }}');
+  var stickyBtn = document.getElementById('sticky-mobile-atc-btn-{{ section.id }}');
+  var mainForm = document.getElementById('product-form-{{ section.id }}');
+  if (!stickyBar || !mainForm) return;
+
+  var mainBtn = mainForm.querySelector('[type="submit"][name="add"]');
+
+  // Show/hide based on main ATC button visibility
+  if (mainBtn && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      var visible = entries[0].isIntersecting;
+      stickyBar.classList.toggle('is-visible', !visible);
+      stickyBar.setAttribute('aria-hidden', visible ? 'true' : 'false');
+    }, { threshold: 0.2 });
+    observer.observe(mainBtn);
+  }
+
+  // Mirror main button state (disabled, text) and price into sticky bar
+  function syncState() {
+    if (mainBtn) {
+      stickyBtn.disabled = mainBtn.disabled;
+      var mainSpan = mainBtn.querySelector('span');
+      if (mainSpan) stickyBtn.textContent = mainSpan.textContent.trim();
+    }
+    var priceEl = document.querySelector('#f-product-price-{{ section.id }} .f-price-item--regular, #f-product-price-{{ section.id }} .f-price-item--sale');
+    if (priceEl && stickyPrice) stickyPrice.textContent = priceEl.textContent.trim();
+  }
+
+  if (mainBtn && 'MutationObserver' in window) {
+    new MutationObserver(syncState).observe(mainBtn, { attributes: true, childList: true, subtree: true });
+  }
+
+  var priceBlock = document.getElementById('f-product-price-{{ section.id }}');
+  if (priceBlock && 'MutationObserver' in window) {
+    new MutationObserver(syncState).observe(priceBlock, { childList: true, subtree: true });
+  }
+})();
+</script>
+
 {% if product.media.size > 0 %}
     <script src="{{ 'product-media.js' | asset_url }}" defer="defer"></script>
 {% endif %}
