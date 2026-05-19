@@ -57,14 +57,19 @@
     style="--section-padding-top: {{ section.settings.padding_top }}px ; --section-padding-bottom: {{ section.settings.padding_bottom }}px;--pdc-padding-bottom: 1rem;"
 >
     <div class="{{ container }}">
-        {%- liquid 
-          assign header_alignment = settings.section_header_alignment 
-          assign header_alignment_mobile = settings.section_header_alignment_mobile
-          if header_alignment_mobile == 'inherit'
-            assign header_alignment_mobile = header_alignment
+        {%- liquid
+          if section.settings.header_alignment != blank
+            assign header_alignment = section.settings.header_alignment
+            assign header_alignment_mobile = section.settings.header_alignment
+          else
+            assign header_alignment = settings.section_header_alignment
+            assign header_alignment_mobile = settings.section_header_alignment_mobile
+            if header_alignment_mobile == 'inherit'
+              assign header_alignment_mobile = header_alignment
+            endif
           endif
           assign header_class = ''
-          assign header_text_alignment = settings.section_header_alignment
+          assign header_text_alignment = header_alignment
           if section.settings.header_layout == 'horizontal'
             assign header_class = 'md:flex md:flex-col md:flex-row md:justify-between md:items-center'
             if header_alignment == 'right'
@@ -182,6 +187,18 @@
         }
       ],
       "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "", "label": "Default (theme setting)" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": ""
     },
     {
       "type": "text",
