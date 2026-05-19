@@ -128,6 +128,7 @@
         },
         "f11043ac-1746-42ad-a36b-91ff4cc9f432": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "icon": "box",
             "heading": "Shipping Information",
@@ -139,6 +140,7 @@
         },
         "e303936e-d82d-4e37-8b83-e227d48fbb3d": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "icon": "return",
             "heading": "Return Policy",
