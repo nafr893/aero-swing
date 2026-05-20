@@ -1632,6 +1632,12 @@ product-addon {
   font-weight: 600;
 }
 
+.product-addon__swatches-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .product-addon__swatches {
   display: flex;
   gap: 0.5rem;
@@ -1639,6 +1645,8 @@ product-addon {
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  flex: 1;
+  min-width: 0;
 }
 
 .product-addon__swatches::-webkit-scrollbar {
@@ -1649,6 +1657,44 @@ product-addon {
   .product-addon__swatches {
     flex-wrap: nowrap;
   }
+}
+
+.product-addon__swatches-nav {
+  display: none;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .product-addon__swatches-nav {
+    display: flex;
+  }
+}
+
+.product-addon__swatches-btn {
+  background: none;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  width: 2.2rem;
+  height: 2.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--color-text-body, #111);
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.product-addon__swatches-btn:hover {
+  background: var(--color-border, #f0f0f0);
+}
+
+.product-addon__swatches-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .product-addon__swatch {

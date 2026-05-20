@@ -19,6 +19,20 @@ if (!customElements.get('product-addon')) {
         s.addEventListener('click', () => this._selectSwatch(s))
         if (!s.classList.contains('product-addon__swatch--text')) this._applySwatchColor(s)
       })
+
+      const swatchesEl = this.querySelector('.product-addon__swatches')
+      const prevBtn = this.querySelector('[data-swatches-prev]')
+      const nextBtn = this.querySelector('[data-swatches-next]')
+      if (swatchesEl && prevBtn && nextBtn) {
+        const updateArrows = () => {
+          prevBtn.disabled = swatchesEl.scrollLeft <= 0
+          nextBtn.disabled = swatchesEl.scrollLeft + swatchesEl.clientWidth >= swatchesEl.scrollWidth - 1
+        }
+        prevBtn.addEventListener('click', () => { swatchesEl.scrollBy({ left: -100, behavior: 'smooth' }); setTimeout(updateArrows, 300) })
+        nextBtn.addEventListener('click', () => { swatchesEl.scrollBy({ left: 100, behavior: 'smooth' }); setTimeout(updateArrows, 300) })
+        swatchesEl.addEventListener('scroll', updateArrows)
+        updateArrows()
+      }
       this.addBtn = this.querySelector('[data-add-btn]')
       this.addBtn.addEventListener('click', () => this._add())
       this.querySelector('[data-qty-minus]').addEventListener('click', () => this._changeQty(-1))

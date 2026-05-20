@@ -66,6 +66,7 @@
             endif
           -%}
           <p class="product-addon__selected-color" data-selected-color data-option-label="{{ swatch_label_key | escape }}"><span class="product-addon__option-label">{{ swatch_label_key }}:</span> {{ first_swatch_value }}</p>
+          <div class="product-addon__swatches-row">
           <div class="product-addon__swatches">
             {%- for variant in addon_product.variants -%}
               {%- if addon_is_multi -%}
@@ -105,6 +106,11 @@
                 >{{ variant.option1 }}</button>
               {%- endif -%}
             {%- endfor -%}
+          </div>
+          <div class="product-addon__swatches-nav">
+            <button type="button" class="product-addon__swatches-btn" data-swatches-prev aria-label="Previous">&#8249;</button>
+            <button type="button" class="product-addon__swatches-btn" data-swatches-next aria-label="Next">&#8250;</button>
+          </div>
           </div>
         {%- endif -%}
 
