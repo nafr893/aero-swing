@@ -20,6 +20,10 @@ if (!customElements.get('product-addon')) {
         if (!s.classList.contains('product-addon__swatch--text')) this._applySwatchColor(s)
       })
 
+      this.querySelectorAll('[data-addon-select]').forEach(sel => {
+        sel.addEventListener('change', () => this._selectFromDropdowns())
+      })
+
       const swatchesEl = this.querySelector('.product-addon__swatches')
       const prevBtn = this.querySelector('[data-swatches-prev]')
       const nextBtn = this.querySelector('[data-swatches-next]')
@@ -230,6 +234,19 @@ if (!customElements.get('product-addon')) {
       })
       this._cachedColorMap = map
       return map
+    }
+
+    _selectFromDropdowns() {
+      const values = Array.from(this.querySelectorAll('[data-addon-select]')).map(s => s.value)
+      const variant = this.variants.find(v =>
+        values.every((val, i) => v[`option${i + 1}`] === val)
+      )
+      if (!variant) return
+      this.selectedVariantId = variant.id
+      this._renderPrice(this.overridePrice ?? variant.price, this.priceEl)
+      this._updateAddBtn()
+      this._updateImage()
+      if (this.cartKey) this._swapVariant()
     }
 
     _updateAddBtn() {

@@ -10,19 +10,10 @@
     assign addon_is_color = true
   endif
   assign override_price_cents = block.settings.override_price | times: 100 | round
-
   assign addon_is_multi = false
   if addon_product.options.size > 1
     assign addon_is_multi = true
   endif
-
-  assign all_same_option1 = true
-  assign first_option1_val = addon_product.variants[0].option1
-  for variant in addon_product.variants
-    if variant.option1 != first_option1_val
-      assign all_same_option1 = false
-    endif
-  endfor
 -%}
 
 {%- if addon_product != blank -%}
@@ -53,65 +44,70 @@
         <p class="product-addon__title">{{ addon_product.title }}</p>
 
         {%- if addon_product.variants.size > 1 -%}
-          {%- liquid
-            if addon_is_multi and all_same_option1
-              assign swatch_label_key = addon_product.options[1]
-              assign first_swatch_value = first_variant.option2
-            elsif addon_is_multi
-              assign swatch_label_key = addon_product.options[0]
-              assign first_swatch_value = first_variant.title
-            else
-              assign swatch_label_key = addon_product.options[0]
-              assign first_swatch_value = first_variant.option1
-            endif
-          -%}
-          <p class="product-addon__selected-color" data-selected-color data-option-label="{{ swatch_label_key | escape }}"><span class="product-addon__option-label">{{ swatch_label_key }}:</span> {{ first_swatch_value }}</p>
-          <div class="product-addon__swatches-row">
-          <div class="product-addon__swatches">
-            {%- for variant in addon_product.variants -%}
-              {%- if addon_is_multi -%}
-                {%- if all_same_option1 -%}
-                  {%- assign swatch_label = variant.option2 -%}
-                {%- else -%}
-                  {%- assign swatch_label = variant.title -%}
-                {%- endif -%}
-                <button
-                  type="button"
-                  class="product-addon__swatch product-addon__swatch--text{% if forloop.first %} is-selected{% endif %}"
-                  data-swatch
-                  data-variant-id="{{ variant.id }}"
-                  title="{{ swatch_label | escape }}"
-                  data-color-value="{{ swatch_label | escape }}"
-                  {% unless variant.available %}data-sold-out="true"{% endunless %}
-                >{{ swatch_label }}</button>
-              {%- elsif addon_is_color -%}
-                <button
-                  type="button"
-                  class="product-addon__swatch{% if forloop.first %} is-selected{% endif %}"
-                  data-swatch
-                  data-variant-id="{{ variant.id }}"
-                  title="{{ variant.option1 | escape }}"
-                  data-color-value="{{ variant.option1 | escape }}"
-                  {% unless variant.available %}data-sold-out="true"{% endunless %}
-                ></button>
-              {%- else -%}
-                <button
-                  type="button"
-                  class="product-addon__swatch product-addon__swatch--text{% if forloop.first %} is-selected{% endif %}"
-                  data-swatch
-                  data-variant-id="{{ variant.id }}"
-                  title="{{ variant.option1 | escape }}"
-                  data-color-value="{{ variant.option1 | escape }}"
-                  {% unless variant.available %}data-sold-out="true"{% endunless %}
-                >{{ variant.option1 }}</button>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-          <div class="product-addon__swatches-nav">
-            <button type="button" class="product-addon__swatches-btn" data-swatches-prev aria-label="Previous">&#8249;</button>
-            <button type="button" class="product-addon__swatches-btn" data-swatches-next aria-label="Next">&#8250;</button>
-          </div>
-          </div>
+          {%- if addon_is_multi -%}
+
+            <div class="product-addon__selects">
+              {%- for opt in addon_product.options_with_values -%}
+                {%- liquid
+                  case forloop.index0
+                    when 0
+                      assign selected_opt_val = first_variant.option1
+                    when 1
+                      assign selected_opt_val = first_variant.option2
+                    when 2
+                      assign selected_opt_val = first_variant.option3
+                  endcase
+                -%}
+                <div class="product-addon__select-wrap">
+                  <label class="product-addon__select-label">{{ opt.name }}</label>
+                  <div class="product-addon__select-inner">
+                    <select class="product-addon__select" data-addon-select data-option-index="{{ forloop.index0 }}">
+                      {%- for val in opt.values -%}
+                        <option value="{{ val | escape }}"{% if val == selected_opt_val %} selected{% endif %}>{{ val }}</option>
+                      {%- endfor -%}
+                    </select>
+                    <span class="product-addon__select-arrow">&#8964;</span>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+
+          {%- else -%}
+
+            <p class="product-addon__selected-color" data-selected-color data-option-label="{{ addon_product.options[0] | escape }}"><span class="product-addon__option-label">{{ addon_product.options[0] }}:</span> {{ first_variant.option1 }}</p>
+            <div class="product-addon__swatches-row">
+              <div class="product-addon__swatches">
+                {%- for variant in addon_product.variants -%}
+                  {%- if addon_is_color -%}
+                    <button
+                      type="button"
+                      class="product-addon__swatch{% if forloop.first %} is-selected{% endif %}"
+                      data-swatch
+                      data-variant-id="{{ variant.id }}"
+                      title="{{ variant.option1 | escape }}"
+                      data-color-value="{{ variant.option1 | escape }}"
+                      {% unless variant.available %}data-sold-out="true"{% endunless %}
+                    ></button>
+                  {%- else -%}
+                    <button
+                      type="button"
+                      class="product-addon__swatch product-addon__swatch--text{% if forloop.first %} is-selected{% endif %}"
+                      data-swatch
+                      data-variant-id="{{ variant.id }}"
+                      title="{{ variant.option1 | escape }}"
+                      data-color-value="{{ variant.option1 | escape }}"
+                      {% unless variant.available %}data-sold-out="true"{% endunless %}
+                    >{{ variant.option1 }}</button>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              <div class="product-addon__swatches-nav">
+                <button type="button" class="product-addon__swatches-btn" data-swatches-prev aria-label="Previous">&#8249;</button>
+                <button type="button" class="product-addon__swatches-btn" data-swatches-next aria-label="Next">&#8250;</button>
+              </div>
+            </div>
+
+          {%- endif -%}
         {%- endif -%}
 
         {%- if block.settings.description != blank -%}
