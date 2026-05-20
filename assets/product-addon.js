@@ -296,7 +296,7 @@ if (!customElements.get('product-addon')) {
           const exists = this.variants.some(v => {
             if (v[`option${selIdx + 1}`] !== opt.value) return false
             return currentValues.every((val, i) => {
-              if (i === selIdx) return true
+              if (i >= selIdx) return true  // only filter by parent options, never peers or children
               return !val || v[`option${i + 1}`] === val
             })
           })
