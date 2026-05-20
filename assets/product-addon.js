@@ -23,6 +23,7 @@ if (!customElements.get('product-addon')) {
       this.querySelectorAll('[data-addon-select]').forEach(sel => {
         sel.addEventListener('change', () => this._selectFromDropdowns())
       })
+      this._updateSelectAvailability()
 
       const swatchesEl = this.querySelector('.product-addon__swatches')
       const prevBtn = this.querySelector('[data-swatches-prev]')
@@ -241,12 +242,33 @@ if (!customElements.get('product-addon')) {
       const variant = this.variants.find(v =>
         values.every((val, i) => v[`option${i + 1}`] === val)
       )
+      this._updateSelectAvailability()
       if (!variant) return
       this.selectedVariantId = variant.id
       this._renderPrice(this.overridePrice ?? variant.price, this.priceEl)
       this._updateAddBtn()
       this._updateImage()
       if (this.cartKey) this._swapVariant()
+    }
+
+    _updateSelectAvailability() {
+      const selects = Array.from(this.querySelectorAll('[data-addon-select]'))
+      if (!selects.length) return
+      const currentValues = selects.map(s => s.value)
+
+      selects.forEach((sel, selIdx) => {
+        Array.from(sel.options).forEach(opt => {
+          const exists = this.variants.some(v => {
+            if (v[`option${selIdx + 1}`] !== opt.value) return false
+            return currentValues.every((val, i) => {
+              if (i === selIdx) return true
+              return !val || v[`option${i + 1}`] === val
+            })
+          })
+          opt.hidden = !exists
+          opt.disabled = !exists
+        })
+      })
     }
 
     _updateAddBtn() {
