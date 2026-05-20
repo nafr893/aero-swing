@@ -218,19 +218,34 @@ if (!customElements.get('variant-picker')) {
 			})
 		}
 		getSelectedVariant() {
-			let variant = getVariantFromOptionArray(this.productData, this.options)
+			// Use variantData (inline JSON, no AJAX) as primary source.
+			// variantData items have option1/option2/option3 string properties.
+			const findVariant = (opts) => {
+				if (this.productData) {
+					try { const v = getVariantFromOptionArray(this.productData, opts); if (v) return v } catch(e) {}
+				}
+				return this.variantData.find(v =>
+					opts.every((opt, i) => v[`option${i + 1}`] === opt)
+				) || null
+			}
+
+			let variant = findVariant(this.options)
 			let options = [...this.options]
 			if (!variant) {
 				options.pop()
-				variant = getVariantFromOptionArray(this.productData, options)
+				variant = findVariant(options)
 				if (!variant) {
 					options.pop()
-					variant = getVariantFromOptionArray(this.productData, options)
+					variant = findVariant(options)
 				}
-				if (variant && variant.options) {
-					this.options = [...variant.options]
+				if (variant) {
+					for (let i = 0; i < this.options.length; i++) {
+						if (!this.options[i]) {
+							this.options[i] = variant.options ? variant.options[i] : (variant[`option${i + 1}`] || '')
+						}
+					}
+					this.updateSelectedOptions()
 				}
-				this.updateSelectedOptions()
 			}
 			this.currentVariant = variant
 		}
@@ -575,49 +590,44 @@ if (!customElements.get('variant-picker')) {
 		}
 
 		hideSoldOutAndUnavailableOptions() {
-			if (!this.productData) return
 			const classes = {
 				soldOut: 'variant-picker__option--soldout',
 				unavailable: 'variant-picker__option--unavailable'
 			}
 			const selectedOptions = this.options || []
 			const {optionNodes} = this.domNodes
-			const {productData} = this
-			const {variants} = productData
-			const maxOptions = productData.options ? productData.options.length : 0
+			// Use variantData (inline JSON, always available). Items have option1/option2/option3.
+			const variants = this.variantData
+			const maxOptions = Number(this.container.dataset.maxOptions) || 1
 
 			optionNodes.forEach(optNode => {
 				const {optionPosition, value} = optNode.dataset
 				const optPos = Number(optionPosition)
 				const isSelectOption = optNode.tagName === 'OPTION'
+				const parentsAllSelected = selectedOptions.slice(0, optPos - 1).every(o => o && o !== '')
 
-				let matchVariants = []
-				// Check if all parent options above this one are selected
-				const parentsSelected = selectedOptions.slice(0, optPos - 1).every(o => o && o !== '')
-
-				if (optPos === maxOptions) {
-					if (parentsSelected) {
-						// Parent selected: filter to only variants matching the selected parents + this value
-						const optionsArray = selectedOptions.slice()
-						optionsArray[maxOptions - 1] = value
-						matchVariants.push(getVariantFromOptionArray(productData, optionsArray))
-					} else {
-						// No parent selected yet: show all options that have any variant
-						matchVariants = variants.filter(v => v.options[optPos - 1] === value)
-					}
-				} else {
+				let matchVariants
+				if (optPos === maxOptions && parentsAllSelected) {
+					// Last option + all parents selected: only show if the exact combo exists
 					matchVariants = variants.filter(v =>
-						v.options[optPos - 1] === value &&
-						(optPos < 2 || !selectedOptions[optPos - 2] || v.options[optPos - 2] === selectedOptions[optPos - 2])
+						v[`option${optPos}`] === value &&
+						selectedOptions.slice(0, optPos - 1).every((opt, i) => v[`option${i + 1}`] === opt)
 					)
+				} else {
+					// Non-last option or parent not yet chosen: show all values that exist
+					matchVariants = variants.filter(v => {
+						if (v[`option${optPos}`] !== value) return false
+						if (optPos >= 2 && selectedOptions[optPos - 2]) {
+							return v[`option${optPos - 1}`] === selectedOptions[optPos - 2]
+						}
+						return true
+					})
 				}
 
-				matchVariants = matchVariants.filter(Boolean)
 				if (matchVariants.length) {
 					optNode.classList.remove(classes.unavailable)
 					isSelectOption && optNode.removeAttribute('disabled')
-					const isSoldOut = matchVariants.every(v => v.available === false)
-					optNode.classList.toggle(classes.soldOut, isSoldOut)
+					optNode.classList.toggle(classes.soldOut, matchVariants.every(v => !v.available))
 				} else {
 					optNode.classList.add(classes.unavailable)
 					isSelectOption && optNode.setAttribute('disabled', 'true')
@@ -627,8 +637,8 @@ if (!customElements.get('variant-picker')) {
 
 		_attachDirectVariantUpdater() {
 			const update = () => {
-				// Read every picker field's current value
-				const options = Array.from(this.querySelectorAll('[data-picker-field]')).map(field => {
+				const fields = Array.from(this.querySelectorAll('[data-picker-field]'))
+				const options = fields.map(field => {
 					if (field.dataset.pickerField === 'radio') {
 						const checked = Array.from(field.querySelectorAll('input[type="radio"]')).find(r => r.checked)
 						return checked ? checked.value : null
@@ -636,20 +646,27 @@ if (!customElements.get('variant-picker')) {
 					const sel = field.querySelector('select')
 					return sel ? sel.value : null
 				})
-				// Need all options selected
-				if (options.some(o => !o)) return
-				// Find exact matching variant from inline JSON (always available, no AJAX needed)
-				const variant = this.variantData.find(v =>
-					options.every((opt, i) => v[`option${i + 1}`] === opt)
-				)
+
+				// Try exact match first
+				let variant = !options.some(o => !o)
+					? (this.variantData.find(v => options.every((opt, i) => v[`option${i + 1}`] === opt)) || null)
+					: null
+
+				// Auto-complete: find first variant matching all the options that ARE filled in
+				if (!variant) {
+					const filled = options.map((opt, i) => opt ? {opt, i} : null).filter(Boolean)
+					if (filled.length) {
+						variant = this.variantData.find(v =>
+							filled.every(({opt, i}) => v[`option${i + 1}`] === opt)
+						) || null
+					}
+				}
+
 				if (!variant) return
 				const productForms = document.querySelectorAll(`#product-form-${this.sectionId}, #product-form-installment`)
 				productForms.forEach(form => {
 					const input = form.querySelector('input[name="id"]')
-					if (input && String(input.value) !== String(variant.id)) {
-						input.value = variant.id
-						input.dispatchEvent(new Event('change', {bubbles: true}))
-					}
+					if (input) input.value = variant.id
 				})
 			}
 			this.querySelectorAll('[data-picker-field] input[type="radio"], [data-picker-field] select').forEach(el => {
