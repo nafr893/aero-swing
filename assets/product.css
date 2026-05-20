@@ -1663,6 +1663,9 @@ product-addon {
   padding: 0.3rem 0.8rem;
   font-size: 1.2rem;
   font-weight: 500;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
