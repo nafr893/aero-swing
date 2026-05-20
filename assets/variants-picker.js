@@ -42,22 +42,18 @@ if (!customElements.get('variant-picker')) {
 			this.getSelectedOptions()
 			if (this.currentVariant) {
 				this.getDataImageVariant(this.currentVariant.id);
-				this.hideSoldOutAndUnavailableOptions()
 			}
-			this.updateOptionVisibility()
+			this.hideSoldOutAndUnavailableOptions()
 
 			this.getMediaGallery();
 			this.initOptionSwatches()
 			this.addEventListener('change', this.onVariantChange);
 
-			// Direct fallback: always update option visibility when any radio changes,
-			// bypassing potential errors in the main onVariantChange chain.
-			this.querySelectorAll('[data-picker-field] input[type="radio"]').forEach(radio => {
-				radio.addEventListener('change', () => {
-					this.getSelectedOptions()
-					this.updateOptionVisibility()
-				})
-			})
+			// Direct bypass: on every radio/select change, find the matching variant
+			// from inline JSON and update the form input directly. This guarantees
+			// the correct variant ID is always in the form regardless of any errors
+			// in the main onVariantChange chain.
+			this._attachDirectVariantUpdater()
 		}
 
 		maybeUnselectDefaultVariants() {
@@ -177,8 +173,6 @@ if (!customElements.get('variant-picker')) {
 				this.updateButton(!this.currentVariant.available, window.FoxThemeStrings.soldOut)
 			}
 			this.hideSoldOutAndUnavailableOptions()
-
-			this.updateOptionVisibility()
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
 
@@ -581,16 +575,16 @@ if (!customElements.get('variant-picker')) {
 		}
 
 		hideSoldOutAndUnavailableOptions() {
+			if (!this.productData) return
 			const classes = {
 				soldOut: 'variant-picker__option--soldout',
 				unavailable: 'variant-picker__option--unavailable'
 			}
 			const selectedOptions = this.options || []
 			const {optionNodes} = this.domNodes
-			const {
-				productData,
-				productData: {variants, options: {length: maxOptions}}
-			} = this
+			const {productData} = this
+			const {variants} = productData
+			const maxOptions = productData.options ? productData.options.length : 0
 
 			optionNodes.forEach(optNode => {
 				const {optionPosition, value} = optNode.dataset
@@ -598,14 +592,23 @@ if (!customElements.get('variant-picker')) {
 				const isSelectOption = optNode.tagName === 'OPTION'
 
 				let matchVariants = []
+				// Check if all parent options above this one are selected
+				const parentsSelected = selectedOptions.slice(0, optPos - 1).every(o => o && o !== '')
+
 				if (optPos === maxOptions) {
-					const optionsArray = selectedOptions.slice()
-					optionsArray[maxOptions - 1] = value
-					matchVariants.push(getVariantFromOptionArray(productData, optionsArray))
+					if (parentsSelected) {
+						// Parent selected: filter to only variants matching the selected parents + this value
+						const optionsArray = selectedOptions.slice()
+						optionsArray[maxOptions - 1] = value
+						matchVariants.push(getVariantFromOptionArray(productData, optionsArray))
+					} else {
+						// No parent selected yet: show all options that have any variant
+						matchVariants = variants.filter(v => v.options[optPos - 1] === value)
+					}
 				} else {
 					matchVariants = variants.filter(v =>
 						v.options[optPos - 1] === value &&
-						(optPos < 2 || v.options[optPos - 2] === selectedOptions[optPos - 2])
+						(optPos < 2 || !selectedOptions[optPos - 2] || v.options[optPos - 2] === selectedOptions[optPos - 2])
 					)
 				}
 
@@ -619,6 +622,38 @@ if (!customElements.get('variant-picker')) {
 					optNode.classList.add(classes.unavailable)
 					isSelectOption && optNode.setAttribute('disabled', 'true')
 				}
+			})
+		}
+
+		_attachDirectVariantUpdater() {
+			const update = () => {
+				// Read every picker field's current value
+				const options = Array.from(this.querySelectorAll('[data-picker-field]')).map(field => {
+					if (field.dataset.pickerField === 'radio') {
+						const checked = Array.from(field.querySelectorAll('input[type="radio"]')).find(r => r.checked)
+						return checked ? checked.value : null
+					}
+					const sel = field.querySelector('select')
+					return sel ? sel.value : null
+				})
+				// Need all options selected
+				if (options.some(o => !o)) return
+				// Find exact matching variant from inline JSON (always available, no AJAX needed)
+				const variant = this.variantData.find(v =>
+					options.every((opt, i) => v[`option${i + 1}`] === opt)
+				)
+				if (!variant) return
+				const productForms = document.querySelectorAll(`#product-form-${this.sectionId}, #product-form-installment`)
+				productForms.forEach(form => {
+					const input = form.querySelector('input[name="id"]')
+					if (input && String(input.value) !== String(variant.id)) {
+						input.value = variant.id
+						input.dispatchEvent(new Event('change', {bubbles: true}))
+					}
+				})
+			}
+			this.querySelectorAll('[data-picker-field] input[type="radio"], [data-picker-field] select').forEach(el => {
+				el.addEventListener('change', update)
 			})
 		}
 
