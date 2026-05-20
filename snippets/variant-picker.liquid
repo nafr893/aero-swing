@@ -170,6 +170,69 @@
                 {{ product.metafields.foxecom-bs-kit.variant-images.value | json }}
             </script>
         {%- endif -%}
+        <script>
+        (function() {
+            var container = document.querySelector('[data-variant-picker][data-product-id="{{ product.id }}"]')
+            if (!container) return
+            var productId = '{{ product.id }}'
+            var variants = JSON.parse(container.querySelector('[type="application/json"]').textContent)
+
+            function updateSubOptionPrices(variant) {
+                if (!variant) return
+                container.querySelectorAll('.variant-picker__option[data-option-position]').forEach(function(optNode) {
+                    var optPos = Number(optNode.dataset.optionPosition)
+                    if (optPos <= 1) return
+                    var cardValue = optNode.dataset.value
+                    var match = variants.find(function(v) {
+                        for (var i = 1; i < optPos; i++) {
+                            if (v['option' + i] !== variant['option' + i]) return false
+                        }
+                        return v['option' + optPos] === cardValue
+                    })
+                    if (!match) return
+                    var priceEl = optNode.querySelector('.variant-card__price')
+                    var stockEl = optNode.querySelector('.variant-card__stock')
+                    if (priceEl && typeof formatMoney === 'function') {
+                        priceEl.textContent = formatMoney(match.price, window.FoxThemeSettings && window.FoxThemeSettings.money_format)
+                    }
+                    if (stockEl) {
+                        if (!match.available) {
+                            stockEl.textContent = 'Sold Out'
+                            stockEl.className = 'variant-card__stock'
+                        } else if (match.inventory_quantity > 0 && match.inventory_quantity < 20) {
+                            stockEl.textContent = match.inventory_quantity + ' remaining'
+                            stockEl.className = 'variant-card__stock is-low'
+                        } else {
+                            stockEl.textContent = 'In Stock'
+                            stockEl.className = 'variant-card__stock'
+                        }
+                    }
+                })
+            }
+
+            function bindEvents() {
+                if (!window.FoxThemeEvents) return
+                window.FoxThemeEvents.subscribe(productId + '__VARIANT_CHANGE', function(variant) {
+                    updateSubOptionPrices(variant)
+                })
+            }
+
+            if (window.FoxThemeEvents) {
+                bindEvents()
+            } else {
+                window.addEventListener('load', bindEvents, { once: true })
+            }
+
+            window.addEventListener('load', function() {
+                var section = container.closest('[data-section-id]')
+                var input = section && section.querySelector('input[name="id"]')
+                if (input && input.value) {
+                    var initial = variants.find(function(v) { return v.id === Number(input.value) })
+                    if (initial) updateSubOptionPrices(initial)
+                }
+            }, { once: true })
+        })()
+        </script>
     {%- endunless -%}
     <noscript class="variant-picker__noscript-wrapper-{{ section.id }}">
         <div class="form-field variant-picker__input{% if product.has_only_default_variant %} hidden{% endif %}">
