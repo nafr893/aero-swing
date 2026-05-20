@@ -263,6 +263,158 @@
         "padding_bottom": 40
       }
     },
+    "collapsible_tabs_yxAkX4": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "content_n6D8Tk": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "What size should I order?",
+            "content": "<p>Our recommended general sizes are: youth  &lt;10 years old, Standard 9-15 years old, Pro &gt;16 years old, Hybrid, All ages.     These sizes are pure general recommendations.  If you have a athlete that is around 11 or 12, and isn’t a very fast swinger, stick with the youth.  All aero-bats have removable pineapples, so if you want to lighten the load at any time, simply remove a pineapple.  The hybrid is for all ages.   A smaller athlete can swing a hybrid with just one pineapple on it. There is also a difference between boys and girls development stages.  Take that into consideration when ordering.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_CJDadY": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Can I use my Aero-bat to hit my own foam balls?",
+            "content": "<p>No.  We recommend only using our Aero-balls.  They are specifically made to be very soft, yet durable and able to allow the bat to absorb the impact when striking the balls.  Other balls like smushballs and ropebat balls will damage our bats.  We do not warranty our bats if you use other manufacturers’ balls.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_pd9dDy": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "What happens if a pineapple breaks?",
+            "content": "<p>You can order individual replacement pineapples on the website.  Simply unscrew the end cap and take the broken pineapple off the bat.  Replace the pineapple making sure you put the new pineapple on the bat White grommet first.  Each pineapple has a white grommet and a black grommet.  You can also order multiple colors: Red, Blue and Black.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_HTTHWy": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Do you have a one arm trainer?",
+            "content": "<p>Yes, our Youth Aero-Bat is a great adult one arm trainer.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_Ur63p8": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Do you offer free shipping?",
+            "content": "<p>Yes, when you order more than $150 in product, we will waive your shipping fee.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_apE3Rq": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Why is my order taking so long?",
+            "content": "<p>We pride ourselves in fulfilling orders within 24 hours of receiving them.  Once we submit your order to the shipping agency, UPS, USPS, it is their responsibility to meet the shipping deadline you paid for.  Also, lost product is the responsibility of the shipping company.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_3eCL7L": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Can I allow the pinapples to traverse the bat when swinging?",
+            "content": "<p>No.   Always keep the little black rubber piece close to the last pineapple on a bat.   When you remove a pineapple, please make sure to move the black piece up next to the last pineapple.  When putting the pineapple back on, be sure to slide the black rubber piece down enough for the pineapple to be installed back onto the bat.  Always leave about ½ inch space between the black rubber piece and the last pineapple.  That allows the pineapples to spin correctly when swinging.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_nPCtkD": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Can I add or remove pineapples?",
+            "content": "<p>Yes, simply unscrew the end cap.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_A4hYkm": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "What is the length of each bat?",
+            "content": "<p>Youth 30”, Standard 34”, Pro 36” and Hybrid 45”.  The Aero-Bat length is not a direct relationship to an athlete’s game bat.  The length is proportionate to the expected swing speed of each athlete.  The Youth and Standard bats have a thinner rod, allowing players who swing slower to be able to feel the lag created by the bend of the bat.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_84Nrq9": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "Do you accept PO’s?",
+            "content": "<p>Yes, contact <a href=\"mailto:kim@aero-swing.com\" target=\"_blank\"><span style=\"text-decoration:underline\">kim@aero-swing.com</span></a></p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        },
+        "content_GztWUc": {
+          "type": "content",
+          "settings": {
+            "icon": "none",
+            "title": "I ordered the wrong size, how do I do an exchange? ",
+            "content": "<p>Follow return procedures listed on the website.   Send bat back to Aero-swing.  Await your refund and order again.  (Sometimes takes 2 weeks for credit card to be refunded)   Or purchase another bat and await your refund.</p>",
+            "custom_liquid": "",
+            "content_page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "content_n6D8Tk",
+        "content_CJDadY",
+        "content_pd9dDy",
+        "content_HTTHWy",
+        "content_Ur63p8",
+        "content_apE3Rq",
+        "content_3eCL7L",
+        "content_nPCtkD",
+        "content_A4hYkm",
+        "content_84Nrq9",
+        "content_GztWUc"
+      ],
+      "name": "Collapsible tabs",
+      "settings": {
+        "container": "container",
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h2",
+        "subheading": "",
+        "description": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
     "image_with_text_aawANt": {
       "type": "image-with-text",
       "blocks": {
@@ -614,6 +766,7 @@
     "main",
     "video_grid_G9W4CM",
     "1764000671c44ad9b4",
+    "collapsible_tabs_yxAkX4",
     "image_with_text_aawANt",
     "gallery_images_XkTmpU",
     "image_with_text_DNc76N",
