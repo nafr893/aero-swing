@@ -254,10 +254,29 @@ if (!customElements.get('product-addon')) {
     }
 
     _selectFromDropdowns() {
-      const values = Array.from(this.querySelectorAll('[data-addon-select]')).map(s => s.value)
-      const variant = this.variants.find(v =>
-        values.every((val, i) => v[`option${i + 1}`] === val)
-      )
+      const selects = Array.from(this.querySelectorAll('[data-addon-select]'))
+      if (!selects.length) return
+      const values = selects.map(s => s.value)
+
+      // Try exact match first
+      let variant = this.variants.find(v => values.every((val, i) => v[`option${i + 1}`] === val))
+
+      // No exact match — trim options from the end and find the best available variant
+      if (!variant) {
+        for (let len = values.length - 1; len >= 1; len--) {
+          const partial = values.slice(0, len)
+          variant = this.variants.find(v => partial.every((val, i) => v[`option${i + 1}`] === val) && v.available)
+                 || this.variants.find(v => partial.every((val, i) => v[`option${i + 1}`] === val))
+          if (variant) {
+            // Sync the dependent dropdowns to reflect the fallback variant
+            selects.forEach((sel, i) => {
+              if (variant[`option${i + 1}`]) sel.value = variant[`option${i + 1}`]
+            })
+            break
+          }
+        }
+      }
+
       this._updateSelectAvailability()
       if (!variant) return
       this.selectedVariantId = variant.id
