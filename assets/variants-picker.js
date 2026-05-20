@@ -49,6 +49,15 @@ if (!customElements.get('variant-picker')) {
 			this.getMediaGallery();
 			this.initOptionSwatches()
 			this.addEventListener('change', this.onVariantChange);
+
+			// Direct fallback: always update option visibility when any radio changes,
+			// bypassing potential errors in the main onVariantChange chain.
+			this.querySelectorAll('[data-picker-field] input[type="radio"]').forEach(radio => {
+				radio.addEventListener('change', () => {
+					this.getSelectedOptions()
+					this.updateOptionVisibility()
+				})
+			})
 		}
 
 		maybeUnselectDefaultVariants() {
@@ -108,7 +117,7 @@ if (!customElements.get('variant-picker')) {
 			if ( ! this.disableDefaultVariant ) return;
 
 			if( ! this.currentVariant ) {
-				evt.preventDefault()
+				if (evt) evt.preventDefault()
 
 				// Mark picker field as error.
 				this.domNodes.pickerFields && this.domNodes.pickerFields.forEach((pickerField) => {

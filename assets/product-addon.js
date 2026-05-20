@@ -28,7 +28,12 @@ if (!customElements.get('product-addon')) {
       const swatchesEl = this.querySelector('.product-addon__swatches')
       const prevBtn = this.querySelector('[data-swatches-prev]')
       const nextBtn = this.querySelector('[data-swatches-next]')
+      const swatchesNav = this.querySelector('.product-addon__swatches-nav')
       if (swatchesEl && prevBtn && nextBtn) {
+        const checkOverflow = () => {
+          const hasOverflow = swatchesEl.scrollWidth > swatchesEl.clientWidth + 1
+          if (swatchesNav) swatchesNav.style.display = hasOverflow ? '' : 'none'
+        }
         const updateArrows = () => {
           prevBtn.disabled = swatchesEl.scrollLeft <= 0
           nextBtn.disabled = swatchesEl.scrollLeft + swatchesEl.clientWidth >= swatchesEl.scrollWidth - 1
@@ -37,6 +42,10 @@ if (!customElements.get('product-addon')) {
         nextBtn.addEventListener('click', () => { swatchesEl.scrollBy({ left: 100, behavior: 'smooth' }); setTimeout(updateArrows, 300) })
         swatchesEl.addEventListener('scroll', updateArrows)
         updateArrows()
+        checkOverflow()
+        window.addEventListener('load', checkOverflow, { once: true })
+      } else if (swatchesNav) {
+        swatchesNav.style.display = 'none'
       }
       this.addBtn = this.querySelector('[data-add-btn]')
       this.addBtn.addEventListener('click', () => this._add())
