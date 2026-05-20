@@ -187,9 +187,10 @@
         "vidoes_mfHNcb": {
           "type": "vidoes",
           "settings": {
-            "video_type": "external",
+            "video_type": "shopify",
             "aspect_ratio": "default",
-            "video_url": "https://www.youtube.com/watch?v=nHMu6UZ_Cd8",
+            "shopify_video": "shopify://files/videos/jeremy fire.MOV",
+            "video_url": "",
             "title": "Lucas Testimonial ABCA Aero-Swing | Resistance = Distance",
             "video_text": "7 views",
             "video_time": "1 day ago",
@@ -200,9 +201,10 @@
         "vidoes_Pzgrpx": {
           "type": "vidoes",
           "settings": {
-            "video_type": "external",
+            "video_type": "shopify",
             "aspect_ratio": "default",
-            "video_url": "https://www.youtube.com/watch?v=6pRzWsIpFJA",
+            "shopify_video": "shopify://files/videos/Dodgers Aero Bat - Aero Swing - 4-20-26 (1).mp4",
+            "video_url": "",
             "title": "Fred Hughes ABCA 24 Aero-Swing | Resistance = Distance",
             "video_text": "1 view",
             "video_time": "1 day ago",
@@ -213,9 +215,10 @@
         "vidoes_Heh9tD": {
           "type": "vidoes",
           "settings": {
-            "video_type": "external",
+            "video_type": "shopify",
             "aspect_ratio": "default",
-            "video_url": "https://www.youtube.com/watch?v=ZJKzDYwktxM",
+            "shopify_video": "shopify://files/videos/14 yr old Ayden new exit velo.mp4",
+            "video_url": "",
             "title": "Lathan the Kid Umpire Aero-Swing | Resistance = Distance",
             "video_text": "4 views",
             "video_time": "1 day ago",
