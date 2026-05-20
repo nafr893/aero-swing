@@ -43,7 +43,7 @@
                     endif
                     assign size_chart_in_header = false
                 %}
-                <div class="variant-picker__field-wrapper">
+                <div class="variant-picker__field-wrapper" data-option-index="{{ forloop.index0 }}"{% if forloop.index0 == 0 %} data-first-option{% endif %}>
                     {% case variant_picker_type %}
                         {% when 'dropdown' %}
                             <variant-select class="variant-picker__field" data-picker-field="select" data-option-name="{{ option.name }}" data-selected-value="{{ option.selected_value }}">

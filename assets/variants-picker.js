@@ -39,10 +39,12 @@ if (!customElements.get('variant-picker')) {
 
 			const selectedVariantId = this.section && this.section.querySelector(this.selectors.variantIdInput).value
 			this.currentVariant = this.variantData.find(variant => variant.id === Number(selectedVariantId))
+			this.getSelectedOptions()
 			if (this.currentVariant) {
 				this.getDataImageVariant(this.currentVariant.id);
 				this.hideSoldOutAndUnavailableOptions()
 			}
+			this.updateOptionVisibility()
 
 			this.getMediaGallery();
 			this.initOptionSwatches()
@@ -166,6 +168,8 @@ if (!customElements.get('variant-picker')) {
 				this.updateButton(!this.currentVariant.available, window.FoxThemeStrings.soldOut)
 			}
 			this.hideSoldOutAndUnavailableOptions()
+
+			this.updateOptionVisibility()
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
 
@@ -552,6 +556,19 @@ if (!customElements.get('variant-picker')) {
 			if (!addButton) return
 			addButtonText.textContent = window.FoxThemeStrings.unavailable
 			if (priceWrapper) priceWrapper.classList.add('visibility-hidden')
+		}
+
+		updateOptionVisibility() {
+			if (!this.options) this.getSelectedOptions()
+			const wrappers = Array.from(this.container.querySelectorAll('.variant-picker__field-wrapper[data-option-index]'))
+			wrappers.forEach((wrapper, i) => {
+				if (i === 0) {
+					wrapper.classList.add('is-option-visible')
+					return
+				}
+				const allPrevSelected = this.options.slice(0, i).every(v => v && v !== '')
+				wrapper.classList.toggle('is-option-visible', allPrevSelected)
+			})
 		}
 
 		hideSoldOutAndUnavailableOptions() {

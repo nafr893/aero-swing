@@ -4,6 +4,14 @@
 .variant-picker__field-wrapper {
   position: relative;
 }
+
+.variant-picker__field-wrapper[data-option-index]:not([data-first-option]) {
+  display: none;
+}
+
+.variant-picker__field-wrapper[data-option-index].is-option-visible {
+  display: block;
+}
 .variant-picker__field-wrapper + .variant-picker__field-wrapper {
   margin-top: 2.4rem;
 }
