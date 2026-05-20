@@ -1588,7 +1588,7 @@ product-addon {
 
 .product-addon__main {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.2rem;
 }
 
@@ -1751,11 +1751,14 @@ product-addon {
   margin: 0;
 }
 
-.product-addon__action {
-  flex: 0 0 auto;
+.product-addon__footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border, #e0e0e0);
 }
 
 .product-addon__add-btn {
+  width: 100%;
   border: 1.5px solid var(--color-text-body, #111);
   border-radius: 6px;
   background: transparent;
