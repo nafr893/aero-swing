@@ -106,7 +106,7 @@ if (!customElements.get('variant-picker')) {
 			if ( ! this.disableDefaultVariant ) return;
 
 			if( ! this.currentVariant ) {
-				if (evt) evt.preventDefault()
+				evt.preventDefault()
 
 				// Mark picker field as error.
 				this.domNodes.pickerFields && this.domNodes.pickerFields.forEach((pickerField) => {
@@ -168,9 +168,6 @@ if (!customElements.get('variant-picker')) {
 			}
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
-
-			const infoBlock = this.querySelector('variant-info-block')
-			if (infoBlock) infoBlock.updateInfo(this.currentVariant ? this.currentVariant.id : null)
 		}
 
 		getMediaGallery() {
@@ -680,46 +677,4 @@ if (!customElements.get('variant-button')) {
 		}
 		customElements.define('variant-color', VariantColor)
 	}
-}
-
-if (!customElements.get('variant-info-block')) {
-	customElements.define('variant-info-block', class VariantInfoBlock extends HTMLElement {
-		connectedCallback() {
-			this.productId = this.dataset.productId
-			try {
-				this.infoData = JSON.parse(this.querySelector('[type="application/json"]').textContent)
-			} catch (e) {
-				return
-			}
-
-			this.updateInfo(Number(this.dataset.initialVariant))
-
-			const bindEvents = () => {
-				if (window.FoxThemeEvents) {
-					window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
-						this.updateInfo(variant ? variant.id : null)
-					})
-				}
-			}
-			if (window.FoxThemeEvents) {
-				bindEvents()
-			} else {
-				window.addEventListener('load', bindEvents, { once: true })
-			}
-		}
-
-		updateInfo(variantId) {
-			const infoEl = this.querySelector('.variant-info')
-			if (!infoEl) return
-			const info = variantId ? (this.infoData[variantId] || {}) : {}
-			const hasText = str => typeof str === 'string' && str.replace(/<[^>]*>/g, '').trim().length > 0
-
-			let html = ''
-			if (hasText(info.recommended_for)) html += `<p class="variant-info__recommended"><strong>Recommended for:</strong> ${info.recommended_for.trim()}</p>`
-			if (hasText(info.description))     html += `<div class="variant-info__description">${info.description.trim()}</div>`
-
-			infoEl.innerHTML = html
-			infoEl.style.display = html ? '' : 'none'
-		}
-	})
 }
