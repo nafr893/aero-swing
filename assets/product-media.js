@@ -18,30 +18,24 @@ if (!customElements.get('media-gallery')) {
 				toggleZoom: ['.js-photoswipe--zoom']
 			}
 
-      let touchingCarousel = false;
       let startXCoordinate;
+
+      const carouselTouchMove = (e) => {
+        if (e.cancelable && Math.abs(e.touches[0].pageX - startXCoordinate) > 10) {
+          e.preventDefault();
+        }
+      };
 
       document.body.addEventListener('touchstart', (e) => {
         if (e.target.closest('.flickity-slider')) {
-          touchingCarousel = true;
-        } else {
-          touchingCarousel = false;
-          return;
+          startXCoordinate = e.touches[0].pageX;
+          document.body.addEventListener('touchmove', carouselTouchMove, { passive: false });
         }
-        startXCoordinate = e.touches[0].pageX;
       });
 
-      document.body.addEventListener(
-        'touchmove',
-        (e) => {
-          if (touchingCarousel && e.cancelable) {
-            if (Math.abs(e.touches[0].pageX - startXCoordinate) > 10) {
-              e.preventDefault();
-            }
-          }
-        },
-        { passive: false }
-      );
+      document.body.addEventListener('touchend', () => {
+        document.body.removeEventListener('touchmove', carouselTouchMove);
+      });
 		}
 
 		connectedCallback() {
