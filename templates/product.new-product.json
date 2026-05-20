@@ -38,7 +38,7 @@
         "variant_picker_3GfbLC": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "dropdown",
+            "picker_type": "button",
             "variant_picker_show_selected": true,
             "variant_picker_dont_select_the_default_variant": false,
             "size_title": "Size",
