@@ -108,33 +108,48 @@
                             </variant-color>
                         {% else %}
                             <variant-button class="variant-picker__field" data-picker-field="radio" data-option-name="{{ option.name }}" data-selected-value="{{ option.selected_value }}">
-                                <div class="js variant-picker__input variant-picker__button">
-                                    <label class="form__label">
+                                <div class="variant-picker__card-header">
+                                    <span class="variant-picker__card-header-label">
                                         <span class="font-semibold">{{ option_label }}:</span>
-                                        {% if show_selected_value %}
-                                            <span class="selected-value">{{ option.selected_value }}</span>
-                                        {% endif %}
-                                    </label>
-                                    <div class="variant-picker__option-values">
-                                        {%- for value in option.values -%}
-                                            <div
-                                                class="variant-picker__option"
-                                                data-option-position="{{ option.position }}"
-                                                data-option-type="{{ variant_picker_type }}"
-                                                data-value="{{- value | escape -}}"
+                                        <span class="selected-value"> {{ option.selected_value }}</span>
+                                    </span>
+                                </div>
+                                <div class="variant-cards-track">
+                                    {%- for value in option.values -%}
+                                        {%- case option.position -%}
+                                            {%- when 1 -%}{%- assign card_variant = product.variants | where: 'option1', value | first -%}
+                                            {%- when 2 -%}{%- assign card_variant = product.variants | where: 'option2', value | first -%}
+                                            {%- when 3 -%}{%- assign card_variant = product.variants | where: 'option3', value | first -%}
+                                        {%- endcase -%}
+                                        <div
+                                            class="variant-picker__option"
+                                            data-option-position="{{ option.position }}"
+                                            data-option-type="{{ variant_picker_type }}"
+                                            data-value="{{- value | escape -}}"
+                                        >
+                                            <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                               name="{{ option.name }}"
+                                               value="{{ value | escape }}"
+                                               form="{{ product_form_id }}"
+                                               {% if option.selected_value == value %}checked{% endif %}
                                             >
-                                                <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                                   name="{{ option.name }}"
-                                                   value="{{ value | escape }}"
-                                                   form="{{ product_form_id }}"
-                                                   {% if option.selected_value == value %}checked{% endif %}
-                                                >
-                                                <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-picker__option-button variant-picker__option-button--{{ variant_picker_type | default: 'button' }}">
-                                                    {{- value -}}
-                                                </label>
-                                            </div>
-                                        {%- endfor -%}
-                                    </div>
+                                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-card">
+                                                <span class="variant-card__name">{{ value }}</span>
+                                                {%- if card_variant -%}
+                                                    <span class="variant-card__price">{{ card_variant.price | money }}</span>
+                                                    <span class="variant-card__stock{% if card_variant.inventory_quantity > 0 and card_variant.inventory_quantity < 20 %} is-low{% endif %}">
+                                                        {%- if card_variant.available == false -%}
+                                                            Sold Out
+                                                        {%- elsif card_variant.inventory_quantity > 0 and card_variant.inventory_quantity < 20 -%}
+                                                            {{ card_variant.inventory_quantity }} remaining
+                                                        {%- else -%}
+                                                            In Stock
+                                                        {%- endif -%}
+                                                    </span>
+                                                {%- endif -%}
+                                            </label>
+                                        </div>
+                                    {%- endfor -%}
                                 </div>
                             </variant-button>
                     {% endcase %}
