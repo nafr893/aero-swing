@@ -94,7 +94,14 @@ if (!customElements.get('product-addon')) {
       try {
         const cartDrawer = document.querySelector('cart-drawer')
         const sections = cartDrawer
-          ? cartDrawer.getSectionsToRender().map(s => s.id)
+          ? cartDrawer.getSectionsToRender()
+              .filter(s => {
+                const el = s.selector
+                  ? document.querySelector(s.selector)
+                  : document.getElementById(s.id)
+                return !el || !el.contains(this)
+              })
+              .map(s => s.id)
           : []
         const body = {
           id: this.selectedVariantId,
