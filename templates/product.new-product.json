@@ -35,6 +35,16 @@
             "sale_badge_type": "percentage"
           }
         },
+        "variant_picker_3GfbLC": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "variant_picker_show_selected": true,
+            "variant_picker_dont_select_the_default_variant": false,
+            "size_title": "Size",
+            "size_chart_from_page": ""
+          }
+        },
         "59ca3415-b1aa-4301-b178-ad6e434ba477": {
           "type": "inventory_status",
           "disabled": true,
@@ -48,16 +58,6 @@
           "type": "quantity_selector",
           "disabled": true,
           "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "variant_picker_show_selected": true,
-            "variant_picker_dont_select_the_default_variant": false,
-            "size_title": "Size Chart",
-            "size_chart_from_page": "size-chart"
-          }
         },
         "product_addon_ff7aHU": {
           "type": "product_addon",
@@ -156,9 +156,9 @@
         "title",
         "richtext_x8JpMr",
         "price",
+        "variant_picker_3GfbLC",
         "59ca3415-b1aa-4301-b178-ad6e434ba477",
         "quantity_selector",
-        "variant_picker",
         "product_addon_ff7aHU",
         "buy_buttons",
         "richtext_TXkLHM",
