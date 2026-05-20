@@ -61,6 +61,9 @@
 .variant-picker__option--unavailable {
   display: none !important;
 }
+.variant-picker__field-wrapper:first-child .variant-picker__option--unavailable {
+  display: revert !important;
+}
 @media (max-width: 639.98px) {
   .variant-picker__option {
     overflow: hidden;
@@ -1876,55 +1879,62 @@ product-addon {
   white-space: nowrap;
 }
 
-.product-addon__options {
+.product-addon__selects {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
   margin-bottom: 0.4rem;
 }
 
-.product-addon__option-group {
+.product-addon__select-wrap {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.product-addon__option-group-label {
+.product-addon__select-label {
   font-size: 1.2rem;
-  margin: 0;
-  color: var(--color-text-body, #111);
-}
-
-.product-addon__option-group-btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.product-addon__option-btn {
-  background: transparent;
-  border: 1.5px solid #C4C4C4;
-  border-radius: 5px;
-  padding: 0.4rem 1rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  font-weight: 600;
   color: var(--color-text-body, #111);
   white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 3.6rem;
 }
 
-.product-addon__option-btn.is-selected {
-  border-color: #2D9712;
-  background: #EBF3EB;
+.product-addon__select-inner {
+  position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
-.product-addon__option-btn:hover:not(.is-selected) {
-  border-color: #888;
+.product-addon__select {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--color-border, #a8a8a8);
+  border-radius: 4px;
+  padding: 0.4rem 2.4rem 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  color: var(--color-text-body, #111);
+  cursor: pointer;
+  line-height: 1.4;
 }
 
-.product-addon__option-btn:disabled {
-  display: none;
+.product-addon__select:focus {
+  outline: none;
+  border-color: #111;
+}
+
+.product-addon__select-arrow {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.2rem;
+  color: var(--color-text-body, #111);
+  line-height: 1;
 }
 
 .product-addon__add-btn:disabled {
