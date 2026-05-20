@@ -1636,6 +1636,19 @@ product-addon {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.product-addon__swatches::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .product-addon__swatches {
+    flex-wrap: nowrap;
+  }
 }
 
 .product-addon__swatch {
