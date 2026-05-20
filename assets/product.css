@@ -1367,8 +1367,8 @@ product-modal .f-modal__content {
   top: 0;
   left: 0;
   z-index: -1;
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 .f-recipient-form > input[type=checkbox]:checked + label .icon-checkmark {
   visibility: visible;
@@ -1839,6 +1839,64 @@ product-addon {
   color: var(--color-text-body, #111);
   padding: 0;
   white-space: nowrap;
+}
+
+.product-addon__selects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.product-addon__select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.product-addon__select-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-body, #111);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 3.6rem;
+}
+
+.product-addon__select-inner {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.product-addon__select {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-background, #fff);
+  border: 1px solid var(--color-border, #d0d0d0);
+  border-radius: 4px;
+  padding: 0.4rem 2.4rem 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  color: var(--color-text-body, #111);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.product-addon__select:focus {
+  outline: none;
+  border-color: #111;
+}
+
+.product-addon__select-arrow {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.2rem;
+  color: var(--color-text-body, #111);
+  line-height: 1;
 }
 
 .product-addon__add-btn:disabled {
