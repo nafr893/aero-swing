@@ -164,8 +164,8 @@ if (!customElements.get('variant-picker')) {
 				this.updatePrice()
 				this.updateShareUrl()
 				this.updateButton(!this.currentVariant.available, window.FoxThemeStrings.soldOut)
-				this.hideSoldOutAndUnavailableOptions()
 			}
+			this.hideSoldOutAndUnavailableOptions()
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
 
@@ -559,7 +559,7 @@ if (!customElements.get('variant-picker')) {
 				soldOut: 'variant-picker__option--soldout',
 				unavailable: 'variant-picker__option--unavailable'
 			}
-			const variant = this.currentVariant
+			const selectedOptions = this.options || []
 			const {optionNodes} = this.domNodes
 			const {
 				productData,
@@ -573,11 +573,14 @@ if (!customElements.get('variant-picker')) {
 
 				let matchVariants = []
 				if (optPos === maxOptions) {
-					const optionsArray = Array.from(variant.options)
+					const optionsArray = selectedOptions.slice()
 					optionsArray[maxOptions - 1] = value
 					matchVariants.push(getVariantFromOptionArray(productData, optionsArray))
 				} else {
-					matchVariants = variants.filter(v => v.options[optPos - 1] === value && v.options[optPos - 2] === variant[`option${optPos - 1}`])
+					matchVariants = variants.filter(v =>
+						v.options[optPos - 1] === value &&
+						(optPos < 2 || v.options[optPos - 2] === selectedOptions[optPos - 2])
+					)
 				}
 
 				matchVariants = matchVariants.filter(Boolean)
@@ -585,8 +588,7 @@ if (!customElements.get('variant-picker')) {
 					optNode.classList.remove(classes.unavailable)
 					isSelectOption && optNode.removeAttribute('disabled')
 					const isSoldOut = matchVariants.every(v => v.available === false)
-					const method = isSoldOut ? 'add' : 'remove'
-					optNode.classList[method](classes.soldOut)
+					optNode.classList.toggle(classes.soldOut, isSoldOut)
 				} else {
 					optNode.classList.add(classes.unavailable)
 					isSelectOption && optNode.setAttribute('disabled', 'true')
