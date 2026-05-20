@@ -1781,6 +1781,7 @@ product-addon {
 @media (min-width: 768px) {
   .product-addon__card {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.2rem;
   }
@@ -1799,6 +1800,11 @@ product-addon {
 
   .product-addon__add-btn {
     width: auto;
+  }
+
+  .product-addon__added-row {
+    flex: 0 0 100%;
+    margin-top: 0;
   }
 }
 
@@ -1909,7 +1915,7 @@ product-addon {
   -webkit-appearance: none;
   appearance: none;
   background: var(--color-background, #fff);
-  border: 1px solid var(--color-border, #d0d0d0);
+  border: 1px solid var(--color-border, #a8a8a8);
   border-radius: 4px;
   padding: 0.4rem 2.4rem 0.4rem 0.8rem;
   font-size: 1.2rem;
