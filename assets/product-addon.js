@@ -20,10 +20,10 @@ if (!customElements.get('product-addon')) {
         if (!s.classList.contains('product-addon__swatch--text')) this._applySwatchColor(s)
       })
 
-      this.querySelectorAll('[data-addon-select]').forEach(sel => {
-        sel.addEventListener('change', () => this._selectFromDropdowns())
+      this.querySelectorAll('[data-addon-option]').forEach(btn => {
+        btn.addEventListener('click', () => this._selectAddonOption(btn))
       })
-      this._updateSelectAvailability()
+      this._updateOptionAvailability()
 
       const swatchesEl = this.querySelector('.product-addon__swatches')
       const prevBtn = this.querySelector('[data-swatches-prev]')
@@ -246,12 +246,26 @@ if (!customElements.get('product-addon')) {
       return map
     }
 
-    _selectFromDropdowns() {
-      const values = Array.from(this.querySelectorAll('[data-addon-select]')).map(s => s.value)
-      const variant = this.variants.find(v =>
-        values.every((val, i) => v[`option${i + 1}`] === val)
-      )
-      this._updateSelectAvailability()
+    _selectAddonOption(btn) {
+      const optIndex = btn.dataset.optionIndex
+      this.querySelectorAll(`[data-addon-option][data-option-index="${optIndex}"]`).forEach(b => {
+        b.classList.toggle('is-selected', b === btn)
+      })
+      const label = this.querySelector(`[data-addon-option-selected="${optIndex}"]`)
+      if (label) label.textContent = ' ' + btn.dataset.value
+      this._resolveVariantFromOptions()
+      this._updateOptionAvailability()
+    }
+
+    _resolveVariantFromOptions() {
+      const selected = {}
+      this.querySelectorAll('[data-addon-option].is-selected').forEach(btn => {
+        selected[Number(btn.dataset.optionIndex)] = btn.dataset.value
+      })
+      const maxIdx = Object.keys(selected).length ? Math.max(...Object.keys(selected).map(Number)) : -1
+      if (maxIdx < 0) return
+      const values = Array.from({ length: maxIdx + 1 }, (_, i) => selected[i] || '')
+      const variant = this.variants.find(v => values.every((val, i) => v[`option${i + 1}`] === val))
       if (!variant) return
       this.selectedVariantId = variant.id
       this._renderPrice(this.overridePrice ?? variant.price, this.priceEl)
@@ -260,23 +274,23 @@ if (!customElements.get('product-addon')) {
       if (this.cartKey) this._swapVariant()
     }
 
-    _updateSelectAvailability() {
-      const selects = Array.from(this.querySelectorAll('[data-addon-select]'))
-      if (!selects.length) return
-      const currentValues = selects.map(s => s.value)
-
-      selects.forEach((sel, selIdx) => {
-        Array.from(sel.options).forEach(opt => {
-          const exists = this.variants.some(v => {
-            if (v[`option${selIdx + 1}`] !== opt.value) return false
-            return currentValues.every((val, i) => {
-              if (i === selIdx) return true
-              return !val || v[`option${i + 1}`] === val
-            })
+    _updateOptionAvailability() {
+      const current = {}
+      this.querySelectorAll('[data-addon-option].is-selected').forEach(btn => {
+        current[Number(btn.dataset.optionIndex)] = btn.dataset.value
+      })
+      this.querySelectorAll('[data-addon-option]').forEach(btn => {
+        const optIdx = Number(btn.dataset.optionIndex)
+        const value = btn.dataset.value
+        const exists = this.variants.some(v => {
+          if (v[`option${optIdx + 1}`] !== value) return false
+          return Object.entries(current).every(([i, val]) => {
+            if (Number(i) === optIdx) return true
+            return !val || v[`option${Number(i) + 1}`] === val
           })
-          opt.hidden = !exists
-          opt.disabled = !exists
         })
+        btn.style.display = exists ? '' : 'none'
+        btn.disabled = !exists
       })
     }
 

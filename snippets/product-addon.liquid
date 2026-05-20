@@ -46,10 +46,11 @@
         {%- if addon_product.variants.size > 1 -%}
           {%- if addon_is_multi -%}
 
-            <div class="product-addon__selects">
+            <div class="product-addon__options">
               {%- for opt in addon_product.options_with_values -%}
+                {%- assign opt_idx = forloop.index0 -%}
                 {%- liquid
-                  case forloop.index0
+                  case opt_idx
                     when 0
                       assign selected_opt_val = first_variant.option1
                     when 1
@@ -58,15 +59,21 @@
                       assign selected_opt_val = first_variant.option3
                   endcase
                 -%}
-                <div class="product-addon__select-wrap">
-                  <label class="product-addon__select-label">{{ opt.name }}</label>
-                  <div class="product-addon__select-inner">
-                    <select class="product-addon__select" data-addon-select data-option-index="{{ forloop.index0 }}">
-                      {%- for val in opt.values -%}
-                        <option value="{{ val | escape }}"{% if val == selected_opt_val %} selected{% endif %}>{{ val }}</option>
-                      {%- endfor -%}
-                    </select>
-                    <span class="product-addon__select-arrow">&#8964;</span>
+                <div class="product-addon__option-group">
+                  <p class="product-addon__option-group-label">
+                    <span class="product-addon__option-label">{{ opt.name }}:</span>
+                    <span data-addon-option-selected="{{ opt_idx }}"> {{ selected_opt_val }}</span>
+                  </p>
+                  <div class="product-addon__option-group-btns">
+                    {%- for val in opt.values -%}
+                      <button
+                        type="button"
+                        class="product-addon__option-btn{% if val == selected_opt_val %} is-selected{% endif %}"
+                        data-addon-option
+                        data-option-index="{{ opt_idx }}"
+                        data-value="{{ val | escape }}"
+                      >{{ val }}</button>
+                    {%- endfor -%}
                   </div>
                 </div>
               {%- endfor -%}
