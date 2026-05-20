@@ -39,21 +39,14 @@ if (!customElements.get('variant-picker')) {
 
 			const selectedVariantId = this.section && this.section.querySelector(this.selectors.variantIdInput).value
 			this.currentVariant = this.variantData.find(variant => variant.id === Number(selectedVariantId))
-			this.getSelectedOptions()
 			if (this.currentVariant) {
 				this.getDataImageVariant(this.currentVariant.id);
+				this.hideSoldOutAndUnavailableOptions()
 			}
-			this.hideSoldOutAndUnavailableOptions()
 
 			this.getMediaGallery();
 			this.initOptionSwatches()
 			this.addEventListener('change', this.onVariantChange);
-
-			// Direct bypass: on every radio/select change, find the matching variant
-			// from inline JSON and update the form input directly. This guarantees
-			// the correct variant ID is always in the form regardless of any errors
-			// in the main onVariantChange chain.
-			this._attachDirectVariantUpdater()
 		}
 
 		maybeUnselectDefaultVariants() {
@@ -78,7 +71,7 @@ if (!customElements.get('variant-picker')) {
 							option.text = this.container.dataset.variantOptionNoneText
 							option.setAttribute('disabled', '')
 							option.setAttribute('selected', '')
- 
+
 							selectBox.add(option, 0);
 							break;
 						default:
@@ -88,7 +81,7 @@ if (!customElements.get('variant-picker')) {
 							});
 							break;
 					}
-					
+
 					pickerField.dataset.selectedValue = ''
 					pickerField.querySelector('.selected-value').textContent = ''
 				}
@@ -97,13 +90,13 @@ if (!customElements.get('variant-picker')) {
 			if( isVariantChange ) {
 				const variantIdInput = this.section && this.section.querySelector(this.selectors.variantIdInput)
 				variantIdInput.value = ''
-    
+
 				const formVariantIdInput = this.productForm.querySelector(this.selectors.variantIdInput)
 				formVariantIdInput.value = ''
- 
+
 				const atcButton = this.productForm.querySelector('[name="add"]')
 				const buyNowButton = this.productForm.querySelector('.shopify-payment-button__button')
-    
+
 				atcButton.addEventListener( 'click', this.alertVariantSelectionNeeded.bind(this) )
 				buyNowButton && buyNowButton.addEventListener( 'click', this.alertVariantSelectionNeeded.bind(this) )
 			}
@@ -171,8 +164,8 @@ if (!customElements.get('variant-picker')) {
 				this.updatePrice()
 				this.updateShareUrl()
 				this.updateButton(!this.currentVariant.available, window.FoxThemeStrings.soldOut)
+				this.hideSoldOutAndUnavailableOptions()
 			}
-			this.hideSoldOutAndUnavailableOptions()
 
 			window.FoxThemeEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this)
 
@@ -217,35 +210,21 @@ if (!customElements.get('variant-picker')) {
 				return response.json()
 			})
 		}
-		getSelectedVariant() {
-			// Use variantData (inline JSON, no AJAX) as primary source.
-			// variantData items have option1/option2/option3 string properties.
-			const findVariant = (opts) => {
-				if (this.productData) {
-					try { const v = getVariantFromOptionArray(this.productData, opts); if (v) return v } catch(e) {}
-				}
-				return this.variantData.find(v =>
-					opts.every((opt, i) => v[`option${i + 1}`] === opt)
-				) || null
-			}
 
-			let variant = findVariant(this.options)
+		getSelectedVariant() {
+			let variant = getVariantFromOptionArray(this.productData, this.options)
 			let options = [...this.options]
 			if (!variant) {
 				options.pop()
-				variant = findVariant(options)
+				variant = getVariantFromOptionArray(this.productData, options)
 				if (!variant) {
 					options.pop()
-					variant = findVariant(options)
+					variant = getVariantFromOptionArray(this.productData, options)
 				}
-				if (variant) {
-					for (let i = 0; i < this.options.length; i++) {
-						if (!this.options[i]) {
-							this.options[i] = variant.options ? variant.options[i] : (variant[`option${i + 1}`] || '')
-						}
-					}
-					this.updateSelectedOptions()
+				if (variant && variant.options) {
+					this.options = [...variant.options]
 				}
+				this.updateSelectedOptions()
 			}
 			this.currentVariant = variant
 		}
@@ -287,10 +266,10 @@ if (!customElements.get('variant-picker')) {
 				sliderContainer = mediaComponent.querySelector('.flickity-slider');
 
 			if (this.variantGroupImages && this.variantGroupImages.enable && this.media.domNodes.medias) {
-				if( ! this.areArraysIdentical(this.currentVariantMedia, this.lastVariantMedia) ) { // Do nothing if media has the same items.
-					if( sliderContainer ) { // Carousel or mobile slider.
+				if( ! this.areArraysIdentical(this.currentVariantMedia, this.lastVariantMedia) ) {
+					if( sliderContainer ) {
 						const mainFlickity = window.FoxTheme.Flickity.data(mediaComponent);
-	
+
 						let mediaToRemove = mediaComponent.querySelectorAll('.f-product__media');
 						mediaToRemove && mediaToRemove.forEach(function(slide) {
 							mainFlickity.remove(slide);
@@ -299,21 +278,21 @@ if (!customElements.get('variant-picker')) {
 						mediaToShow.forEach(function(slide) {
 							mainFlickity.append(slide);
 						});
-	
+
 						let thumbnailsComponent = this.media.querySelector('.f-product__media-thumbnails');
 						if( thumbnailsComponent && this.media.domNodes.thumbnailItems ) {
 							const thumbnailsFlickity = window.FoxTheme.Flickity.data(thumbnailsComponent);
-	
+
 							let thumbsToRemove = thumbnailsComponent.querySelectorAll('.f-product__media-thumbnails-item');
 							thumbsToRemove && thumbsToRemove.forEach(function(slide) {
 								thumbnailsFlickity.remove(slide);
 							});
-	
+
 							let thumbsToShow = this.filteredMediaForSelectedVariant(this.media.domNodes.thumbnailItems);
 							thumbsToShow.forEach(function(slide) {
 								thumbnailsFlickity.append(slide);
 							});
-						
+
 							thumbnailsComponent.classList.remove('disable-transition', 'md:disable-transition')
 							if( thumbsToShow.length < 5 ) {
 								thumbnailsComponent.classList.add('disable-transition')
@@ -325,17 +304,16 @@ if (!customElements.get('variant-picker')) {
 							thumbnailsFlickity.reloadCells()
 							thumbnailsFlickity.reposition()
 						}
-	
+
 						mainFlickity.select(0, false, false);
-					} else { // Grid layouts.
+					} else {
 						let mediaToShow = this.filteredMediaForSelectedVariant(this.media.domNodes.medias);
 						mediaComponent.innerHTML = '';
 						mediaToShow.forEach((item) => {
 							mediaComponent.append(item);
 						});
 					}
-					
-					// Re-init Photoswipe
+
 					if( this.media && this.media.enableZoom ) {
 						this.media.lightbox && this.media.lightbox.destroy();
 						this.media.initImageZoom();
@@ -362,10 +340,10 @@ if (!customElements.get('variant-picker')) {
 			if (array1.length !== array2.length) {
 				return false;
 			}
-			
+
 			const sortedArray1 = array1.slice().sort();
 			const sortedArray2 = array2.slice().sort();
-			
+
 			for (let i = 0; i < sortedArray1.length; i++) {
 				if (sortedArray1[i] !== sortedArray2[i]) {
 					return false;
@@ -385,7 +363,7 @@ if (!customElements.get('variant-picker')) {
 						item.dataset.index = index++;
 						results.push(item);
 					}
-     
+
 					if (item.dataset.mediaType !== 'image') {
 						item.dataset.index = index++;
 						results.push(item);
@@ -576,104 +554,45 @@ if (!customElements.get('variant-picker')) {
 			if (priceWrapper) priceWrapper.classList.add('visibility-hidden')
 		}
 
-		updateOptionVisibility() {
-			if (!this.options) this.getSelectedOptions()
-			const wrappers = Array.from(this.container.querySelectorAll('.variant-picker__field-wrapper[data-option-index]'))
-			wrappers.forEach((wrapper, i) => {
-				if (i === 0) {
-					wrapper.classList.add('is-option-visible')
-					return
-				}
-				const allPrevSelected = this.options.slice(0, i).every(v => v && v !== '')
-				wrapper.classList.toggle('is-option-visible', allPrevSelected)
-			})
-		}
-
 		hideSoldOutAndUnavailableOptions() {
 			const classes = {
 				soldOut: 'variant-picker__option--soldout',
 				unavailable: 'variant-picker__option--unavailable'
 			}
-			const selectedOptions = this.options || []
+			const variant = this.currentVariant
 			const {optionNodes} = this.domNodes
-			// Use variantData (inline JSON, always available). Items have option1/option2/option3.
-			const variants = this.variantData
-			const maxOptions = Number(this.container.dataset.maxOptions) || 1
+			const {
+				productData,
+				productData: {variants, options: {length: maxOptions}}
+			} = this
 
 			optionNodes.forEach(optNode => {
 				const {optionPosition, value} = optNode.dataset
 				const optPos = Number(optionPosition)
 				const isSelectOption = optNode.tagName === 'OPTION'
-				const parentsAllSelected = selectedOptions.slice(0, optPos - 1).every(o => o && o !== '')
 
-				let matchVariants
-				if (optPos === maxOptions && parentsAllSelected) {
-					// Last option + all parents selected: only show if the exact combo exists
-					matchVariants = variants.filter(v =>
-						v[`option${optPos}`] === value &&
-						selectedOptions.slice(0, optPos - 1).every((opt, i) => v[`option${i + 1}`] === opt)
-					)
+				let matchVariants = []
+				if (optPos === maxOptions) {
+					const optionsArray = Array.from(variant.options)
+					optionsArray[maxOptions - 1] = value
+					matchVariants.push(getVariantFromOptionArray(productData, optionsArray))
 				} else {
-					// Non-last option or parent not yet chosen: show all values that exist
-					matchVariants = variants.filter(v => {
-						if (v[`option${optPos}`] !== value) return false
-						if (optPos >= 2 && selectedOptions[optPos - 2]) {
-							return v[`option${optPos - 1}`] === selectedOptions[optPos - 2]
-						}
-						return true
-					})
+					matchVariants = variants.filter(v => v.options[optPos - 1] === value && v.options[optPos - 2] === variant[`option${optPos - 1}`])
 				}
 
+				matchVariants = matchVariants.filter(Boolean)
 				if (matchVariants.length) {
 					optNode.classList.remove(classes.unavailable)
 					isSelectOption && optNode.removeAttribute('disabled')
-					optNode.classList.toggle(classes.soldOut, matchVariants.every(v => !v.available))
+					const isSoldOut = matchVariants.every(v => v.available === false)
+					const method = isSoldOut ? 'add' : 'remove'
+					optNode.classList[method](classes.soldOut)
 				} else {
 					optNode.classList.add(classes.unavailable)
 					isSelectOption && optNode.setAttribute('disabled', 'true')
 				}
 			})
 		}
-
-		_attachDirectVariantUpdater() {
-			const update = () => {
-				const fields = Array.from(this.querySelectorAll('[data-picker-field]'))
-				const options = fields.map(field => {
-					if (field.dataset.pickerField === 'radio') {
-						const checked = Array.from(field.querySelectorAll('input[type="radio"]')).find(r => r.checked)
-						return checked ? checked.value : null
-					}
-					const sel = field.querySelector('select')
-					return sel ? sel.value : null
-				})
-
-				// Try exact match first
-				let variant = !options.some(o => !o)
-					? (this.variantData.find(v => options.every((opt, i) => v[`option${i + 1}`] === opt)) || null)
-					: null
-
-				// Auto-complete: find first variant matching all the options that ARE filled in
-				if (!variant) {
-					const filled = options.map((opt, i) => opt ? {opt, i} : null).filter(Boolean)
-					if (filled.length) {
-						variant = this.variantData.find(v =>
-							filled.every(({opt, i}) => v[`option${i + 1}`] === opt)
-						) || null
-					}
-				}
-
-				if (!variant) return
-				const productForms = document.querySelectorAll(`#product-form-${this.sectionId}, #product-form-installment`)
-				productForms.forEach(form => {
-					const input = form.querySelector('input[name="id"]')
-					if (input) input.value = variant.id
-				})
-			}
-			this.querySelectorAll('[data-picker-field] input[type="radio"], [data-picker-field] select').forEach(el => {
-				el.addEventListener('change', update)
-			})
-		}
-
 
 		getVariantData() {
 			this.variantData = this.variantData || JSON.parse(this.container.querySelector('[type="application/json"]').textContent)
@@ -775,7 +694,6 @@ if (!customElements.get('variant-info-block')) {
 
 			this.updateInfo(Number(this.dataset.initialVariant))
 
-			// Primary: FoxThemeEvents variant change (most reliable — fires with resolved variant)
 			const bindEvents = () => {
 				if (window.FoxThemeEvents) {
 					window.FoxThemeEvents.subscribe(`${this.productId}__VARIANT_CHANGE`, (variant) => {
@@ -786,18 +704,7 @@ if (!customElements.get('variant-info-block')) {
 			if (window.FoxThemeEvents) {
 				bindEvents()
 			} else {
-				// FoxThemeEvents loads async — wait for it
 				window.addEventListener('load', bindEvents, { once: true })
-			}
-
-			// Fallback: direct radio listeners on cards with data-variant-id
-			const picker = this.closest('variant-picker')
-			if (picker) {
-				picker.querySelectorAll('input[type="radio"][data-variant-id]').forEach(radio => {
-					radio.addEventListener('change', () => {
-						if (radio.checked) this.updateInfo(Number(radio.dataset.variantId))
-					})
-				})
 			}
 		}
 
