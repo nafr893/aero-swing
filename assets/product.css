@@ -10,7 +10,7 @@
 }
 
 .variant-picker__field-wrapper[data-option-index].is-option-visible {
-  display: block;
+  display: block !important;
 }
 .variant-picker__field-wrapper + .variant-picker__field-wrapper {
   margin-top: 2.4rem;
