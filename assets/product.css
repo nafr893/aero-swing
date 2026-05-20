@@ -1778,6 +1778,30 @@ product-addon {
   transition: background 0.15s, color 0.15s;
 }
 
+@media (min-width: 768px) {
+  .product-addon__card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .product-addon__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-addon__footer {
+    flex-shrink: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .product-addon__add-btn {
+    width: auto;
+  }
+}
+
 .product-addon.is-added .product-addon__add-btn {
   border-color: #2D9712;
   color: #2D9712;
