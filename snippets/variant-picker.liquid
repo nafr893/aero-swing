@@ -135,7 +135,7 @@
                                             >
                                             <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="variant-card">
                                                 <span class="variant-card__name">{{ value }}</span>
-                                                {%- if card_variant -%}
+                                                {%- if card_variant and option.position == 1 -%}
                                                     <span class="variant-card__price">{{ card_variant.price | money }}</span>
                                                     <span class="variant-card__stock{% if card_variant.inventory_quantity > 0 and card_variant.inventory_quantity < 20 %} is-low{% endif %}">
                                                         {%- if card_variant.available == false -%}
