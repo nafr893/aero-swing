@@ -57,6 +57,7 @@ if (!customElements.get('product-addon')) {
       this._updateAddBtn()
 
       if (this.mainProductId) this._watchMainProduct()
+      this._maybeAutoAdd()
     }
 
     _selectSwatch(el) {
@@ -169,6 +170,18 @@ if (!customElements.get('product-addon')) {
         this._updateAddedRow()
         window.FoxThemeEvents?.emit('ON_CART_UPDATED')
       }
+    }
+
+    _maybeAutoAdd() {
+      const param = new URLSearchParams(window.location.search).get('with')
+      if (!param) return
+      const ids = param.split(',').map(s => s.trim())
+      const productId = String(this.dataset.productId)
+      if (!ids.includes(productId)) return
+      // Wait for page to settle before auto-adding
+      setTimeout(() => {
+        if (!this.cartKey) this._add()
+      }, 600)
     }
 
     _watchMainProduct() {
