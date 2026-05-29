@@ -75,6 +75,11 @@
     assign product_url = product_url | split: '?' | first
   endif
 
+  assign bundle_with = product.metafields.custom.bundle_with.value
+  if bundle_with != blank
+    assign product_url = product_url | append: '?with=' | append: bundle_with
+  endif
+
   assign product_title_class = 'font-' | append: settings.pcard_title_font
 	assign actions_class = ''
 	if mobile_hide_quick_add
