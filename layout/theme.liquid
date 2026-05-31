@@ -697,9 +697,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div class="fsp-actions">
         <a href="/checkout" class="fsp-btn fsp-btn-primary">Go to Checkout</a>
-        <a href="/collections/all-products" class="fsp-btn fsp-btn-secondary" id="fsp-continue-shopping">
+        <button class="fsp-btn fsp-btn-secondary" id="fsp-continue-shopping">
           Continue Shopping
-        </a>
+        </button>
       </div>
     `;
 
@@ -709,7 +709,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('fsp-continue-shopping').addEventListener('click', () => {
       hidePopup();
       localStorage.setItem('fsp_dismissed', 'true'); // persistent
-      window.location.href = '/collections/all-products';
     });
 
     popup.querySelector('.fsp-close').addEventListener('click', hidePopup);
