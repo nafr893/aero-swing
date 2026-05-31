@@ -1805,7 +1805,8 @@ product-addon {
   }
 }
 
-.product-addon.is-added .product-addon__add-btn {
+.product-addon.is-added .product-addon__add-btn,
+.product-addon.is-preselected .product-addon__add-btn {
   border-color: #2D9712;
   color: #2D9712;
 }

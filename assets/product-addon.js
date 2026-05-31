@@ -58,6 +58,7 @@ if (!customElements.get('product-addon')) {
 
       if (this.mainProductId) this._watchMainProduct()
       this._maybeAutoAdd()
+      this._watchItemAdded()
     }
 
     _selectSwatch(el) {
@@ -90,6 +91,8 @@ if (!customElements.get('product-addon')) {
 
     async _add() {
       if (!this.selectedVariantId || !this._currentVariant()?.available) return
+      this.isPreselected = false
+      this.classList.remove('is-preselected')
       const btn = this.querySelector('[data-add-btn]')
       btn.disabled = true
       try {
@@ -178,10 +181,22 @@ if (!customElements.get('product-addon')) {
       const ids = param.split(',').map(s => s.trim())
       const productId = String(this.dataset.productId)
       if (!ids.includes(productId)) return
-      // Wait for page to settle before auto-adding
-      setTimeout(() => {
-        if (!this.cartKey) this._add()
-      }, 600)
+      this.isPreselected = true
+      this.classList.add('is-preselected')
+      this._updateAddBtn()
+    }
+
+    _watchItemAdded() {
+      const handler = () => {
+        if (this.isPreselected && !this.cartKey) this._add()
+      }
+      if (window.FoxThemeEvents) {
+        window.FoxThemeEvents.subscribe('ON_ITEM_ADDED', handler)
+      } else {
+        window.addEventListener('load', () => {
+          window.FoxThemeEvents?.subscribe?.('ON_ITEM_ADDED', handler)
+        }, { once: true })
+      }
     }
 
     _watchMainProduct() {
@@ -323,9 +338,11 @@ if (!customElements.get('product-addon')) {
       if (!this.addBtn) return
       const available = this._currentVariant()?.available ?? false
       this.addBtn.disabled = !available
+      let label = available ? 'Add +' : 'Out of Stock'
+      if (this.isPreselected && available) label = 'Selected ✓'
       this.addBtn.querySelector('span')
-        ? this.addBtn.querySelector('span').textContent = available ? 'Add +' : 'Out of Stock'
-        : this.addBtn.textContent = available ? 'Add +' : 'Out of Stock'
+        ? this.addBtn.querySelector('span').textContent = label
+        : this.addBtn.textContent = label
     }
 
     _currentVariant() {
