@@ -183,13 +183,7 @@
     popup.style.display   = 'none';
   }
 
-  let upsellTimer = null;
-  function fetchCartAndShowUpsell() {
-    clearTimeout(upsellTimer);
-    upsellTimer = setTimeout(_doFetchCartAndShowUpsell, 400);
-  }
-
-  async function _doFetchCartAndShowUpsell() {
+  async function fetchCartAndShowUpsell() {
     try {
       const cart    = await fetch('/cart.js').then(r => r.json());
       const hasBat  = cart.items.some(item => item.handle === BAT_HANDLE);
