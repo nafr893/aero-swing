@@ -146,12 +146,13 @@
     return card;
   }
 
+  let productsReady = false;
+
   async function loadAndRenderProducts() {
-    productsEl.innerHTML = '';
+    if (productsReady) return;
     try {
       const product = await fetch('/products/' + BALL_HANDLE + '.js').then(r => r.json());
 
-      // Get unique top-level option1 values
       const seen = new Set();
       const option1Values = [];
       product.variants.forEach(v => {
@@ -159,22 +160,22 @@
       });
 
       option1Values.forEach(optVal => {
-        // Pick first available variant with this option1, fall back to any
         const variant = product.variants.find(v => v.option1 === optVal && v.available)
                      || product.variants.find(v => v.option1 === optVal);
-        // Use variant image if available, otherwise product featured image
         const img = (variant && variant.featured_image)
           ? variant.featured_image.src
           : product.featured_image;
         productsEl.appendChild(buildCard(optVal, variant, img));
       });
+
+      productsReady = true;
     } catch(e) {}
   }
 
   function openPopup() {
     overlay.style.display = 'block';
     popup.style.display   = 'block';
-    loadAndRenderProducts();
+    if (!productsReady) loadAndRenderProducts();
   }
 
   function closePopup() {
@@ -182,7 +183,13 @@
     popup.style.display   = 'none';
   }
 
-  async function fetchCartAndShowUpsell() {
+  let upsellTimer = null;
+  function fetchCartAndShowUpsell() {
+    clearTimeout(upsellTimer);
+    upsellTimer = setTimeout(_doFetchCartAndShowUpsell, 400);
+  }
+
+  async function _doFetchCartAndShowUpsell() {
     try {
       const cart    = await fetch('/cart.js').then(r => r.json());
       const hasBat  = cart.items.some(item => item.handle === BAT_HANDLE);
@@ -211,6 +218,7 @@
     const cartDrawer = document.querySelector('cart-drawer, .cart-drawer, #CartDrawer');
     if (cartDrawer) new MutationObserver(() => fetchCartAndShowUpsell()).observe(cartDrawer, {childList: true, subtree: true});
 
+    loadAndRenderProducts();
     fetchCartAndShowUpsell();
   });
 })();
