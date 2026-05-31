@@ -1333,6 +1333,7 @@
         "type": "text",
         "id": "upsell_bat_handle",
         "label": "Bat product handle",
+        "default": "aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device",
         "info": "URL handle of the bat product that triggers the popup (e.g. aero-bat-baseball-swing-speed-trainer)"
       },
       { "type": "header", "content": "Ball Product" },
@@ -1340,6 +1341,7 @@
         "type": "text",
         "id": "upsell_ball_handle",
         "label": "Product handle",
+        "default": "aero-balls-12-pack",
         "info": "Each top-level color/option will appear as its own card in the popup"
       },
       {
