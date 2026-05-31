@@ -17,7 +17,7 @@
   border-radius: 12px;
   z-index: 999999;
   width: 90vw;
-  max-width: 480px;
+  max-width: 500px;
   text-align: center;
   box-shadow: 0 8px 40px rgba(0,0,0,0.18);
 }
@@ -89,50 +89,43 @@
 
 <script>
 (function() {
-  const BAT_HANDLE = {{ settings.upsell_bat_handle | json }};
-  const BALL_CONFIGS = [
-    {%- if settings.upsell_ball_1_handle != blank -%}
-    { handle: {{ settings.upsell_ball_1_handle | json }}, salePrice: {{ settings.upsell_ball_1_sale_price | json }} },
-    {%- endif -%}
-    {%- if settings.upsell_ball_2_handle != blank -%}
-    { handle: {{ settings.upsell_ball_2_handle | json }}, salePrice: {{ settings.upsell_ball_2_sale_price | json }} }
-    {%- endif -%}
-  ].filter(b => b.handle);
+  const BAT_HANDLE  = {{ settings.upsell_bat_handle | json }};
+  const BALL_HANDLE = {{ settings.upsell_ball_handle | json }};
+  const SALE_PRICE  = {{ settings.upsell_ball_sale_price | json }};
 
-  if (!BAT_HANDLE || !BALL_CONFIGS.length) return;
+  if (!BAT_HANDLE || !BALL_HANDLE) return;
 
-  const overlay  = document.getElementById('upsell-overlay');
-  const popup    = document.getElementById('upsell-popup');
+  const overlay    = document.getElementById('upsell-overlay');
+  const popup      = document.getElementById('upsell-popup');
   const productsEl = document.getElementById('upsell-products');
 
-  function formatMoney(cents) {
-    return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+  function fmt(cents) {
+    return (cents / 100).toLocaleString('en-US', {style:'currency', currency:'USD'});
   }
 
-  function buildCard(product, config, variant) {
+  function buildCard(optionValue, variant, productImage) {
     const available = variant ? variant.available : false;
-    const img = product.featured_image
-      ? `<img src="${product.featured_image}" alt="${product.title}" width="80" height="80" loading="lazy">`
+    const img = productImage
+      ? `<img src="${productImage}" alt="${optionValue}" width="80" height="80" loading="lazy">`
       : '';
 
     let priceHtml;
-    if (config.salePrice) {
-      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${formatMoney(variant.price)}</s> <span class="upsell-popup__sale">$${config.salePrice}</span></p>`;
+    if (SALE_PRICE && variant) {
+      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${fmt(variant.price)}</s> <span class="upsell-popup__sale">$${SALE_PRICE}</span></p>`;
     } else if (variant && variant.compare_at_price > variant.price) {
-      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${formatMoney(variant.compare_at_price)}</s> <span class="upsell-popup__sale">${formatMoney(variant.price)}</span></p>`;
+      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${fmt(variant.compare_at_price)}</s> <span class="upsell-popup__sale">${fmt(variant.price)}</span></p>`;
     } else {
-      priceHtml = `<p class="upsell-popup__price">${variant ? formatMoney(variant.price) : ''}</p>`;
+      priceHtml = `<p class="upsell-popup__price">${variant ? fmt(variant.price) : ''}</p>`;
     }
 
     const card = document.createElement('div');
     card.className = 'upsell-popup__card' + (available ? '' : ' is-unavailable');
-    card.dataset.handle = config.handle;
     card.dataset.variantId = variant ? variant.id : '';
     card.innerHTML = `
       ${img}
-      <p class="upsell-popup__title">${product.title}</p>
+      <p class="upsell-popup__title">${optionValue}</p>
       ${priceHtml}
-      <button class="upsell-popup__add-btn" data-variant-id="${variant ? variant.id : ''}" ${available ? '' : 'disabled'}>
+      <button class="upsell-popup__add-btn" ${available ? '' : 'disabled'}>
         ${available ? 'Add to Cart' : 'Out of Stock'}
       </button>
     `;
@@ -147,8 +140,7 @@
           headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
           body: JSON.stringify({id: variantId, quantity: 1, sections: ['cart-drawer']})
         });
-        const addedState = await res.json();
-        window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
+        window.FoxThemeEvents?.emit('ON_ITEM_ADDED', await res.json());
       } catch(e) {}
     });
     return card;
@@ -156,13 +148,27 @@
 
   async function loadAndRenderProducts() {
     productsEl.innerHTML = '';
-    for (const config of BALL_CONFIGS) {
-      try {
-        const product = await fetch('/products/' + config.handle + '.js').then(r => r.json());
-        const variant = product.variants.find(v => v.available) || product.variants[0];
-        productsEl.appendChild(buildCard(product, config, variant));
-      } catch(e) {}
-    }
+    try {
+      const product = await fetch('/products/' + BALL_HANDLE + '.js').then(r => r.json());
+
+      // Get unique top-level option1 values
+      const seen = new Set();
+      const option1Values = [];
+      product.variants.forEach(v => {
+        if (!seen.has(v.option1)) { seen.add(v.option1); option1Values.push(v.option1); }
+      });
+
+      option1Values.forEach(optVal => {
+        // Pick first available variant with this option1, fall back to any
+        const variant = product.variants.find(v => v.option1 === optVal && v.available)
+                     || product.variants.find(v => v.option1 === optVal);
+        // Use variant image if available, otherwise product featured image
+        const img = (variant && variant.featured_image)
+          ? variant.featured_image.src
+          : product.featured_image;
+        productsEl.appendChild(buildCard(optVal, variant, img));
+      });
+    } catch(e) {}
   }
 
   function openPopup() {
@@ -180,7 +186,7 @@
     try {
       const cart    = await fetch('/cart.js').then(r => r.json());
       const hasBat  = cart.items.some(item => item.handle === BAT_HANDLE);
-      const hasBall = cart.items.some(item => BALL_CONFIGS.some(b => b.handle === item.handle));
+      const hasBall = cart.items.some(item => item.handle === BALL_HANDLE);
       if (!hasBat) { deleteCookie('upsell_declined'); closePopup(); return; }
       if (!hasBall && getCookie('upsell_declined') !== 'true') openPopup();
     } catch(e) {}

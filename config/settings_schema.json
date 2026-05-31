@@ -1335,31 +1335,18 @@
         "label": "Bat product handle",
         "info": "URL handle of the bat product that triggers the popup (e.g. aero-bat-baseball-swing-speed-trainer)"
       },
-      { "type": "header", "content": "Ball Option 1" },
+      { "type": "header", "content": "Ball Product" },
       {
         "type": "text",
-        "id": "upsell_ball_1_handle",
+        "id": "upsell_ball_handle",
         "label": "Product handle",
-        "info": "Found in the product URL (e.g. aero-balls-12-pack)"
+        "info": "Each top-level color/option will appear as its own card in the popup"
       },
       {
         "type": "text",
-        "id": "upsell_ball_1_sale_price",
+        "id": "upsell_ball_sale_price",
         "label": "Sale price (e.g. 24.99)",
-        "info": "Leave blank to show the product regular price"
-      },
-      { "type": "header", "content": "Ball Option 2" },
-      {
-        "type": "text",
-        "id": "upsell_ball_2_handle",
-        "label": "Product handle",
-        "info": "Found in the product URL"
-      },
-      {
-        "type": "text",
-        "id": "upsell_ball_2_sale_price",
-        "label": "Sale price (e.g. 24.99)",
-        "info": "Leave blank to show the product regular price"
+        "info": "Shown on all cards. Leave blank to use the product price."
       },
       { "type": "header", "content": "Content" },
       {
