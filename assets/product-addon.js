@@ -92,7 +92,6 @@ if (!customElements.get('product-addon')) {
     async _add() {
       if (!this.selectedVariantId || !this._currentVariant()?.available) return
       this.isPreselected = false
-      this.classList.remove('is-preselected')
       const btn = this.querySelector('[data-add-btn]')
       btn.disabled = true
       try {
@@ -182,8 +181,6 @@ if (!customElements.get('product-addon')) {
       const productId = String(this.dataset.productId)
       if (!ids.includes(productId)) return
       this.isPreselected = true
-      this.classList.add('is-preselected')
-      this._updateAddBtn()
     }
 
     _watchItemAdded() {
@@ -338,8 +335,7 @@ if (!customElements.get('product-addon')) {
       if (!this.addBtn) return
       const available = this._currentVariant()?.available ?? false
       this.addBtn.disabled = !available
-      let label = available ? 'Add +' : 'Out of Stock'
-      if (this.isPreselected && available) label = 'Selected ✓'
+      const label = available ? 'Add +' : 'Out of Stock'
       this.addBtn.querySelector('span')
         ? this.addBtn.querySelector('span').textContent = label
         : this.addBtn.textContent = label
