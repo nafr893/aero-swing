@@ -65,6 +65,11 @@
     "social_tiktok_link": "https://www.tiktok.com/@aeroswingspeed",
     "social_youtube_link": "https://www.youtube.com/channel/UC-i-G3M-OBD0gHhRlbTJPZw",
     "currency_code_enabled": true,
+    "upsell_bat_handle": "aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device",
+    "upsell_ball_1_handle": "aero-balls-12-pack",
+    "upsell_ball_1_sale_price": "24.99",
+    "upsell_ball_2_handle": "aero-balls-premium-edition-12-pack",
+    "upsell_ball_2_sale_price": "24.99",
     "checkout_logo_image": "shopify://shop_images/Aeroswing_Logo_Transparent.jpg",
     "checkout_logo_size": "small",
     "checkout_accent_color": "#5ab243",
@@ -105,6 +110,10 @@
       },
       "iron-offer": {
         "type": "iron-offer",
+        "settings": {}
+      },
+      "upsell-popup": {
+        "type": "upsell-popup",
         "settings": {}
       }
     },
