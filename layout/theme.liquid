@@ -272,131 +272,16 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
-<div id="upsell-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;  z-index:999998;"></div>
-<div id="upsell-popup" style="display:none; position:fixed; top:66%; left:48%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:8px; z-index:999999; max-width:450px; text-align:center;">
-  <h2>Increase your Aero-Bat usefulness and fun factor!</h2>
-  <p>Add a 12 pack of Aero-Balls for 24.99</p>
-  <button id="add-aeroballs" style="margin:10px;">Add to Cart</button>
-  <button id="close-popup" style="margin:10px;">No Thanks</button>
-</div>
+{%- section 'upsell-popup' -%}
 
 <script>
-const AEROBALL_VARIANT_ID = 44211126239318;
-const AERO_BAT_HANDLE = 'aero-bat-baseball-swing-speed-trainer-and-on-deck-warm-up-device';
-const AERO_BALL_HANDLE = 'aero-balls-12-pack';
-
-// --- Cookie utilities ---
-function setCookie(name, value, days) {
-  const expires = new Date(Date.now() + days*864e5).toUTCString();
-  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
-}
-
-function getCookie(name) {
-  return document.cookie.split('; ').reduce((r, v) => {
-    const parts = v.split('=');
-    return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-  }, '');
-}
-
-function deleteCookie(name) {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-}
-
-// --- Popup control ---
-function openPopup() {
-  document.getElementById('upsell-overlay').style.display = 'block';
-  document.getElementById('upsell-popup').style.display = 'block';
-}
-
-function closePopup() {
-  document.getElementById('upsell-overlay').style.display = 'none';
-  document.getElementById('upsell-popup').style.display = 'none';
-}
-
-// --- Fetch and manage cart state ---
-async function fetchCartAndShowUpsell() {
-  const res = await fetch('/cart.js');
-  const cart = await res.json();
-
-  const hasAeroBat = cart.items.some(item => item.handle === AERO_BAT_HANDLE);
-  const hasAeroBall = cart.items.some(item => item.handle === AERO_BALL_HANDLE);
-
-  // If Aero-Bat is gone, reset decline cookie
-  if (!hasAeroBat) {
-    deleteCookie('upsell_declined');
-    return;
-  }
-
-  // If Aero-Bat is in cart and Aero-Balls are not — and user hasn't declined — show popup
-  if (hasAeroBat && !hasAeroBall && getCookie('upsell_declined') !== 'true') {
-    openPopup();
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  // --- Listen to add-to-cart forms ---  
-  document.body.addEventListener('submit', (e) => {
-    if (e.target.matches('form[action^="/cart/add"]')) {
-      setTimeout(fetchCartAndShowUpsell, 700); // wait for Shopify update
-    }
-  });
-
-  // --- Observe cart drawer changes ---
-  const cartDrawer = document.querySelector('cart-drawer, .cart-drawer, #CartDrawer');
-  if (cartDrawer) {
-    const observer = new MutationObserver(() => {
-      fetchCartAndShowUpsell();
-    });
-    observer.observe(cartDrawer, { childList: true, subtree: true });
-  }
-
-  // --- Add Aero-Balls to cart via popup ---
-  document.getElementById('add-aeroballs').addEventListener('click', async () => {
-    closePopup();
-    setCookie('upsell_declined', 'true', 3); // prevent observer from reopening
-    const res = await fetch('/cart/add.js', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify({id: AEROBALL_VARIANT_ID, quantity: 1, sections: ['cart-drawer']})
-    });
-    const addedState = await res.json();
-    window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
-  });
-
-  // --- Close popup and remember decline ---
-  const declinePopup = () => {
-    setCookie('upsell_declined', 'true', 3); // Don't show again for 30 days
-    closePopup();
-  };
-
-  document.getElementById('close-popup').addEventListener('click', declinePopup);
-  document.getElementById('upsell-overlay').addEventListener('click', declinePopup);
-  document.getElementById('upsell-popup').addEventListener('click', e => e.stopPropagation());
-
-  // --- Initial check ---
-  fetchCartAndShowUpsell();
-});
-const defaultAlt = "Aero Swing";
+const defaultAlt = 'Aero Swing';
 document.querySelectorAll('img').forEach(img => {
   if (!img.hasAttribute('alt') || img.getAttribute('alt').trim() === '') {
     img.setAttribute('alt', defaultAlt);
   }
 });
-
 </script>
-
-<style>
-@media (max-width: 768px) {
-  #upsell-popup {
-    top: 80% !important;          /* Move it lower on mobile */
-    width: 90vw !important;      
-    max-width: none !important;   
-    left: 50% !important;         
-    transform: translate(-50%, -50%) !important; 
-  }
-}
-</style>
 
 {% comment %} free shipping popup {% endcomment %}
 <style>

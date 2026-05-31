@@ -1324,4 +1324,50 @@
       }
     ]
   }
+,
+  {
+    "name": "Upsell Popup",
+    "settings": [
+      { "type": "header", "content": "Trigger" },
+      {
+        "type": "text",
+        "id": "upsell_bat_handle",
+        "label": "Bat product handle",
+        "info": "URL handle of the bat product that triggers the popup (e.g. aero-bat-baseball-swing-speed-trainer)"
+      },
+      { "type": "header", "content": "Ball Option 1" },
+      {
+        "type": "text",
+        "id": "upsell_ball_1_handle",
+        "label": "Product handle",
+        "info": "Found in the product URL (e.g. aero-balls-12-pack)"
+      },
+      {
+        "type": "text",
+        "id": "upsell_ball_1_sale_price",
+        "label": "Sale price (e.g. 24.99)",
+        "info": "Leave blank to show the product regular price"
+      },
+      { "type": "header", "content": "Ball Option 2" },
+      {
+        "type": "text",
+        "id": "upsell_ball_2_handle",
+        "label": "Product handle",
+        "info": "Found in the product URL"
+      },
+      {
+        "type": "text",
+        "id": "upsell_ball_2_sale_price",
+        "label": "Sale price (e.g. 24.99)",
+        "info": "Leave blank to show the product regular price"
+      },
+      { "type": "header", "content": "Content" },
+      {
+        "type": "text",
+        "id": "upsell_heading",
+        "label": "Popup heading",
+        "default": "Increase your Aero-Bat usefulness and fun factor!"
+      }
+    ]
+  }
 ]

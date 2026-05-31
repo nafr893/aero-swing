@@ -1,0 +1,211 @@
+<div id="upsell-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:999998;"></div>
+<div id="upsell-popup" class="upsell-popup" style="display:none;">
+  <button class="upsell-popup__close" id="upsell-close-x" aria-label="Close">&#x2715;</button>
+  <h2 class="upsell-popup__heading">{{ settings.upsell_heading | default: 'Increase your Aero-Bat usefulness and fun factor!' }}</h2>
+  <div id="upsell-products" class="upsell-popup__products"></div>
+  <button class="upsell-popup__decline" id="upsell-no-thanks">No Thanks</button>
+</div>
+
+<style>
+.upsell-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 28px 24px 20px;
+  border-radius: 12px;
+  z-index: 999999;
+  width: 90vw;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+.upsell-popup__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 4px;
+}
+.upsell-popup__heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 18px;
+}
+.upsell-popup__products {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.upsell-popup__card {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.upsell-popup__card.is-unavailable { opacity: 0.55; }
+.upsell-popup__card img { width: 80px; height: 80px; object-fit: contain; }
+.upsell-popup__title { font-size: 0.85rem; font-weight: 600; margin: 0; }
+.upsell-popup__price { font-size: 0.9rem; margin: 0; }
+.upsell-popup__compare { color: #999; margin-right: 4px; }
+.upsell-popup__sale { color: #c00; font-weight: 600; }
+.upsell-popup__add-btn {
+  background: #2D9712;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+}
+.upsell-popup__add-btn:disabled { background: #ccc; cursor: not-allowed; }
+.upsell-popup__decline {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 4px;
+}
+@media (max-width: 480px) {
+  .upsell-popup__products { flex-direction: column; }
+}
+</style>
+
+<script>
+(function() {
+  const BAT_HANDLE = {{ settings.upsell_bat_handle | json }};
+  const BALL_CONFIGS = [
+    {%- if settings.upsell_ball_1_handle != blank -%}
+    { handle: {{ settings.upsell_ball_1_handle | json }}, salePrice: {{ settings.upsell_ball_1_sale_price | json }} },
+    {%- endif -%}
+    {%- if settings.upsell_ball_2_handle != blank -%}
+    { handle: {{ settings.upsell_ball_2_handle | json }}, salePrice: {{ settings.upsell_ball_2_sale_price | json }} }
+    {%- endif -%}
+  ].filter(b => b.handle);
+
+  if (!BAT_HANDLE || !BALL_CONFIGS.length) return;
+
+  const overlay  = document.getElementById('upsell-overlay');
+  const popup    = document.getElementById('upsell-popup');
+  const productsEl = document.getElementById('upsell-products');
+
+  function formatMoney(cents) {
+    return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+  }
+
+  function buildCard(product, config, variant) {
+    const available = variant ? variant.available : false;
+    const img = product.featured_image
+      ? `<img src="${product.featured_image}" alt="${product.title}" width="80" height="80" loading="lazy">`
+      : '';
+
+    let priceHtml;
+    if (config.salePrice) {
+      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${formatMoney(variant.price)}</s> <span class="upsell-popup__sale">$${config.salePrice}</span></p>`;
+    } else if (variant && variant.compare_at_price > variant.price) {
+      priceHtml = `<p class="upsell-popup__price"><s class="upsell-popup__compare">${formatMoney(variant.compare_at_price)}</s> <span class="upsell-popup__sale">${formatMoney(variant.price)}</span></p>`;
+    } else {
+      priceHtml = `<p class="upsell-popup__price">${variant ? formatMoney(variant.price) : ''}</p>`;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'upsell-popup__card' + (available ? '' : ' is-unavailable');
+    card.dataset.handle = config.handle;
+    card.dataset.variantId = variant ? variant.id : '';
+    card.innerHTML = `
+      ${img}
+      <p class="upsell-popup__title">${product.title}</p>
+      ${priceHtml}
+      <button class="upsell-popup__add-btn" data-variant-id="${variant ? variant.id : ''}" ${available ? '' : 'disabled'}>
+        ${available ? 'Add to Cart' : 'Out of Stock'}
+      </button>
+    `;
+    card.querySelector('.upsell-popup__add-btn').addEventListener('click', async () => {
+      const variantId = Number(card.dataset.variantId);
+      if (!variantId) return;
+      closePopup();
+      setCookie('upsell_declined', 'true', 3);
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+          body: JSON.stringify({id: variantId, quantity: 1, sections: ['cart-drawer']})
+        });
+        const addedState = await res.json();
+        window.FoxThemeEvents?.emit('ON_ITEM_ADDED', addedState);
+      } catch(e) {}
+    });
+    return card;
+  }
+
+  async function loadAndRenderProducts() {
+    productsEl.innerHTML = '';
+    for (const config of BALL_CONFIGS) {
+      try {
+        const product = await fetch('/products/' + config.handle + '.js').then(r => r.json());
+        const variant = product.variants.find(v => v.available) || product.variants[0];
+        productsEl.appendChild(buildCard(product, config, variant));
+      } catch(e) {}
+    }
+  }
+
+  function openPopup() {
+    overlay.style.display = 'block';
+    popup.style.display   = 'block';
+    loadAndRenderProducts();
+  }
+
+  function closePopup() {
+    overlay.style.display = 'none';
+    popup.style.display   = 'none';
+  }
+
+  async function fetchCartAndShowUpsell() {
+    try {
+      const cart    = await fetch('/cart.js').then(r => r.json());
+      const hasBat  = cart.items.some(item => item.handle === BAT_HANDLE);
+      const hasBall = cart.items.some(item => BALL_CONFIGS.some(b => b.handle === item.handle));
+      if (!hasBat) { deleteCookie('upsell_declined'); closePopup(); return; }
+      if (!hasBall && getCookie('upsell_declined') !== 'true') openPopup();
+    } catch(e) {}
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const decline = () => { setCookie('upsell_declined', 'true', 3); closePopup(); };
+    document.getElementById('upsell-no-thanks').addEventListener('click', decline);
+    document.getElementById('upsell-close-x').addEventListener('click', decline);
+    overlay.addEventListener('click', decline);
+    popup.addEventListener('click', e => e.stopPropagation());
+
+    document.body.addEventListener('submit', e => {
+      if (e.target.matches('form[action^="/cart/add"]')) setTimeout(fetchCartAndShowUpsell, 700);
+    });
+    document.addEventListener('system-builder:item-added', () => setTimeout(fetchCartAndShowUpsell, 700));
+
+    const setupFox = () => window.FoxThemeEvents?.subscribe?.('ON_ITEM_ADDED', () => setTimeout(fetchCartAndShowUpsell, 700));
+    if (window.FoxThemeEvents) setupFox();
+    else window.addEventListener('load', setupFox, {once: true});
+
+    const cartDrawer = document.querySelector('cart-drawer, .cart-drawer, #CartDrawer');
+    if (cartDrawer) new MutationObserver(() => fetchCartAndShowUpsell()).observe(cartDrawer, {childList: true, subtree: true});
+
+    fetchCartAndShowUpsell();
+  });
+})();
+</script>
