@@ -551,6 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
      Show popup
   ---------------------------------------------- */
   function showPopup({ title, subtitle, progressPercent, unlocked }) {
+    return; // hidden — re-enable by removing this line
 
     // DO NOT SHOW IF DISMISSED
     if (popupDismissed) return;
