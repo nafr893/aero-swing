@@ -525,6 +525,7 @@ class SystemBuilder extends HTMLElement {
     button.disabled = true;
     const originalText = button.dataset.originalText || button.textContent.trim();
     button.textContent = 'Adding...';
+    console.log('[SB] Adding to cart:', items);
 
     try {
       const response = await fetch('/cart/add.js', {
@@ -536,8 +537,11 @@ class SystemBuilder extends HTMLElement {
         body: JSON.stringify({ items, sections: ['cart-drawer'] })
       });
 
-      if (!response.ok) throw new Error('Failed to add to cart');
       const addedState = await response.json();
+      if (!response.ok) {
+        console.error('[SB] Cart error:', addedState);
+        throw new Error(addedState.description || addedState.message || 'Failed to add to cart');
+      }
 
       const cartResponse = await fetch('/cart.js', { headers: { 'Accept': 'application/json' } });
       const cart = await cartResponse.json();
