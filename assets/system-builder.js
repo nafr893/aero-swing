@@ -572,11 +572,11 @@ class SystemBuilder extends HTMLElement {
 
     } catch (error) {
       console.error('System Builder: Error adding to cart', error);
-      button.textContent = 'Error – Try Again';
+      button.textContent = error.message || 'Error – Try Again';
       setTimeout(() => {
         button.textContent = originalText;
         button.disabled = false;
-      }, 2000);
+      }, 4000);
     }
   }
 

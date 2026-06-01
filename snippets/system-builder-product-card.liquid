@@ -18,6 +18,13 @@
   {%- unless variant -%}
     {%- assign variant = product.selected_or_first_available_variant -%}
   {%- endunless -%}
+  {%- assign is_preorder_check = false -%}
+  {%- if variant.inventory_management == 'shopify' and variant.inventory_quantity <= 0 and variant.inventory_policy == 'continue' -%}
+    {%- assign is_preorder_check = true -%}
+  {%- endif -%}
+  {%- unless variant.available or is_preorder_check -%}
+    {%- comment -%} Skip unavailable, non-preorder variants {%- endcomment -%}
+  {%- else -%}
 
   {%- comment -%} Show variant name only when it's meaningful (not 'Default Title') {%- endcomment -%}
   {%- if variant.title != 'Default Title' -%}
@@ -64,4 +71,5 @@
     </div>
     <input type="hidden" name="variant_id" value="{{ variant.id }}" data-variant-id>
   </div>
+  {%- endunless -%}
 {%- endif -%}
