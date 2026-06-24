@@ -258,8 +258,9 @@ if (!customElements.get('product-addon')) {
     _applySwatchColor(el) {
       const colorMap = this._colorMap()
       const value = (el.dataset.colorValue || '').toLowerCase()
-      const words = value.split(/[\s\-]+/).filter(Boolean)
-      const color = colorMap[value] || words.reduce((found, w) => found || colorMap[w], '') || value
+      const baseValue = value.split('/')[0].trim()
+      const words = baseValue.split(/[\s\-]+/).filter(Boolean)
+      const color = colorMap[baseValue] || words.reduce((found, w) => found || colorMap[w], '') || baseValue
       el.style.backgroundColor = color
     }
 
