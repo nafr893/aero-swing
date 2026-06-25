@@ -33,7 +33,7 @@
           "settings": {
             "heading": "Address",
             "heading_size": "h6",
-            "subtext": "<p>AERO-SWING<br/><br/>2295 Canyon Run Road, Lewisburg, KY 42256</p>",
+            "subtext": "<p>AERO-SWING<br/><br/>2295 Canyon Run Road, </p><p>Lewisburg, KY 42256</p>",
             "width": 25,
             "open_default_collapsible_tab": false
           }
