@@ -282,6 +282,7 @@ if (!customElements.get('product-addon')) {
         const val = entry.slice(idx + 1).replace(/[\r\n]/g, '').trim()
         if (key && val) map[key] = val
       })
+      map['blue'] = '#0096ed'
       this._cachedColorMap = map
       return map
     }
