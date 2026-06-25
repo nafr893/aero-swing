@@ -258,10 +258,17 @@ if (!customElements.get('product-addon')) {
     _applySwatchColor(el) {
       const colorMap = this._colorMap()
       const value = (el.dataset.colorValue || '').toLowerCase()
-      const baseValue = value.split('/')[0].trim()
-      const words = baseValue.split(/[\s\-]+/).filter(Boolean)
-      const color = colorMap[baseValue] || words.reduce((found, w) => found || colorMap[w], '') || baseValue
-      el.style.backgroundColor = color
+      const parts = value.split('/').map(p => p.trim()).filter(Boolean)
+      const resolveColor = part => {
+        const words = part.split(/[\s\-]+/).filter(Boolean)
+        return colorMap[part] || words.reduce((found, w) => found || colorMap[w], '') || part
+      }
+      const colors = parts.map(resolveColor)
+      if (colors.length >= 2) {
+        el.style.background = `linear-gradient(135deg, ${colors[0]} 50%, ${colors[1]} 50%)`
+      } else {
+        el.style.backgroundColor = colors[0] || value
+      }
     }
 
     _colorMap() {
