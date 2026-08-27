@@ -22,6 +22,35 @@
   {% endif %}
 >
   <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNHG4VHF');</script>
+<!-- End Google Tag Manager -->
+
+
+    <!-- Google Tag Manager (deferred) -->
+  <!-- temp remove    >  <script>
+      window.addEventListener("load", function () {
+        var script = document.createElement("script");
+        script.src = "https://www.googletagmanager.com/gtag/js?id=AW-406967587";
+        script.async = true;
+        document.head.appendChild(script);
+    
+        script.onload = function () {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+    
+          gtag('js', new Date());
+          gtag('config', 'AW-406967587');
+        };
+      });
+    </script> -->
+    <!-- End Google Tag Manager -->
+
 <!-- > Microsoft Clarity Tracking Code <-->
     <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -194,25 +223,6 @@
       <script src="{{ 'tabs-component.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'collection-tabs.js' | asset_url }}" defer="defer"></script>{% comment %}Load collection-tabs script here to make it working properly on editor mode.{% endcomment %}      
     {%- endif -%}
-    <!-- Google Tag Manager (deferred) -->
-    <script>
-      window.addEventListener("load", function () {
-        var script = document.createElement("script");
-        script.src = "https://www.googletagmanager.com/gtag/js?id=AW-406967587";
-        script.async = true;
-        document.head.appendChild(script);
-    
-        script.onload = function () {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
-          window.gtag = gtag;
-    
-          gtag('js', new Date());
-          gtag('config', 'AW-406967587');
-        };
-      });
-    </script>
-    <!-- End Google Tag Manager -->
     <script>
       window.addEventListener('load', function () {
         if ('requestIdleCallback' in window) {
